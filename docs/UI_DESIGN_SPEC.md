@@ -252,4 +252,4 @@
 
 ---
 
-> 参考实现：`docs/game-concept.html`（概念图）、`docs/ui-style-guide.html`（活样式指南）。
+> 参考实现：`docs/mobile-ui-concept.html`（当前移动端主界面概念）、`docs/ui-style-guide.html`（活样式指南）、`docs/game-concept.html`（早期视觉气质参考）。

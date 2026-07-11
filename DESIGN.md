@@ -9,8 +9,10 @@
 本项目界面风格与规范以以下文件为准：
 
 1. `docs/UI_DESIGN_SPEC.md` —— UI 设计规范，后续所有界面设计与实现的主依据。
-2. `docs/ui-style-guide.html` —— 活样式指南，可直接在浏览器中查看组件、颜色、字体、间距与布局示例。
-3. `docs/game-concept.html` —— 游戏概念图，用于理解整体视觉气质和页面氛围。
+2. `docs/mobile-ui-concept.html` —— 当前移动端游戏主界面概念，可交互体验场景、选择、成长与信息抽屉。
+3. `docs/mobile-ui-concept-desktop.png` / `docs/mobile-ui-concept-mobile.png` —— 概念图静态预览。
+4. `docs/ui-style-guide.html` —— 活样式指南，可直接在浏览器中查看组件、颜色、字体、间距与布局示例。
+5. `docs/game-concept.html` —— 早期项目气质概念图，仅作视觉氛围参考，不再代表当前交互。
 
 # 当前视觉方向
 

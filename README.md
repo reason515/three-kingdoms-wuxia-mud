@@ -83,6 +83,8 @@
 | [`docs/MVP_DESIGN.md`](docs/MVP_DESIGN.md) | MVP 的玩法范围、成长、战斗、装备、测试和通过标准 |
 | [`docs/NATURAL_LANGUAGE_INTERACTION.md`](docs/NATURAL_LANGUAGE_INTERACTION.md) | 移动端选择交互及可选自然语言增强 |
 | [`docs/UI_DESIGN_SPEC.md`](docs/UI_DESIGN_SPEC.md) | 水墨宣纸视觉系统与响应式 UI 规范 |
+| [`docs/mobile-ui-concept.html`](docs/mobile-ui-concept.html) | 可交互的移动端游戏主界面概念 |
+| [`docs/mobile-ui-concept-mobile.png`](docs/mobile-ui-concept-mobile.png) | 移动端概念图静态预览 |
 | [`docs/PROJECT_SKILLS.md`](docs/PROJECT_SKILLS.md) | 项目专属 Skills 的职责与使用规划 |
 | [`DESIGN.md`](DESIGN.md) | 设计与视觉规范索引 |
 
