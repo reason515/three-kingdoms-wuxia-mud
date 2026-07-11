@@ -83,6 +83,7 @@
 | [`docs/MVP_DESIGN.md`](docs/MVP_DESIGN.md) | MVP 的玩法范围、成长、战斗、装备、测试和通过标准 |
 | [`docs/SYSTEM_DESIGN.md`](docs/SYSTEM_DESIGN.md) | 确定性规则内核、状态结算、战斗成长、存档与未来扩展边界 |
 | [`docs/DU_JIAN_ROUTE.md`](docs/DU_JIAN_ROUTE.md) | 杜缄路线的12个实际事件节点、选项、状态与结局判定 |
+| [`docs/DU_JIAN_MECHANICS_VALIDATION.md`](docs/DU_JIAN_MECHANICS_VALIDATION.md) | 杜缄五条代表路线、边界状态、修正记录与机制验证结论 |
 | [`docs/NATURAL_LANGUAGE_INTERACTION.md`](docs/NATURAL_LANGUAGE_INTERACTION.md) | 移动端选择交互及可选自然语言增强 |
 | [`docs/UI_DESIGN_SPEC.md`](docs/UI_DESIGN_SPEC.md) | 水墨宣纸视觉系统与响应式 UI 规范 |
 | [`docs/mobile-ui-concept.html`](docs/mobile-ui-concept.html) | 可交互的移动端游戏主界面概念 |
