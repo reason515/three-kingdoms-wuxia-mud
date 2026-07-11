@@ -175,12 +175,15 @@ body::before{
 .toast.show{opacity:1}
 
 /* ═══ INTRO OVERLAY ═══ */
-.intro-overlay{position:absolute;inset:0;background:rgba(23,24,23,.92);z-index:20;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px;text-align:center;color:#e7dcc6;animation:fadeIn .6s ease}
+.intro-overlay{position:absolute;inset:0;background:rgba(23,24,23,.94);z-index:20;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;padding:40px 24px;text-align:center;color:#e7dcc6;overflow-y:auto;animation:fadeIn .6s ease}
 .intro-overlay.hide{opacity:0;pointer-events:none;transition:opacity .4s}
-.intro-overlay h2{font-size:28px;letter-spacing:8px;margin-bottom:8px}
-.intro-overlay .intro-sub{color:var(--gold-bright);font-size:13px;letter-spacing:5px;margin-bottom:28px}
-.intro-overlay .intro-text{font-size:14px;line-height:2;max-width:320px;margin-bottom:32px;color:#c4b594}
+.intro-overlay h2{font-size:30px;letter-spacing:10px;margin-bottom:6px}
+.intro-overlay .intro-sub{color:var(--gold-bright);font-size:13px;letter-spacing:5px;margin-bottom:24px}
+.intro-overlay .intro-text{font-size:14px;line-height:2.1;max-width:360px;text-align:justify;color:#c4b594}
+.intro-overlay .intro-text p{margin:0 0 14px}
+.intro-overlay .intro-text .speech{border-left-color:rgba(203,166,91,.5);color:#d4c8b2;background:rgba(74,108,93,.08);text-align:left;margin:14px 0}
 .intro-overlay .intro-text em{color:#eadfc8;font-style:normal}
+.intro-overlay .btn{margin-top:28px;margin-bottom:32px}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 </style>
 </head>
@@ -372,8 +375,24 @@ async function loadBundle(char){
 
 /* ═══════════════ INTRO ═══════════════ */
 const INTRO_TEXT={
-  du_jian:{title:'杜 缄',sub:'王允府外围门客',text:'初平三年，董卓伏诛未久，长安人心惶惶。<br><br>你是王允府门客<em>杜缄</em>，师从太原短剑一脉。师兄<em>赵衡</em>将一卷封泥未干的文书递到你手中——<br><br>"护许简去城西旧宅，再把医女阿萝带回来。"<br><br>他说"带回来"时，右手仍压在刀柄上。那是师父生前纠正他最多的一处旧习。'},
-  ren_shuo:{title:'任 朔',sub:'并州军斥候',text:'董卓死后，其旧部人心惶惶。吕布的并州军中，已有人准备趁乱自立。<br><br>你是斥候<em>任朔</em>，左肋还缠着前次侦察留下的伤口。军司马掀帘出来，递给你一份没有盖印的调令——<br><br>"魏石昨夜未归。找到他，核实军属是否被围。天亮前不归，视同逃兵。"<br><br>帐中的书记正在比对你的腰牌与出营记录。有人在怀疑你。'}
+  du_jian:{title:'杜 缄',sub:'王允府外围门客',
+    text:`<p>初平三年，夏。董卓伏诛已有月余，长安城里的血腥气却比太师在世时更重了。</p>
+<p>你是杜缄，太原短剑一脉的传人。三年前师父把你和师兄赵衡一并荐入王允府，做了没有品秩的府外门客——说白了，就是持剑守门的清客。你不求闻达，只求护住身边几个人：养母、许简、还有那个住在军属里巷、会辨伤会记名册的医女阿萝。</p>
+<p>但今夜，赵衡把一卷封泥未干的文书递到你手中。他没有披甲，只穿了一件洗得发白的旧襜褕——那是师父的遗物，袖口还留着师娘缝补的针脚。</p>
+<div class="speech"><small>赵衡</small>"护许简去城西旧宅，再把誊录名册的医女带回来。"</div>
+<p>他说"带回来"时，右手仍压在刀柄上。</p>
+<p>那是师父生前纠正他最多的一处旧习。师父曾说，握刀之人若常按刀柄，不是准备杀人，就是害怕被杀。赵衡从什么时候开始，变成了两者皆是？</p>
+<p>你没有问。你接过文书，感觉封泥在掌心里微微发烫。门外的持戟武吏已经换了第三班——这不是寻常的守夜排布，这是准备抓人的阵仗。</p>
+<p>你忽然想起阿萝最后一次来府里送药册时说过的话。<em>"杜大哥，名册上被墨笔圈掉的那些人，没有一个活过第三天。"</em></p>`},
+  ren_shuo:{title:'任 朔',sub:'并州军斥候',
+    text:`<p>初平三年，夏。长安城外三十里的并州军营里，篝火比往常早熄了一个时辰。</p>
+<p>你是任朔，五原郡出来的边地刀客。十四岁从军，跟过吕布打过匈奴，也跟过董卓入过洛阳。两年前在凉州边境，一个叫魏石的斥候替你挡了一箭——那一箭本该穿你的左胸，最后钉在了他的肩胛骨上。你欠他一条命。这份债，比军令重。</p>
+<p>但今夜，军司马掀帘出来，手里握着一份没有盖印的调令。他说魏石昨夜未归，要你去找到他——天亮前不归，视同逃兵。</p>
+<p>帐中还有一个你认识的人：都尉身边的书记，正在把你前次侦察的出营记录一页页比对。上次你独自回营时左肋带着箭伤，有人递了话，说你"临阵脱逃，抛下同袍"。</p>
+<div class="speech"><small>军司马</small>"你不是逃兵，对吧？"</div>
+<p>他说这话时没有看你的眼睛。他在看你的腰牌——那上面刻着五原任氏的字号，边军里认得这个字号的人已经死了一半。</p>
+<p>你掀帘出营时，左肋的伤口又被冷风灌得发疼。魏石昨晚走的时候什么也没说。他只留了一样东西在你的铺下：一枚箭簇。那是两年前他替你挡箭时，从自己伤口里拔出来的那枚。上面还刻着一个"朔"字——他替你刻的。</p>
+<p><em>他想说什么？是求救，还是诀别？</em></p>`}
 };
 
 async function startNew(char){
@@ -417,7 +436,27 @@ function archivePlaythrough(){
   localStorage.setItem('history',JSON.stringify(h.slice(0,50)));localStorage.removeItem(skey());
 }
 
-/* ═══════════════ RENDER ═══════════════ */
+/* ═══════════════ NARRATIVE RENDERING ═══════════════ */
+function renderNarrative(text){
+  if(!text)return'';
+  // Split on double newlines for paragraphs
+  const paras=text.split(/\n\n|\n(?=[「""'『])/);
+  return paras.map((p,i)=>{
+    p=p.trim();if(!p)return'';
+    // Dialogue: starts with speaker marker or quotes
+    if(/^[「""'『【]/.test(p)||/^[^，。！？\n]{1,6}[：:]/.test(p)){
+      const match=p.match(/^([^：:]{1,6})[：:](.*)/);
+      if(match){
+        return`<div class="speech"><small>${match[1]}</small>${match[2]}</div>`;
+      }
+      return`<div class="speech">${p}</div>`;
+    }
+    // Opening paragraph with drop cap
+    const cls=i===0?' opening':'';
+    return`<p class="${cls}">${p}</p>`;
+  }).join('');
+}
+
 function renderGame(){
   if(runtime.ending){archivePlaythrough();renderEnding();return;}
   const ev=runtime.events[runtime.current];if(!ev)return;
@@ -448,7 +487,8 @@ function renderGame(){
   // Story area
   const story=document.getElementById('story-area');
   const text=runtime.bundle.texts[ev.textKey]||'';
-  story.innerHTML=`<article class="story"><div class="scene-kicker">眼前之局</div><p class="opening">${text.replace(/\n/g,'</p><p>')}</p></article>`;
+  const rendered=renderNarrative(text);
+  story.innerHTML=`<article class="story"><div class="scene-kicker">眼前之局</div>${rendered}</article>`;
 
   // Insight panel (show if technique just learned or about to be)
   const techs=[...s.techniques].map(t=>runtime.bundle.texts[t+'.name']||t.split('.').pop()).join(' · ');
