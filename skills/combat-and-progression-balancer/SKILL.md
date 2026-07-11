@@ -14,6 +14,7 @@ Make growth expand the player's methods and identity without overwhelming mobile
 - Growth should express wuxia through insight, hardship, mentorship, manuals, reputation and practiced methods.
 - Abilities should primarily unlock new actions or alter costs, not merely add numbers.
 - Keep state legible enough that players can make informed tradeoffs.
+- Keep physical blocking coherent: posture, occupied hands, reach, distance, armour, injury and terrain must support every described combat action and consequence.
 - Failure should create different outcomes and knowledge where possible, not only force a restart.
 - Track death and freedom separately from the main ending family; capture, imprisonment and escape can all be meaningful outcomes.
 - Permanent progression should broaden possibilities more than increase raw power.
@@ -57,7 +58,7 @@ Important combat should last roughly 3–6 decision rounds. Each round should ex
 - spend a resource for a decisive technique;
 - deceive, disengage, surrender or flee.
 
-Balance more than victory and defeat. Track injury, time, exposure, protected targets, destroyed evidence and relationship consequences.
+Before resolving a combat option, trace starting positions → occupied hands and equipment → movement and defence → ending positions → state changes. Balance more than victory and defeat. Track injury, time, exposure, protected targets, destroyed evidence and relationship consequences.
 
 ## Run and meta progression
 

@@ -1,6 +1,6 @@
 ---
 name: narrative-quest-writer
-description: Writes historical scenarios, branching events, consequential choices, dialogue, rumors, evidence trails, character arcs, endings and replay revelations for the mobile-first Three Kingdoms wuxia text RPG. Use whenever drafting a chapter, quest, NPC route, intelligence plot, moral dilemma, battle narrative, multi-perspective truth, or content intended to reward repeated runs.
+description: Writes physically and causally coherent historical scenarios, branching events, consequential choices, dialogue, rumors, evidence trails, character arcs, endings and replay revelations for the mobile-first Three Kingdoms wuxia text RPG. Use whenever drafting or reviewing a chapter, quest, NPC route, intelligence plot, moral dilemma, battle narrative, multi-perspective truth, or content intended to reward repeated runs.
 ---
 
 # Narrative Quest Writer
@@ -17,6 +17,32 @@ Create compact historical-wuxia scenarios in which gameplay and narrative reinfo
 - Let historical figures retain political motives and independent agency.
 - Write scenes and combat with concrete space, movement and sensory detail in the concise tradition of text MUDs.
 - Use reference works for high-level techniques only; never copy their plots, organizations, characters or signature language.
+
+## Physical, causal and continuity logic
+
+Treat logical coherence as a quality gate, not a later polish pass. Before finalizing any scene, verify:
+
+1. **Body mechanics**: posture, balance, occupied hands, weapon reach, armour and injury permit the described action.
+2. **Space**: positions, distance, obstacles, exits and lines of sight remain consistent from sentence to sentence.
+3. **Time**: each actor has enough time to act; simultaneous actions do not silently become sequential when convenient.
+4. **Cause and effect**: the stated action plausibly produces the stated consequence. If a desired consequence needs an implausible action, change the setup rather than forcing the result.
+5. **Knowledge**: characters act only on information they possess and cannot infer hidden facts without a clue.
+6. **Motivation**: choices follow the character's goal, fear, relationship and current pressure, even when the choice is mistaken.
+7. **State continuity**: injuries, lost items, occupied equipment slots, dead or absent characters, promises and prior choices remain true in later scenes.
+8. **Historical logic**: travel, authority, military response and social behaviour remain compatible with the declared period and setting.
+
+For combat and physical action, mentally block the beat before writing it:
+
+```text
+starting positions
+→ what each hand holds
+→ who moves first and how far
+→ what obstacle or defence intervenes
+→ where everyone ends the beat
+→ which state actually changes
+```
+
+Avoid cinematic convenience such as exposing the chest merely by clutching an object, using a hand that is already occupied, crossing distance instantly, seeing through walls, ignoring armour or injury, or letting several incompatible actions happen at once.
 
 ## Scenario structure
 
@@ -61,6 +87,7 @@ For each scenario or quest, include:
 11. **What a later run can newly reveal**
 12. **Required locations, items, combat and data flags**
 13. **Reusable prose snippets and localization notes**
+14. **Logic audit**: physical blocking, timeline, knowledge, motivation and state-continuity risks that were checked.
 
 ## Replay quality check
 
@@ -80,3 +107,5 @@ A second route should provide at least one of the following, not merely alternat
 - Perfect routes that save everyone without exceptional cost.
 - Famous-character fan service without player agency.
 - Mystery answers that depend on information never available to the player.
+- Physical actions written only to force a desired outcome when posture, distance, occupied hands, equipment or timing do not support them.
+- Characters forgetting injuries, lost objects, promises, known information or prior scene consequences.
