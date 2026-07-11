@@ -76,6 +76,7 @@
 |---|---|
 | [`docs/VISION.md`](docs/VISION.md) | 项目愿景、产品定位与设计支柱 |
 | [`docs/GAME_CONCEPT.md`](docs/GAME_CONCEPT.md) | 完整游戏概念、循环、成长、结局与 MVP |
+| [`docs/STORY_BIBLE.md`](docs/STORY_BIBLE.md) | 《长安残照》的历史边界、人物、核心秘密与多周目结构 |
 | [`docs/NATURAL_LANGUAGE_INTERACTION.md`](docs/NATURAL_LANGUAGE_INTERACTION.md) | 移动端选择交互及可选自然语言增强 |
 | [`docs/UI_DESIGN_SPEC.md`](docs/UI_DESIGN_SPEC.md) | 水墨宣纸视觉系统与响应式 UI 规范 |
 | [`docs/PROJECT_SKILLS.md`](docs/PROJECT_SKILLS.md) | 项目专属 Skills 的职责与使用规划 |
