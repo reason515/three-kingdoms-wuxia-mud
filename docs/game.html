@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>汉末江湖录 · 长安残照</title>
+<style>
+/* ═══════════════ DESIGN TOKENS ═══════════════ */
+:root {
+  --ink: #1c1a17; --ink-soft: #3a352e;
+  --paper: #ece3d2; --paper-2: #e2d6bd; --paper-card: #f3ecdc;
+  --seal: #9e2b25; --seal-deep: #7c211c;
+  --gold: #a8842f; --gold-bright: #cba65b;
+  --jade: #4a6c5d; --line: #c4b594;
+  --font-serif: "Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --font-mono: "Cascadia Code","Consolas","Courier New",monospace;
+  --fs-body: 15px; --fs-small: 13px; --fs-h1: 28px; --fs-h2: 22px; --fs-h3: 16px;
+  --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px;
+  --radius-md: 6px; --radius-sm: 4px;
+  --shadow-sm: 0 4px 12px rgba(28,26,23,0.06);
+  --border-1: 1px solid var(--line);
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+html { font-size:16px; }
+body {
+  font-family:var(--font-serif); background:var(--paper); color:var(--ink);
+  min-height:100dvh; line-height:1.7; -webkit-tap-highlight-color:transparent;
+  background-image: radial-gradient(ellipse at 50% 0%,rgba(196,181,148,0.12) 0%,transparent 70%);
+}
+
+/* ═══════════════ LAYOUT ═══════════════ */
+#app { max-width:560px; margin:0 auto; padding:var(--space-5); min-height:100dvh; display:flex; flex-direction:column; }
+.screen { display:none; flex-direction:column; flex:1; }
+.screen.active { display:flex; }
+
+/* ═══════════════ TITLE SCREEN ═══════════════ */
+.title-block { text-align:center; padding:var(--space-6) 0; }
+.title-block h1 { font-size:var(--fs-h1); letter-spacing:12px; color:var(--ink); font-weight:700; margin-bottom:var(--space-2); }
+.title-block .subtitle { font-size:var(--fs-h3); color:var(--ink-soft); letter-spacing:6px; }
+.title-block .seal-stamp { display:inline-block; border:2px solid var(--seal); color:var(--seal); padding:var(--space-2) var(--space-5); font-size:var(--fs-small); letter-spacing:4px; margin-top:var(--space-4); transform:rotate(-3deg); }
+
+.title-actions { display:flex; flex-direction:column; gap:var(--space-3); margin-top:var(--space-6); }
+.btn { font-family:var(--font-serif); font-size:var(--fs-body); padding:var(--space-3) var(--space-5); border-radius:var(--radius-md); cursor:pointer; border:none; text-align:center; letter-spacing:2px; transition:transform 0.1s,opacity 0.15s; }
+.btn:active { transform:scale(0.97); }
+.btn-primary { background:var(--ink); color:var(--gold-bright); }
+.btn-secondary { background:var(--paper-card); color:var(--ink); border:var(--border-1); }
+.btn-danger { background:var(--seal); color:#f5e6d0; }
+.btn-small { font-size:var(--fs-small); padding:var(--space-2) var(--space-4); letter-spacing:1px; }
+.btn:disabled { opacity:0.4; pointer-events:none; }
+
+/* ═══════════════ GAME SCREEN ═══════════════ */
+.state-bar { display:flex; flex-wrap:wrap; gap:var(--space-2); padding:var(--space-3) 0; border-bottom:1px solid var(--line); margin-bottom:var(--space-4); font-size:var(--fs-small); }
+.state-tag { padding:2px var(--space-2); border-radius:var(--radius-sm); background:var(--paper-2); color:var(--ink-soft); letter-spacing:1px; white-space:nowrap; }
+.state-tag.warn { color:var(--seal); background:#f2d6d4; }
+.state-tag.good { color:var(--jade); background:#d8e6df; }
+
+.event-stage { font-size:var(--fs-small); color:var(--ink-soft); letter-spacing:4px; margin-bottom:var(--space-2); text-transform:uppercase; }
+
+.event-text { font-size:var(--fs-body); line-height:1.9; color:var(--ink); margin-bottom:var(--space-5); padding:var(--space-5); background:var(--paper-card); border-radius:var(--radius-md); border-left:4px solid var(--gold); box-shadow:var(--shadow-sm); white-space:pre-wrap; }
+
+.choices { display:flex; flex-direction:column; gap:var(--space-3); margin-bottom:var(--space-5); }
+.choice-btn { display:flex; flex-direction:column; align-items:flex-start; padding:var(--space-4); border-radius:var(--radius-md); text-align:left; font-family:var(--font-serif); font-size:var(--fs-body); cursor:pointer; transition:transform 0.1s,box-shadow 0.15s; border:none; }
+.choice-btn:active { transform:scale(0.98); }
+.choice-btn .choice-label { font-weight:700; letter-spacing:1px; margin-bottom:2px; }
+.choice-btn .choice-intent { font-size:var(--fs-small); opacity:0.7; }
+.choice-btn .choice-risk { font-size:var(--fs-small); margin-top:4px; padding:1px var(--space-2); border-radius:var(--radius-sm); display:inline-block; }
+
+.cb-primary { background:var(--ink); color:var(--gold-bright); box-shadow:var(--shadow-sm); }
+.cb-secondary { background:var(--paper-card); color:var(--ink); border:var(--border-1); }
+.cb-danger { background:var(--paper-card); color:var(--ink); border:2px solid var(--seal); }
+.cb-lethal { background:var(--paper-card); color:var(--seal-deep); border:2px solid var(--seal); }
+.cb-locked { opacity:0.38; pointer-events:none; background:var(--paper-card); color:var(--ink-soft); border:var(--border-1); }
+
+.risk-none { background:var(--paper-2); color:var(--ink-soft); }
+.risk-costly { background:#f0ebe0; color:var(--ink); }
+.risk-high { background:#f2d6d4; color:var(--seal); }
+.risk-lethal { background:#e8c8c5; color:var(--seal-deep); }
+
+/* ═══════════════ FEEDBACK & LOG ═══════════════ */
+.feedback-toast { position:fixed; top:var(--space-5); left:50%; transform:translateX(-50%); background:var(--ink); color:var(--gold-bright); padding:var(--space-3) var(--space-5); border-radius:var(--radius-pill); font-size:var(--fs-small); letter-spacing:1px; z-index:100; opacity:0; transition:opacity 0.3s; pointer-events:none; }
+.feedback-toast.show { opacity:1; }
+
+.game-log { margin-top:auto; padding:var(--space-4) 0; font-size:var(--fs-small); color:var(--ink-soft); border-top:1px solid var(--line); max-height:30vh; overflow-y:auto; }
+.game-log .log-entry { padding:2px 0; }
+.game-log .log-entry span { color:var(--gold); }
+
+/* ═══════════════ HISTORY SCREEN ═══════════════ */
+.history-list { display:flex; flex-direction:column; gap:var(--space-3); margin:var(--space-5) 0; }
+.history-card { background:var(--paper-card); border-radius:var(--radius-md); padding:var(--space-4); border-left:3px solid var(--gold); cursor:pointer; transition:transform 0.1s; }
+.history-card:active { transform:scale(0.98); }
+.history-card .hc-title { font-weight:700; letter-spacing:1px; }
+.history-card .hc-meta { font-size:var(--fs-small); color:var(--ink-soft); margin-top:4px; }
+.history-card .hc-tags { display:flex; gap:var(--space-2); flex-wrap:wrap; margin-top:var(--space-2); }
+.history-detail { background:var(--paper-card); border-radius:var(--radius-md); padding:var(--space-5); margin:var(--space-5) 0; border:var(--border-1); }
+.history-detail h3 { font-size:var(--fs-h3); letter-spacing:4px; margin-bottom:var(--space-4); }
+.history-detail table { width:100%; border-collapse:collapse; font-size:var(--fs-small); }
+.history-detail td { padding:var(--space-2) var(--space-3); border-bottom:1px solid var(--line); }
+.history-detail td:first-child { color:var(--ink-soft); width:40%; }
+.empty-state { text-align:center; padding:var(--space-7) 0; color:var(--ink-soft); font-size:var(--fs-body); letter-spacing:2px; }
+
+/* ═══════════════ SCREEN CONTROLS ═══════════════ */
+.screen-nav { display:flex; gap:var(--space-3); margin-top:var(--space-5); justify-content:center; flex-wrap:wrap; }
+
+@media (max-width:400px) {
+  #app { padding:var(--space-3); }
+  .state-bar { font-size:12px; }
+  .event-text { padding:var(--space-4); font-size:14px; }
+  .choice-btn { padding:var(--space-3); }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- ═══ TITLE SCREEN ═══ -->
+  <div id="screen-title" class="screen active">
+    <div class="title-block">
+      <h1>汉末江湖录</h1>
+      <div class="subtitle">长 安 残 照</div>
+      <div class="seal-stamp">初平三年 · 长安</div>
+    </div>
+    <div class="title-actions">
+      <button class="btn btn-primary" onclick="startNew('du_jian')">杜缄 — 受托之剑</button>
+      <button class="btn btn-primary" onclick="startNew('ren_shuo')">任朔 — 同袍之刀</button>
+      <button class="btn btn-secondary" id="btn-continue" onclick="loadGame()" style="display:none">继续上次</button>
+      <button class="btn btn-secondary" onclick="showScreen('screen-history')">江湖史卷</button>
+    </div>
+    <div class="game-log" id="test-log" style="display:none"></div>
+    <div class="screen-nav">
+      <button class="btn btn-small btn-secondary" onclick="runTests()">运行回归测试</button>
+    </div>
+  </div>
+
+  <!-- ═══ GAME SCREEN ═══ -->
+  <div id="screen-game" class="screen">
+    <div class="state-bar" id="state-bar"></div>
+    <div class="event-stage" id="event-stage"></div>
+    <div class="event-text" id="event-text"></div>
+    <div class="choices" id="choices"></div>
+    <button class="btn btn-small btn-secondary" style="align-self:center;margin-bottom:var(--space-4)" onclick="showScreen('screen-title')">返回标题</button>
+  </div>
+
+  <!-- ═══ HISTORY SCREEN ═══ -->
+  <div id="screen-history" class="screen">
+    <h2 style="letter-spacing:6px;text-align:center">江湖史卷</h2>
+    <div id="history-content"></div>
+    <div class="screen-nav">
+      <button class="btn btn-secondary" onclick="showScreen('screen-title')">返回标题</button>
+    </div>
+  </div>
+
+  <div class="feedback-toast" id="toast"></div>
+</div>
+
+<script>
+/* ═══════════════════ CONTENT RUNTIME ENGINE ═══════════════════ */
+class Runtime {
+  constructor(bundle) {
+    this.bundle = bundle;
+    this.events = Object.fromEntries(bundle.events.map(e => [e.id, e]));
+    this.endings = [...bundle.endings].sort((a, b) => b.priority - a.priority);
+    this.defs = Object.fromEntries(bundle.itemDefinitions.map(d => [d.id, d]));
+    const ini = bundle.initialState;
+    this.state = {
+      abilities: { ...ini.abilities },
+      resources: { ...ini.resources },
+      injury: ini.injury, heat: ini.heat,
+      life: ini.life, freedom: ini.freedom,
+      flags: new Set(ini.flags), conduct: new Set(ini.conduct),
+      knowledge: new Set(ini.knowledge),
+      insights: { ...(ini.insights || {}) },
+      relationships: Object.fromEntries(ini.relationships.map(r => [r.characterId, { attitude: r.attitude, tags: new Set(r.tags) }])),
+      fates: Object.fromEntries(bundle.characters.map(c => [c.id, c.defaultFate])),
+      items: Object.fromEntries(bundle.itemInstances.map(it => [it.id, { ...it }])),
+      techniques: new Set(),
+      scheduled: new Set(),
+    };
+    this.current = bundle.scenario.entryEventId;
+    this.ending = null;
+    this.log = [];
+    this.player = ini.playerCharacterId;
+  }
+
+  _get(path) { return path.split('.').reduce((o, k) => o[k], this.state); }
+  _cmp(a, op, b) { return { eq: a === b, neq: a !== b, gte: a >= b, lte: a <= b, gt: a > b, lt: a < b }[op]; }
+
+  check(c) {
+    switch (c.op) {
+      case 'always': return true;
+      case 'all': return c.conditions.every(x => this.check(x));
+      case 'any': return c.conditions.some(x => this.check(x));
+      case 'not': return !this.check(c.condition);
+      case 'compare': return this._cmp(this._get(c.path), c.cmp, c.value);
+      case 'hasFlag': return this.state.flags.has(c.flag);
+      case 'hasConduct': return this.state.conduct.has(c.conduct);
+      case 'hasItem': {
+        const it = this.state.items[c.itemInstanceId];
+        return it && it.quantity > 0
+          && (!c.states || c.states.includes(it.state))
+          && (!c.holderId || it.holderId === c.holderId)
+          && (c.equipped == null || it.equipped === c.equipped);
+      }
+      case 'relationship': {
+        const rel = this.state.relationships[c.characterId] || { attitude: 0, tags: new Set() };
+        let ok = true;
+        if (c.attitude) { const [op, v] = Object.entries(c.attitude)[0]; ok = this._cmp(rel.attitude, op, v); }
+        return ok && (!c.tag || rel.tags.has(c.tag));
+      }
+      case 'techniqueKnown': return this.state.techniques.has(c.techniqueId);
+      case 'knows': return this.state.knowledge.has(c.claimId);
+      case 'environmentHas': return (this.events[this.current]?.environmentTags || []).includes(c.tag);
+      case 'characterFate': return this.state.fates[c.characterId] === c.fate;
+      default: return false;
+    }
+  }
+
+  effect(e) {
+    const op = e.op;
+    if (op === 'spendResource') { this.state.resources[e.resource] -= e.amount; }
+    else if (op === 'changeResource') { this.state.resources[e.resource] += e.delta; }
+    else if (op === 'setResource') { this.state.resources[e.resource] = e.value; }
+    else if (op === 'changeInjury') {
+      this.state.injury += e.delta;
+      this.state.injury = Math.max(e.minimum ?? 0, Math.min(e.maximum ?? 4, this.state.injury));
+    }
+    else if (op === 'setInjury') { this.state.injury = e.value; }
+    else if (op === 'setHeat') { this.state.heat = e.value; }
+    else if (op === 'setLife') { this.state.life = e.value; }
+    else if (op === 'setFreedom') { this.state.freedom = e.value; }
+    else if (op === 'addFlag') { this.state.flags.add(e.flag); }
+    else if (op === 'removeFlag') { this.state.flags.delete(e.flag); }
+    else if (op === 'addConduct') { this.state.conduct.add(e.conduct); }
+    else if (op === 'removeConduct') { this.state.conduct.delete(e.conduct); }
+    else if (op === 'changeRelationship') {
+      const rel = this.state.relationships[e.characterId] = this.state.relationships[e.characterId] || { attitude: 0, tags: new Set() };
+      rel.attitude += e.delta;
+      rel.attitude = Math.max(e.min ?? -2, Math.min(e.max ?? 2, rel.attitude));
+    }
+    else if (op === 'setRelationship') {
+      (this.state.relationships[e.characterId] = this.state.relationships[e.characterId] || { attitude: 0, tags: new Set() }).attitude = e.value;
+    }
+    else if (op === 'addRelationshipTag') { (this.state.relationships[e.characterId] = this.state.relationships[e.characterId] || { attitude: 0, tags: new Set() }).tags.add(e.tag); }
+    else if (op === 'removeRelationshipTag') { this.state.relationships[e.characterId]?.tags.delete(e.tag); }
+    else if (op === 'setCharacterFate') { this.state.fates[e.characterId] = e.fate; }
+    else if (op === 'transferItem') { this.state.items[e.itemInstanceId].holderId = e.holderId; }
+    else if (op === 'setItemState') { this.state.items[e.itemInstanceId].state = e.state; }
+    else if (op === 'equipItem') { this.state.items[e.itemInstanceId].equipped = true; }
+    else if (op === 'unequipItem') { this.state.items[e.itemInstanceId].equipped = false; }
+    else if (op === 'consumeItem') { this.state.items[e.itemInstanceId].quantity -= e.amount; }
+    else if (op === 'confiscateVisibleItems') {
+      for (const it of Object.values(this.state.items)) {
+        const d = this.defs[it.definitionId];
+        if (it.holderId === this.player && d?.tags?.includes('item.visible') && !['state.lost', 'state.destroyed', 'state.used'].includes(it.state)) {
+          it.holderId = e.holderId; it.state = 'state.confiscated'; it.equipped = false;
+        }
+      }
+    }
+    else if (op === 'loseItemsByState') {
+      for (const it of Object.values(this.state.items)) { if (it.state === e.state) { it.state = 'state.lost'; it.equipped = false; } }
+    }
+    else if (op === 'learnTechnique') { this.state.techniques.add(e.techniqueId); }
+    else if (op === 'addInsight') { this.state.insights[e.route] = (this.state.insights[e.route] || 0) + e.amount; }
+    else if (op === 'addKnowledge') { this.state.knowledge.add(e.claimId); }
+    else if (op === 'scheduleEvent') { this.state.scheduled.add(e.eventId); }
+    else if (op === 'cancelEvent') { this.state.scheduled.delete(e.eventId); }
+    // emitFeedback: no-op in engine
+    // clamp resources after
+    if (op === 'changeResource') {
+      const r = this.state.resources[e.resource];
+      if (e.min != null) this.state.resources[e.resource] = Math.max(e.min, r);
+      if (e.max != null) this.state.resources[e.resource] = Math.min(e.max, r);
+    }
+  }
+
+  normalize() {
+    const r = this.state.resources;
+    for (const [k, hi] of [['breath',4],['time',3],['favor',2]]) { r[k] = Math.max(0, Math.min(hi, r[k])); }
+    this.state.injury = Math.max(0, Math.min(4, this.state.injury));
+    this.state.heat = Math.max(0, Math.min(3, this.state.heat));
+    if (this.state.injury === 4) this.state.life = 'dead';
+    if (this.state.freedom === 'captured' || this.state.freedom === 'imprisoned') r.time = 0;
+    if (this.state.flags.has('route.guard') && this.state.flags.has('route.roam')) throw new Error('exclusive routes');
+    if (this.state.flags.has('manual.carried') && this.state.flags.has('manual.entrusted')) throw new Error('exclusive manual');
+  }
+
+  choose(choiceId) {
+    const ev = this.events[this.current];
+    const ch = ev?.choices.find(c => c.id === choiceId);
+    if (!ch) throw new Error(`${choiceId} not in ${this.current}`);
+    if (!this.check(ch.availability)) throw new Error(`locked: ${choiceId}`);
+    for (const cost of (ch.costs || [])) this.effect(cost);
+    const res = (ch.resolutions || []).find(r => r.default || (r.when && this.check(r.when)));
+    if (!res) throw new Error(`no resolution: ${choiceId}`);
+    for (const ef of (res.effects || [])) this.effect(ef);
+    this.normalize();
+    this.log.push(choiceId);
+    const dest = res.next;
+    if (dest.type === 'event') this.current = dest.eventId;
+    else if (dest.type === 'resolveEnding') this.ending = this.resolveEnding();
+    else this.ending = 'end';
+  }
+
+  resolveEnding() {
+    for (const end of this.endings) {
+      if (this.check(end.when) && (!end.excludeWhen || !this.check(end.excludeWhen))) return end.id;
+    }
+    throw new Error('no ending');
+  }
+
+  clone() {
+    const c = new Runtime(this.bundle);
+    c.state = structuredClone(this.state);
+    // Restore Sets
+    c.state.flags = new Set(c.state.flags);
+    c.state.conduct = new Set(c.state.conduct);
+    c.state.knowledge = new Set(c.state.knowledge);
+    c.state.techniques = new Set(c.state.techniques);
+    c.state.scheduled = new Set(c.state.scheduled);
+    for (const rel of Object.values(c.state.relationships)) {
+      if (rel.tags) rel.tags = new Set(rel.tags);
+    }
+    c.current = this.current;
+    c.ending = this.ending;
+    c.log = [...this.log];
+    return c;
+  }
+}
+
+/* ═══════════════════ SAVE / LOAD ═══════════════════ */
+function saveKey(char) { return 'save_' + (char || currentCharacter); }
+function historyKey() { return 'history'; }
+
+function autoSave(rt) {
+  const data = { character: currentCharacter, current: rt.current, ending: rt.ending, log: rt.log,
+    state: { resources: rt.state.resources, injury: rt.state.injury, heat: rt.state.heat,
+      life: rt.state.life, freedom: rt.state.freedom,
+      flags: [...rt.state.flags], conduct: [...rt.state.conduct], knowledge: [...rt.state.knowledge],
+      insights: rt.state.insights, techniques: [...rt.state.techniques],
+      fates: rt.state.fates,
+      items: Object.fromEntries(Object.entries(rt.state.items).map(([k,v]) => [k, { state:v.state, holderId:v.holderId, equipped:v.equipped, quantity:v.quantity }])),
+    },
+    timestamp: Date.now()
+  };
+  localStorage.setItem(saveKey(), JSON.stringify(data));
+}
+
+function loadSave(char) {
+  const raw = localStorage.getItem(saveKey(char));
+  return raw ? JSON.parse(raw) : null;
+}
+
+function restoreRuntime(bundle, save) {
+  const rt = new Runtime(bundle);
+  const s = save.state;
+  rt.current = save.current;
+  rt.ending = save.ending;
+  rt.log = save.log;
+  rt.state.resources = s.resources;
+  rt.state.injury = s.injury;
+  rt.state.heat = s.heat;
+  rt.state.life = s.life;
+  rt.state.freedom = s.freedom;
+  rt.state.flags = new Set(s.flags);
+  rt.state.conduct = new Set(s.conduct);
+  rt.state.knowledge = new Set(s.knowledge);
+  rt.state.insights = s.insights;
+  rt.state.techniques = new Set(s.techniques);
+  rt.state.fates = s.fates;
+  for (const [iid, it] of Object.entries(s.items)) {
+    if (rt.state.items[iid]) Object.assign(rt.state.items[iid], it);
+  }
+  return rt;
+}
+
+function archivePlaythrough(rt) {
+  const endingTitle = rt.bundle.texts[rt.bundle.endings.find(e => e.id === rt.ending)?.titleKey] || rt.ending;
+  const history = JSON.parse(localStorage.getItem(historyKey()) || '[]');
+  history.unshift({
+    character: currentCharacter,
+    ending: rt.ending,
+    endingTitle,
+    life: rt.state.life,
+    freedom: rt.state.freedom,
+    injury: rt.state.injury,
+    heat: rt.state.heat,
+    conduct: [...rt.state.conduct],
+    flags: [...rt.state.flags],
+    techniques: [...rt.state.techniques],
+    log: rt.log.slice(-8),
+    date: new Date().toISOString(),
+    time: rt.state.resources.time,
+    breath: rt.state.resources.breath,
+  });
+  localStorage.setItem(historyKey(), JSON.stringify(history.slice(0, 50)));
+  localStorage.removeItem(saveKey());
+}
+
+/* ═══════════════════ UI ═══════════════════ */
+let currentCharacter = null;
+let runtime = null;
+let activeBundle = null;
+
+const bundles = {};
+const P = { du_jian: 'choice.changan.dujian.', ren_shuo: 'choice.changan.renshuo.' };
+
+const STAGE_NAMES = {
+  'stage.changan.escort': '护送途中', 'stage.changan.truth': '真相浮现',
+  'stage.changan.commitment': '立场抉择', 'stage.changan.growth': '武学参悟',
+  'stage.changan.equipment': '装备取舍', 'stage.changan.pursuit': '追兵逼近',
+  'stage.changan.gate': '城门之前', 'stage.changan.final': '终局对决',
+  'stage.changan.capture': '身陷囹圄', 'stage.changan.aftermath': '长安余烬',
+  'stage.changan.departure': '军营出发', 'stage.changan.search': '废墟寻踪',
+  'stage.changan.confrontation': '正面对质',
+};
+const INJURY = ['无伤', '轻伤', '重伤', '濒危', '死亡'];
+const HEAT = ['平静', '起疑', '暴露', '缉拿'];
+const FREEDOM = { free: '自由', captured: '落网', imprisoned: '收押', escaped: '脱逃', coerced: '被迫效力' };
+const RISK_CLASS = { none: 'risk-none', costly: 'risk-costly', high: 'risk-high', lethal: 'risk-lethal' };
+const CHOICE_CLASS = { none: 'cb-secondary', costly: 'cb-secondary', high: 'cb-danger', lethal: 'cb-lethal' };
+
+async function loadBundle(char) {
+  if (bundles[char]) return bundles[char];
+  // Try embedded first, then fetch
+  const embeddedId = 'bundle-' + char;
+  const el = document.getElementById(embeddedId);
+  if (el) {
+    bundles[char] = JSON.parse(el.textContent);
+    return bundles[char];
+  }
+  const resp = await fetch(`content/changan/${char}/route.json`);
+  bundles[char] = await resp.json();
+  return bundles[char];
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 'screen-title') updateContinueButton();
+  if (id === 'screen-history') renderHistory();
+}
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+async function startNew(char) {
+  const bundle = await loadBundle(char);
+  currentCharacter = char;
+  activeBundle = bundle;
+  runtime = new Runtime(bundle);
+  showScreen('screen-game');
+  renderGame();
+}
+
+async function loadGame() {
+  const char = localStorage.getItem('save_character') || 'du_jian';
+  const save = loadSave(char);
+  if (!save) { toast('无存档'); return; }
+  const bundle = await loadBundle(save.character || char);
+  currentCharacter = save.character || char;
+  activeBundle = bundle;
+  runtime = restoreRuntime(bundle, save);
+  showScreen('screen-game');
+  renderGame();
+}
+
+function updateContinueButton() {
+  const has = !!(loadSave('du_jian') || loadSave('ren_shuo'));
+  document.getElementById('btn-continue').style.display = has ? '' : 'none';
+}
+
+function renderGame() {
+  if (runtime.ending) {
+    archivePlaythrough(runtime);
+    showEnding();
+    return;
+  }
+  const ev = runtime.events[runtime.current];
+  if (!ev) { document.getElementById('event-text').textContent = '—— 事件未找到 ——'; return; }
+
+  // State bar
+  const s = runtime.state;
+  const r = s.resources;
+  document.getElementById('state-bar').innerHTML = [
+    `<span class="state-tag">内息 ${r.breath}</span>`,
+    `<span class="state-tag">余时 ${r.time}</span>`,
+    `<span class="state-tag${s.injury >= 2 ? ' warn' : ''}">${INJURY[s.injury]}</span>`,
+    `<span class="state-tag${s.heat >= 2 ? ' warn' : ''}">${HEAT[s.heat]}</span>`,
+    s.freedom !== 'free' ? `<span class="state-tag warn">${FREEDOM[s.freedom] || s.freedom}</span>` : '',
+    s.flags.has('route.guard') ? '<span class="state-tag good">守剑</span>' : '',
+    s.flags.has('route.roam') ? '<span class="state-tag good">游剑</span>' : '',
+    s.flags.has('route.breaker') ? '<span class="state-tag good">破阵</span>' : '',
+    s.flags.has('route.protector') ? '<span class="state-tag good">护军</span>' : '',
+  ].filter(Boolean).join('');
+
+  // Stage
+  const stageName = STAGE_NAMES[ev.stage] || ev.stage.split('.').pop();
+  document.getElementById('event-stage').textContent = `· ${stageName} ·`;
+
+  // Event text
+  document.getElementById('event-text').textContent = runtime.bundle.texts[ev.textKey] || '';
+
+  // Choices
+  const choicesDiv = document.getElementById('choices');
+  choicesDiv.innerHTML = '';
+  for (const ch of ev.choices) {
+    const avail = runtime.check(ch.availability);
+    const text = runtime.bundle.texts;
+    const btn = document.createElement('button');
+    btn.className = `choice-btn ${avail ? CHOICE_CLASS[ch.risk] || 'cb-secondary' : 'cb-locked'}`;
+    btn.innerHTML = `<span class="choice-label">${text[ch.labelKey] || ch.id}</span>
+      <span class="choice-intent">${text[ch.intentKey] || ''}</span>
+      ${ch.risk !== 'none' ? `<span class="choice-risk ${RISK_CLASS[ch.risk] || ''}">${ch.risk === 'lethal' ? '⚔ 致命' : ch.risk === 'high' ? '⚠ 高风险' : '有代价'}</span>` : ''}`;
+    if (avail) btn.onclick = () => onChoice(ch.id);
+    else { btn.title = text[ch.lockedReasonKey] || '条件不足'; }
+    choicesDiv.appendChild(btn);
+  }
+  autoSave(runtime);
+  localStorage.setItem('save_character', currentCharacter);
+}
+
+function onChoice(choiceId) {
+  try {
+    runtime.choose(choiceId);
+  } catch (e) {
+    toast('错误: ' + e.message);
+    return;
+  }
+  renderGame();
+}
+
+function showEnding() {
+  const bundle = runtime.bundle;
+  const ending = bundle.endings.find(e => e.id === runtime.ending);
+  const title = ending ? bundle.texts[ending.titleKey] : '旅途终点';
+  const s = runtime.state;
+
+  document.getElementById('event-stage').textContent = '· 结局 ·';
+  document.getElementById('event-text').innerHTML = `<div style="text-align:center">
+    <div style="font-size:28px;letter-spacing:8px;color:var(--seal);margin-bottom:var(--space-4)">${title}</div>
+    <div style="color:var(--ink-soft);margin-bottom:var(--space-5)">${ending ? bundle.texts[ending.summaryKey] : ''}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);justify-content:center;font-size:var(--fs-small)">
+      <span class="state-tag">${INJURY[s.injury]}</span>
+      <span class="state-tag">${HEAT[s.heat]}</span>
+      <span class="state-tag">${FREEDOM[s.freedom] || s.freedom}</span>
+      <span class="state-tag">${s.life === 'alive' ? '生还' : s.life === 'dead' ? '死亡' : '生死不明'}</span>
+    </div>
+    ${[...s.conduct].length ? `<div style="margin-top:var(--space-3);font-size:var(--fs-small);color:var(--ink-soft)">行止：${[...s.conduct].join(' · ')}</div>` : ''}
+  </div>`;
+
+  document.getElementById('choices').innerHTML = `
+    <button class="btn btn-primary" onclick="showScreen('screen-title')" style="margin-top:var(--space-4)">返回标题</button>
+    <button class="btn btn-secondary" style="margin-top:var(--space-2)" onclick="showScreen('screen-history')">查看史卷</button>`;
+}
+
+function renderHistory() {
+  const history = JSON.parse(localStorage.getItem(historyKey()) || '[]');
+  const container = document.getElementById('history-content');
+  if (!history.length) {
+    container.innerHTML = '<div class="empty-state">尚无通关记录<br>江湖仍在等待你的刀痕</div>';
+    return;
+  }
+  container.innerHTML = history.map((h, i) => `
+    <div class="history-card" onclick="toggleDetail(${i})">
+      <div class="hc-title">${h.character === 'du_jian' ? '杜缄' : '任朔'} · ${h.endingTitle}</div>
+      <div class="hc-meta">${new Date(h.date).toLocaleDateString('zh-CN')} · ${INJURY[h.injury]} · ${FREEDOM[h.freedom] || h.freedom}</div>
+      <div class="hc-tags">${(h.conduct || []).map(c => `<span class="state-tag">${c}</span>`).join('')}</div>
+      <div class="history-detail" id="detail-${i}" style="display:none;margin-top:var(--space-3)">
+        <table>
+          <tr><td>结局</td><td>${h.endingTitle}</td></tr>
+          <tr><td>伤势</td><td>${INJURY[h.injury]}</td></tr>
+          <tr><td>风声</td><td>${HEAT[h.heat]}</td></tr>
+          <tr><td>自由</td><td>${FREEDOM[h.freedom] || h.freedom}</td></tr>
+          <tr><td>生死</td><td>${h.life === 'alive' ? '生还' : h.life === 'dead' ? '死亡' : '生死不明'}</td></tr>
+          ${(h.techniques || []).length ? `<tr><td>武学</td><td>${h.techniques.map(t => t.split('.').pop()).join(' · ')}</td></tr>` : ''}
+          <tr><td>行止</td><td>${(h.conduct || []).join(' · ') || '无记录'}</td></tr>
+        </table>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleDetail(i) {
+  const el = document.getElementById('detail-' + i);
+  el.style.display = el.style.display === 'none' ? '' : 'none';
+}
+
+/* ═══════════════════ REGRESSION TESTS ═══════════════════ */
+async function runTests() {
+  const logEl = document.getElementById('test-log');
+  logEl.style.display = 'block';
+  logEl.innerHTML = '<div>运行回归测试...</div>';
+  const pref = P.du_jian;
+
+  const routes = {
+    '杜缄·守剑护人': ['d01.accept','d02.guard_xu','d03.stay','d03_treat.use_medicine','d04a.take_leaf','d05.take_all','d06_armor.stretcher','d06_medicine.aluo_treats','d07.guard','d08.confront','d09.guard','d10.aluo_first','d11a.fight','d11b.guard','d11c.break_sword','d12.protect'],
+    '杜缄·游剑留路': ['d01.inspect_seal','d02.chase_archer','d03.chase','d04b.save_attacker','d05.give_route','d06_armor.leave','d06_medicine.give_own','d07.roam','d08.draw_sword','d09.roam','d10.give_seal','d11a.fight','d11b.roam','d11_roam_cost.leave_sword','d11c.leave','d12.protect'],
+    '杜缄·守令': ['d01.accept','d02.show_seal','d03.stay','d03_treat.use_medicine','d04a.refuse_leaf','d05.force_aluo','d06_armor.wear','d06_medicine.leave','d07.skip','d08.obey','d12.leave'],
+    '杜缄·收押': ['d01.accept','d02.guard_xu','d03.stay','d03_treat.use_medicine','d04a.take_leaf','d05.take_all','d06_armor.stretcher','d06_medicine.aluo_treats','d07.guard','d08.promise','d09.seal','d10.surrender','d11_capture.confess','d12.wall'],
+    '杜缄·脱逃': ['d01.accept','d02.guard_xu','d03.stay','d03_treat.use_medicine','d04a.take_leaf','d05.take_all','d06_armor.stretcher','d06_medicine.aluo_treats','d07.guard','d08.promise','d09.seal','d10.surrender','d11_capture.escape','d12.protect'],
+  };
+  const expected = { '杜缄·守剑护人': 'protect', '杜缄·游剑留路': 'protect', '杜缄·守令': 'duty', '杜缄·收押': 'prison', '杜缄·脱逃': 'protect' };
+
+  const bundle = await loadBundle('du_jian');
+  let html = '';
+  for (const [name, path] of Object.entries(routes)) {
+    const rt = new Runtime(bundle);
+    try { for (const cid of path) rt.choose(pref + cid); }
+    catch(e) { html += `<div class="log-entry"><span style="color:var(--seal)">FAIL</span> ${name}: ${e.message}</div>`; continue; }
+    if (!rt.ending || !rt.ending.endsWith(expected[name])) { html += `<div class="log-entry"><span style="color:var(--seal)">FAIL</span> ${name}: ending=${rt.ending}</div>`; continue; }
+    html += `<div class="log-entry"><span>PASS</span> ${name.padEnd(14)} → ${expected[name]}</div>`;
+  }
+
+  // Ren Shuo tests
+  const rePref = P.ren_shuo;
+  const reBundle = await loadBundle('ren_shuo');
+  const reRoutes = {
+    '任朔·破阵突围': ['r01.accept','r02.copy_names','r03.show_token','r04.listen','r05.acquiesce','r06_armor.keep_light','r06_medicine.give_old','r07.breaker','r08.with_wei','r09a.fight','r09b.breaker','r09c.leave_chaos','r10.leave'],
+    '任朔·护军保人': ['r01.accept','r02.trace_sword','r03.help','r04.listen','r05.stop_quietly','r06_armor.distribute','r06_medicine.give_old','r07.protector','r08.civilians_first','r09a.demand_free','r09b.protector','r09c.break_saber','r10.protect'],
+    '任朔·军法受缚': ['r01.accept','r02.copy_names','r03.help','r04.listen','r05.acquiesce','r06_armor.wear_full','r06_medicine.give_old','r07.skip','r08.civilians_first','r09a.fight','r09b.armor_block','r09c.let_go','r10.prison'],
+  };
+  const reExpected = { '任朔·破阵突围': 'breakthrough', '任朔·护军保人': 'protect_ren', '任朔·军法受缚': 'prison_ren' };
+  for (const [name, path] of Object.entries(reRoutes)) {
+    const rt = new Runtime(reBundle);
+    try { for (const cid of path) rt.choose(rePref + cid); }
+    catch(e) { html += `<div class="log-entry"><span style="color:var(--seal)">FAIL</span> ${name}: ${e.message}</div>`; continue; }
+    if (!rt.ending || !rt.ending.endsWith(reExpected[name])) { html += `<div class="log-entry"><span style="color:var(--seal)">FAIL</span> ${name}: ending=${rt.ending}</div>`; continue; }
+    html += `<div class="log-entry"><span>PASS</span> ${name.padEnd(14)} → ${reExpected[name]}</div>`;
+  }
+  html += '<div>—— 全部完成 ——</div>';
+  logEl.innerHTML = html;
+}
+
+// Init
+updateContinueButton();
+</script>
+</body>
+</html>
