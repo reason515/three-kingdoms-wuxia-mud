@@ -1,6 +1,6 @@
 ---
 name: combat-and-progression-balancer
-description: Designs and balances narrative combat, run-based growth, abilities, scarce resources, difficulty, unlocks and anti-grind progression for the mobile-first, choice-driven Three Kingdoms wuxia text RPG. Use when tuning 武/谋/义/势, injuries, suspicion, time, favor, intelligence, martial specialties, 3–6 round combats, challenge modifiers, or permanent unlocks.
+description: Designs and balances narrative combat, run-based growth, abilities, scarce resources, difficulty, unlocks and anti-grind progression for the mobile-first, choice-driven Three Kingdoms wuxia text RPG. Use when tuning 武/谋/义/势, injuries, 风声/heat, time, favor, intelligence, martial specialties, 3–6 round combats, challenge modifiers, or permanent unlocks.
 ---
 
 # Combat and Progression Balancer
@@ -30,7 +30,7 @@ Do not automatically treat `义` as a universal morality score. Some scenarios s
 
 - `时间`: expiring events and opportunity cost;
 - `伤势`: physical limit and combat consequence;
-- `疑迹`: exposure and enemy alertness;
+- `风声`: outside attention and pursuit pressure, progressing through 平静、起疑、暴露、缉拿;
 - `人情`: limited relationship leverage;
 - `情报`: claims with source, confidence and possible contradiction.
 

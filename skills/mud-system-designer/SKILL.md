@@ -46,7 +46,7 @@ Use a small set unless the scenario proves it needs more:
 
 - `time`: expiring opportunities and mutually exclusive objectives;
 - `injury`: limits forceful actions and affects later combat;
-- `suspicion`: identity exposure and enemy alertness;
+- `heat`（风声）: outside attention and pursuit pressure, progressing through 平静、起疑、暴露、缉拿;
 - `favor`: limited ability to call on relationships;
 - `intel`: known claims, sources, confidence and possible contradictions;
 - `relationships`: trust, debt, fear and allegiance;

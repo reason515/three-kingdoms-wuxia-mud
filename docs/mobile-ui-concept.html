@@ -305,7 +305,7 @@
           <div class="stat"><span>人物</span><b>杜缄</b></div>
           <div class="stat"><span>伤势</span><b id="injuryValue" class="danger">轻伤</b></div>
           <div class="stat"><span>内息</span><b id="breathValue" class="good">二 / 三</b></div>
-          <div class="stat"><span>疑迹</span><b id="traceValue">一</b></div>
+          <div class="stat"><span>风声</span><b id="traceValue">起疑</b></div>
         </div>
 
         <article class="story">
@@ -337,7 +337,7 @@
           </button>
           <button class="action" type="button" data-action="token">
             <span class="action-title">亮出师门剑印</span><span class="action-tag">信物</span>
-            <span class="action-cost">可能换来片刻迟疑 · 疑迹上升</span>
+            <span class="action-cost">可能换来片刻迟疑 · 风声将转为暴露</span>
           </button>
           <button class="action locked" type="button" disabled>
             <span class="action-title">踏墙绕至屋脊之后</span><span class="action-tag">未习得</span>
@@ -397,8 +397,8 @@
       } else {
         resultTitle.textContent = '信物 · 同门相认';
         resultText.textContent = '剑印在暮光中一闪。屋脊上的人果然停了半步，却也有人低声报出了你的名字。你换来了一句话的时间，也把自己与王允府的关系摆到了所有人眼前。';
-        resultDelta.textContent = '疑迹 +1　赵衡关系变化　获得一次交谈机会';
-        traceValue.textContent = '二';
+        resultDelta.textContent = '风声：起疑 → 暴露　赵衡关系变化　获得一次交谈机会';
+        traceValue.textContent = '暴露';
         traceValue.className = 'danger';
       }
       setTimeout(() => { sceneScroll.scrollTo({ top: sceneScroll.scrollHeight, behavior: 'smooth' }); }, 30);
@@ -409,7 +409,7 @@
     document.querySelectorAll('.action[data-action]').forEach(b => b.disabled = false);
     resultCard.classList.remove('show');
     breathValue.textContent = '二 / 三';
-    traceValue.textContent = '一';
+    traceValue.textContent = '起疑';
     traceValue.className = '';
     injuryValue.textContent = '轻伤';
     insightText.textContent = '领悟二次，再经一战可成招';
@@ -419,7 +419,7 @@
   const drawerData = {
     '人物': `<div class="drawer-grid"><div class="drawer-item"><strong>杜缄</strong><small>王允府外围门客</small><br>武二 · 谋二 · 义未定</div><div class="drawer-item"><strong>当前牵挂</strong><small>阿萝 · 养母 · 赵衡</small><br>受托与护人不可兼得</div></div>`,
     '武学': `<div class="drawer-grid"><div class="drawer-item"><strong>短剑根基</strong><small>已掌握</small><br>适合巷战、格挡与近身制敌</div><div class="drawer-item"><strong>守剑</strong><small>领悟二 / 三</small><br>再以护人之势经一战可成招</div><div class="drawer-item"><strong>游剑</strong><small>未入门</small><br>需要《折锋六势》另一页</div><div class="drawer-item"><strong>基础吐纳</strong><small>内息二 / 三</small><br>可支撑一次进阶行动</div></div>`,
-    '行囊': `<div class="drawer-grid"><div class="drawer-item"><strong>师门短剑</strong><small>兵器</small><br>隐蔽 · 巷战 / 不利破甲</div><div class="drawer-item"><strong>百姓夹衣</strong><small>衣甲</small><br>疑迹降低 / 几乎无防护</div><div class="drawer-item"><strong>师门剑印</strong><small>信物</small><br>可证同门 / 暴露身份</div><div class="drawer-item"><strong>止血散</strong><small>消耗品 · 一份</small><br>自己与伤者只能救治一人</div></div>`,
+    '行囊': `<div class="drawer-grid"><div class="drawer-item"><strong>师门短剑</strong><small>兵器</small><br>隐蔽 · 巷战 / 不利破甲</div><div class="drawer-item"><strong>百姓夹衣</strong><small>衣甲</small><br>缓和风声 / 几乎无防护</div><div class="drawer-item"><strong>师门剑印</strong><small>信物</small><br>可证同门 / 暴露身份</div><div class="drawer-item"><strong>止血散</strong><small>消耗品 · 一份</small><br>自己与伤者只能救治一人</div></div>`,
     '史卷': `<div class="drawer-item"><strong>此卷所知</strong><small>清籍簿 · 未确认</small><br>阿萝记得原始分类，但赵衡正在追捕她。</div><div class="drawer-item" style="margin-top:8px"><strong>他人痕迹</strong><small>并州旧箭簇</small><br>上一周目的任朔可能曾经过这条巷子。</div>`
   };
   const drawer = document.getElementById('drawer');
