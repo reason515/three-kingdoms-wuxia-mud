@@ -52,12 +52,17 @@ EFFECT_OPS = {
     "addConduct",
     "removeConduct",
     "changeRelationship",
+    "setRelationship",
     "addRelationshipTag",
     "removeRelationshipTag",
     "setCharacterFate",
     "transferItem",
     "setItemState",
+    "equipItem",
+    "unequipItem",
     "consumeItem",
+    "confiscateVisibleItems",
+    "loseItemsByState",
     "learnTechnique",
     "addInsight",
     "addKnowledge",
@@ -401,6 +406,13 @@ class Validation:
                     self.check_id(state, f"{where}.states[{state_index}]")
                     if allowed_states and state not in allowed_states:
                         self.error(f"{where}.states[{state_index}]", f"状态不适用于该物品：{state}")
+            if "holderId" in condition:
+                holder = condition.get("holderId")
+                self.check_id(holder, f"{where}.holderId")
+                if holder not in self.ids["characters"] | self.ids["locations"]:
+                    self.error(f"{where}.holderId", f"未知持有者：{holder}")
+            if "equipped" in condition and not isinstance(condition.get("equipped"), bool):
+                self.error(f"{where}.equipped", "必须是布尔值")
         elif op == "relationship":
             self.reference(condition.get("characterId"), "characters", f"{where}.characterId")
             attitude = condition.get("attitude")
@@ -442,10 +454,16 @@ class Validation:
                 self.error(f"{where}.{field}", "必须是整数")
             if op == "spendResource" and isinstance(value, int) and value <= 0:
                 self.error(f"{where}.amount", "支付量必须大于 0")
+            for clamp in ("min", "max"):
+                if clamp in effect and not isinstance(effect.get(clamp), int):
+                    self.error(f"{where}.{clamp}", "必须是整数")
         elif op in {"changeInjury", "setInjury", "setHeat"}:
             field = "delta" if op == "changeInjury" else "value"
             if not isinstance(effect.get(field), int):
                 self.error(f"{where}.{field}", "必须是整数")
+            for clamp in ("minimum", "maximum"):
+                if clamp in effect and not isinstance(effect.get(clamp), int):
+                    self.error(f"{where}.{clamp}", "必须是整数")
         elif op == "setLife" and effect.get("value") not in LIFE_STATES:
             self.error(f"{where}.value", "非法生死状态")
         elif op == "setFreedom" and effect.get("value") not in FREEDOM_STATES:
@@ -453,15 +471,17 @@ class Validation:
         elif op in {"addFlag", "removeFlag", "addConduct", "removeConduct"}:
             key = "flag" if op.endswith("Flag") else "conduct"
             self.check_id(effect.get(key), f"{where}.{key}")
-        elif op in {"changeRelationship", "addRelationshipTag", "removeRelationshipTag", "setCharacterFate"}:
+        elif op in {"changeRelationship", "setRelationship", "addRelationshipTag", "removeRelationshipTag", "setCharacterFate"}:
             self.reference(effect.get("characterId"), "characters", f"{where}.characterId")
             if op == "changeRelationship" and not isinstance(effect.get("delta"), int):
                 self.error(f"{where}.delta", "必须是整数")
+            if op == "setRelationship" and (not isinstance(effect.get("value"), int) or not -2 <= effect.get("value", 99) <= 2):
+                self.error(f"{where}.value", "必须是 -2～2 的整数")
             if op in {"addRelationshipTag", "removeRelationshipTag"}:
                 self.check_id(effect.get("tag"), f"{where}.tag")
             if op == "setCharacterFate":
                 self.check_id(effect.get("fate"), f"{where}.fate")
-        elif op in {"transferItem", "setItemState", "consumeItem"}:
+        elif op in {"transferItem", "setItemState", "equipItem", "unequipItem", "consumeItem"}:
             self.reference(effect.get("itemInstanceId"), "itemInstances", f"{where}.itemInstanceId")
             if op == "transferItem":
                 holder = effect.get("holderId")
@@ -479,6 +499,10 @@ class Validation:
                     self.error(f"{where}.state", f"状态不适用于该物品：{state}")
             if op == "consumeItem" and (not isinstance(effect.get("amount"), int) or effect.get("amount", 0) <= 0):
                 self.error(f"{where}.amount", "消耗量必须是正整数")
+        elif op == "confiscateVisibleItems":
+            self.reference(effect.get("holderId"), "characters", f"{where}.holderId")
+        elif op == "loseItemsByState":
+            self.check_id(effect.get("state"), f"{where}.state")
         elif op == "learnTechnique":
             self.reference(effect.get("techniqueId"), "techniques", f"{where}.techniqueId")
         elif op == "addInsight":

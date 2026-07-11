@@ -274,8 +274,8 @@
           "enum": [
             "spendResource", "changeResource", "setResource", "changeInjury", "setInjury", "setHeat",
             "setLife", "setFreedom", "addFlag", "removeFlag", "addConduct", "removeConduct",
-            "changeRelationship", "addRelationshipTag", "removeRelationshipTag", "setCharacterFate",
-            "transferItem", "setItemState", "consumeItem", "learnTechnique", "addInsight", "addKnowledge",
+            "changeRelationship", "setRelationship", "addRelationshipTag", "removeRelationshipTag", "setCharacterFate",
+            "transferItem", "setItemState", "equipItem", "unequipItem", "consumeItem", "confiscateVisibleItems", "loseItemsByState", "learnTechnique", "addInsight", "addKnowledge",
             "scheduleEvent", "cancelEvent", "emitFeedback"
           ]
         }
