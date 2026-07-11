@@ -1,0 +1,3469 @@
+{
+  "$schema": "../../../schemas/content-bundle.schema.json",
+  "schemaVersion": "0.1.0",
+  "contentVersion": "0.1.0",
+  "bundleId": "changan.renshuo",
+  "locale": "zh-CN",
+  "scenario": {
+    "id": "scenario.changan.renshuo",
+    "titleKey": "scenario.changan.renshuo.title",
+    "entryEventId": "event.changan.renshuo.r01",
+    "stages": [
+      "stage.changan.departure",
+      "stage.changan.search",
+      "stage.changan.escort",
+      "stage.changan.confrontation",
+      "stage.changan.commitment",
+      "stage.changan.equipment",
+      "stage.changan.growth",
+      "stage.changan.gate",
+      "stage.changan.final",
+      "stage.changan.aftermath"
+    ],
+    "historicalAnchors": [
+      {
+        "id": "anchor.changan.fall",
+        "stage": "stage.changan.aftermath",
+        "immutable": true
+      }
+    ]
+  },
+  "initialState": {
+    "playerCharacterId": "character.ren_shuo",
+    "abilities": {
+      "martial": 2,
+      "strategy": 1,
+      "influence": 1
+    },
+    "resources": {
+      "breath": 2,
+      "time": 3,
+      "favor": 1
+    },
+    "injury": 1,
+    "heat": 1,
+    "life": "alive",
+    "freedom": "free",
+    "conduct": [],
+    "flags": [],
+    "knowledge": [],
+    "insights": {
+      "breaker": 0,
+      "protector": 0
+    },
+    "relationships": [
+      {
+        "characterId": "character.wei_shi",
+        "attitude": 1,
+        "tags": [
+          "relation.comrade",
+          "relation.saved_life"
+        ]
+      },
+      {
+        "characterId": "character.camp_officer",
+        "attitude": -1,
+        "tags": []
+      },
+      {
+        "characterId": "character.aluo",
+        "attitude": 0,
+        "tags": []
+      }
+    ]
+  },
+  "characters": [
+    {
+      "id": "character.ren_shuo",
+      "nameKey": "character.ren_shuo.name",
+      "factionIds": [
+        "faction.bingzhou_army"
+      ],
+      "tags": [
+        "role.player",
+        "role.scout"
+      ],
+      "defaultFate": "fate.active"
+    },
+    {
+      "id": "character.wei_shi",
+      "nameKey": "character.wei_shi.name",
+      "factionIds": [
+        "faction.bingzhou_army"
+      ],
+      "tags": [
+        "role.swordsman",
+        "role.comrade"
+      ],
+      "defaultFate": "fate.active"
+    },
+    {
+      "id": "character.aluo",
+      "nameKey": "character.aluo.name",
+      "factionIds": [
+        "faction.civilians"
+      ],
+      "tags": [
+        "role.healer"
+      ],
+      "defaultFate": "fate.unmet"
+    },
+    {
+      "id": "character.civilians",
+      "nameKey": "character.civilians.name",
+      "factionIds": [
+        "faction.civilians"
+      ],
+      "tags": [
+        "role.group"
+      ],
+      "defaultFate": "fate.unmet"
+    },
+    {
+      "id": "character.elder_veteran",
+      "nameKey": "character.elder_veteran.name",
+      "factionIds": [
+        "faction.bingzhou_army"
+      ],
+      "tags": [
+        "role.retired",
+        "role.instructor"
+      ],
+      "defaultFate": "fate.critical"
+    },
+    {
+      "id": "character.attacker",
+      "nameKey": "character.attacker.name",
+      "factionIds": [
+        "faction.dong_zhuo_remnant"
+      ],
+      "tags": [
+        "role.hostile"
+      ],
+      "defaultFate": "fate.active"
+    },
+    {
+      "id": "character.zhao_heng",
+      "nameKey": "character.zhao_heng.name",
+      "factionIds": [
+        "faction.wang_yun_house"
+      ],
+      "tags": [
+        "role.swordsman"
+      ],
+      "defaultFate": "fate.active"
+    },
+    {
+      "id": "character.future_successor",
+      "nameKey": "character.future_successor.name",
+      "factionIds": [
+        "faction.jianghu"
+      ],
+      "tags": [
+        "role.successor"
+      ],
+      "defaultFate": "fate.future"
+    },
+    {
+      "id": "character.camp_officer",
+      "nameKey": "character.camp_officer.name",
+      "factionIds": [
+        "faction.bingzhou_army"
+      ],
+      "tags": [
+        "role.officer"
+      ],
+      "defaultFate": "fate.active"
+    },
+    {
+      "id": "character.du_jian",
+      "nameKey": "character.du_jian.name",
+      "factionIds": [
+        "faction.wang_yun_house"
+      ],
+      "tags": [
+        "role.swordsman"
+      ],
+      "defaultFate": "fate.active"
+    }
+  ],
+  "locations": [
+    {
+      "id": "location.changan.bingzhou_camp",
+      "nameKey": "location.changan.bingzhou_camp.name",
+      "tags": [
+        "environment.military"
+      ]
+    },
+    {
+      "id": "location.changan.west_market_ruins",
+      "nameKey": "location.changan.west_market_ruins.name",
+      "tags": [
+        "environment.ruins"
+      ]
+    },
+    {
+      "id": "location.changan.military_family_lane",
+      "nameKey": "location.changan.military_family_lane.name",
+      "tags": [
+        "environment.courtyard"
+      ]
+    },
+    {
+      "id": "location.changan.backyard",
+      "nameKey": "location.changan.backyard.name",
+      "tags": [
+        "environment.courtyard"
+      ]
+    },
+    {
+      "id": "location.changan.near_camp_path",
+      "nameKey": "location.changan.near_camp_path.name",
+      "tags": [
+        "environment.alley"
+      ]
+    },
+    {
+      "id": "location.changan.ruined_temple",
+      "nameKey": "location.changan.ruined_temple.name",
+      "tags": [
+        "environment.temple"
+      ]
+    },
+    {
+      "id": "location.changan.west_gate",
+      "nameKey": "location.changan.west_gate.name",
+      "tags": [
+        "environment.gate"
+      ]
+    },
+    {
+      "id": "location.changan.gate_hill",
+      "nameKey": "location.changan.gate_hill.name",
+      "tags": [
+        "environment.open_ground"
+      ]
+    },
+    {
+      "id": "location.changan.aftermath",
+      "nameKey": "location.changan.aftermath.name",
+      "tags": [
+        "environment.aftermath"
+      ]
+    }
+  ],
+  "itemDefinitions": [
+    {
+      "id": "item.ren_shuo.saber",
+      "nameKey": "item.ren_shuo.saber.name",
+      "slot": "weapon",
+      "tags": [
+        "item.visible"
+      ],
+      "allowedStates": [
+        "state.intact",
+        "state.damaged",
+        "state.destroyed",
+        "state.confiscated",
+        "state.lost",
+        "state.given"
+      ]
+    },
+    {
+      "id": "item.ren_shuo.damaged_armor",
+      "nameKey": "item.ren_shuo.damaged_armor.name",
+      "slot": "armor",
+      "tags": [
+        "item.visible"
+      ],
+      "allowedStates": [
+        "state.intact",
+        "state.damaged",
+        "state.destroyed",
+        "state.lost",
+        "state.given"
+      ]
+    },
+    {
+      "id": "item.ren_shuo.full_armor",
+      "nameKey": "item.ren_shuo.full_armor.name",
+      "slot": "armor",
+      "tags": [
+        "item.visible"
+      ],
+      "allowedStates": [
+        "state.intact",
+        "state.damaged",
+        "state.destroyed",
+        "state.lost",
+        "state.given"
+      ]
+    },
+    {
+      "id": "item.ren_shuo.common_clothes",
+      "nameKey": "item.ren_shuo.common_clothes.name",
+      "slot": "armor",
+      "tags": [
+        "item.visible"
+      ],
+      "allowedStates": [
+        "state.intact",
+        "state.given",
+        "state.lost"
+      ]
+    },
+    {
+      "id": "item.ren_shuo.arrowhead",
+      "nameKey": "item.ren_shuo.arrowhead.name",
+      "slot": "token",
+      "tags": [
+        "item.visible"
+      ],
+      "allowedStates": [
+        "state.intact",
+        "state.given",
+        "state.confiscated",
+        "state.lost"
+      ]
+    },
+    {
+      "id": "item.ren_shuo.medicine",
+      "nameKey": "item.ren_shuo.medicine.name",
+      "slot": "consumable",
+      "tags": [
+        "item.visible"
+      ],
+      "allowedStates": [
+        "state.intact",
+        "state.used",
+        "state.lost"
+      ]
+    },
+    {
+      "id": "item.ren_shuo.camp_token",
+      "nameKey": "item.ren_shuo.camp_token.name",
+      "slot": "token",
+      "tags": [
+        "item.visible"
+      ],
+      "allowedStates": [
+        "state.intact",
+        "state.given",
+        "state.confiscated",
+        "state.lost"
+      ]
+    },
+    {
+      "id": "item.ren_shuo.manual",
+      "nameKey": "item.ren_shuo.manual.name",
+      "slot": "story",
+      "tags": [
+        "item.visible",
+        "item.manual"
+      ],
+      "allowedStates": [
+        "state.intact",
+        "state.given",
+        "state.lost"
+      ]
+    }
+  ],
+  "itemInstances": [
+    {
+      "id": "item_instance.ren_shuo.saber",
+      "definitionId": "item.ren_shuo.saber",
+      "holderId": "character.ren_shuo",
+      "state": "state.intact",
+      "equipped": true,
+      "quantity": 1
+    },
+    {
+      "id": "item_instance.ren_shuo.damaged_armor",
+      "definitionId": "item.ren_shuo.damaged_armor",
+      "holderId": "character.ren_shuo",
+      "state": "state.intact",
+      "equipped": true,
+      "quantity": 1
+    },
+    {
+      "id": "item_instance.ren_shuo.full_armor",
+      "definitionId": "item.ren_shuo.full_armor",
+      "holderId": "location.changan.military_family_lane",
+      "state": "state.intact",
+      "equipped": false,
+      "quantity": 1
+    },
+    {
+      "id": "item_instance.ren_shuo.common_clothes",
+      "definitionId": "item.ren_shuo.common_clothes",
+      "holderId": "character.ren_shuo",
+      "state": "state.intact",
+      "equipped": false,
+      "quantity": 1
+    },
+    {
+      "id": "item_instance.ren_shuo.arrowhead",
+      "definitionId": "item.ren_shuo.arrowhead",
+      "holderId": "character.ren_shuo",
+      "state": "state.intact",
+      "equipped": true,
+      "quantity": 1
+    },
+    {
+      "id": "item_instance.ren_shuo.medicine",
+      "definitionId": "item.ren_shuo.medicine",
+      "holderId": "character.ren_shuo",
+      "state": "state.intact",
+      "equipped": false,
+      "quantity": 1
+    },
+    {
+      "id": "item_instance.ren_shuo.camp_token",
+      "definitionId": "item.ren_shuo.camp_token",
+      "holderId": "character.ren_shuo",
+      "state": "state.intact",
+      "equipped": false,
+      "quantity": 1
+    },
+    {
+      "id": "item_instance.ren_shuo.manual",
+      "definitionId": "item.ren_shuo.manual",
+      "holderId": "location.changan.ruined_temple",
+      "state": "state.intact",
+      "equipped": false,
+      "quantity": 1
+    }
+  ],
+  "techniques": [
+    {
+      "id": "technique.ren_shuo.breaker.break_siege",
+      "nameKey": "technique.ren_shuo.breaker.break_siege.name",
+      "route": "route.breaker",
+      "tier": 1,
+      "requiredEnvironmentTags": [],
+      "exclusiveGroup": "exclusive.ren_shuo.primary_route"
+    },
+    {
+      "id": "technique.ren_shuo.protector.return_guard",
+      "nameKey": "technique.ren_shuo.protector.return_guard.name",
+      "route": "route.protector",
+      "tier": 1,
+      "requiredEnvironmentTags": [],
+      "exclusiveGroup": "exclusive.ren_shuo.primary_route"
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim.wei.trail_fuller",
+      "subjectId": "character.wei_shi",
+      "statementKey": "claim.wei.trail_fuller.statement",
+      "defaultConfidence": "sourced",
+      "contradicts": []
+    },
+    {
+      "id": "claim.camp.fake_order",
+      "subjectId": "character.ren_shuo",
+      "statementKey": "claim.camp.fake_order.statement",
+      "defaultConfidence": "witnessed",
+      "contradicts": []
+    },
+    {
+      "id": "claim.wei.route",
+      "subjectId": "character.wei_shi",
+      "statementKey": "claim.wei.route.statement",
+      "defaultConfidence": "sourced",
+      "contradicts": []
+    },
+    {
+      "id": "claim.zhao.left_shoulder",
+      "subjectId": "character.zhao_heng",
+      "statementKey": "claim.zhao.left_shoulder.statement",
+      "defaultConfidence": "witnessed",
+      "contradicts": []
+    },
+    {
+      "id": "claim.civilians.names",
+      "subjectId": "character.attacker",
+      "statementKey": "claim.civilians.names.statement",
+      "defaultConfidence": "sourced",
+      "contradicts": []
+    },
+    {
+      "id": "claim.aluo.has_leaf",
+      "subjectId": "character.aluo",
+      "statementKey": "claim.aluo.has_leaf.statement",
+      "defaultConfidence": "sourced",
+      "contradicts": []
+    },
+    {
+      "id": "claim.wei.direction",
+      "subjectId": "character.aluo",
+      "statementKey": "claim.wei.direction.statement",
+      "defaultConfidence": "sourced",
+      "contradicts": []
+    },
+    {
+      "id": "claim.breathing_fragment.location",
+      "subjectId": "character.aluo",
+      "statementKey": "claim.breathing_fragment.location.statement",
+      "defaultConfidence": "sourced",
+      "contradicts": []
+    },
+    {
+      "id": "claim.wei.full_plan",
+      "subjectId": "character.wei_shi",
+      "statementKey": "claim.wei.full_plan.statement",
+      "defaultConfidence": "sourced",
+      "contradicts": []
+    },
+    {
+      "id": "claim.civilians.full_names",
+      "subjectId": "character.aluo",
+      "statementKey": "claim.civilians.full_names.statement",
+      "defaultConfidence": "sourced",
+      "contradicts": []
+    },
+    {
+      "id": "claim.wei.horse_location",
+      "subjectId": "character.ren_shuo",
+      "statementKey": "claim.wei.horse_location.statement",
+      "defaultConfidence": "witnessed",
+      "contradicts": []
+    },
+    {
+      "id": "claim.retreat.record",
+      "subjectId": "character.elder_veteran",
+      "statementKey": "claim.retreat.record.statement",
+      "defaultConfidence": "witnessed",
+      "contradicts": []
+    }
+  ],
+  "events": [
+    {
+      "id": "event.changan.renshuo.r01",
+      "kind": "choice",
+      "stage": "stage.changan.departure",
+      "locationId": "location.changan.bingzhou_camp",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r01.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.camp_officer"
+      ],
+      "environmentTags": [
+        "environment.military",
+        "environment.tent"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r01.accept",
+          "labelKey": "choice.changan.renshuo.r01.accept.label",
+          "intentKey": "choice.changan.renshuo.r01.accept.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r02"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r01.report",
+          "labelKey": "choice.changan.renshuo.r01.report.label",
+          "intentKey": "choice.changan.renshuo.r01.report.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "time",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.camp_officer",
+                  "delta": 1,
+                  "max": 2
+                },
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.wei.trail_fuller",
+                  "sourceId": "character.ren_shuo",
+                  "confidence": "sourced"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r02"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r01.peek_order",
+          "labelKey": "choice.changan.renshuo.r01.peek_order.label",
+          "intentKey": "choice.changan.renshuo.r01.peek_order.intent",
+          "risk": "none",
+          "availability": {
+            "op": "compare",
+            "path": "abilities.strategy",
+            "cmp": "gte",
+            "value": 1
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.camp.fake_order",
+                  "sourceId": "character.ren_shuo",
+                  "confidence": "witnessed"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r02"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r01.warn",
+          "labelKey": "choice.changan.renshuo.r01.warn.label",
+          "intentKey": "choice.changan.renshuo.r01.warn.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "favor",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "fate.civilians_warned"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r02"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r02",
+      "kind": "combat",
+      "stage": "stage.changan.search",
+      "locationId": "location.changan.west_market_ruins",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r02.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.attacker"
+      ],
+      "environmentTags": [
+        "environment.ruins",
+        "environment.footprints",
+        "environment.burned_warehouse"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r02.interrogate",
+          "labelKey": "choice.changan.renshuo.r02.interrogate.label",
+          "intentKey": "choice.changan.renshuo.r02.interrogate.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "hasFlag",
+            "flag": "crossrun.attacker_saved"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.wei.route",
+                  "sourceId": "character.attacker",
+                  "confidence": "sourced"
+                },
+                {
+                  "op": "addInsight",
+                  "route": "breaker",
+                  "amount": 1
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r03"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r02.trace_sword",
+          "labelKey": "choice.changan.renshuo.r02.trace_sword.label",
+          "intentKey": "choice.changan.renshuo.r02.trace_sword.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "time",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addInsight",
+                  "route": "protector",
+                  "amount": 1
+                },
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.zhao.left_shoulder",
+                  "sourceId": "character.ren_shuo",
+                  "confidence": "witnessed"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "zhao_shoulder_found"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r03"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r02.copy_names",
+          "labelKey": "choice.changan.renshuo.r02.copy_names.label",
+          "intentKey": "choice.changan.renshuo.r02.copy_names.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "compare",
+                "path": "abilities.strategy",
+                "cmp": "gte",
+                "value": 1
+              },
+              {
+                "op": "hasItem",
+                "itemInstanceId": "item_instance.ren_shuo.camp_token",
+                "states": [
+                  "state.intact"
+                ],
+                "holderId": "character.ren_shuo"
+              }
+            ]
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "time",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.civilians.names",
+                  "sourceId": "character.attacker",
+                  "confidence": "sourced"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r03"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r02.scavenge",
+          "labelKey": "choice.changan.renshuo.r02.scavenge.label",
+          "intentKey": "choice.changan.renshuo.r02.scavenge.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "hasFlag",
+            "flag": "crossrun.armor_left"
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "time",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "transferItem",
+                  "itemInstanceId": "item_instance.ren_shuo.full_armor",
+                  "holderId": "character.ren_shuo"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "scavenged_armor"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r03"
+              },
+              "when": {
+                "op": "hasFlag",
+                "flag": "crossrun.armor_left"
+              }
+            },
+            {
+              "effects": [
+                {
+                  "op": "transferItem",
+                  "itemInstanceId": "item_instance.ren_shuo.medicine",
+                  "holderId": "character.ren_shuo"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r03"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r03",
+      "kind": "choice",
+      "stage": "stage.changan.escort",
+      "locationId": "location.changan.military_family_lane",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r03.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.aluo",
+        "character.elder_veteran",
+        "character.civilians"
+      ],
+      "environmentTags": [
+        "environment.courtyard",
+        "environment.medical",
+        "environment.children"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r03.show_token",
+          "labelKey": "choice.changan.renshuo.r03.show_token.label",
+          "intentKey": "choice.changan.renshuo.r03.show_token.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "hasItem",
+            "itemInstanceId": "item_instance.ren_shuo.camp_token",
+            "states": [
+              "state.intact"
+            ],
+            "holderId": "character.ren_shuo"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.camp_officer",
+                  "delta": 1,
+                  "max": 2
+                },
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.aluo",
+                  "delta": 0
+                },
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.aluo.has_leaf",
+                  "sourceId": "character.aluo",
+                  "confidence": "sourced"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r04"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r03.help",
+          "labelKey": "choice.changan.renshuo.r03.help.label",
+          "intentKey": "choice.changan.renshuo.r03.help.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "time",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.aluo",
+                  "delta": 1,
+                  "max": 2
+                },
+                {
+                  "op": "addInsight",
+                  "route": "protector",
+                  "amount": 1
+                },
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.wei.direction",
+                  "sourceId": "character.aluo",
+                  "confidence": "sourced"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.aluo",
+                  "fate": "fate.accompanying"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r04"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r03.give_medicine",
+          "labelKey": "choice.changan.renshuo.r03.give_medicine.label",
+          "intentKey": "choice.changan.renshuo.r03.give_medicine.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "hasItem",
+            "itemInstanceId": "item_instance.ren_shuo.medicine",
+            "states": [
+              "state.intact"
+            ],
+            "holderId": "character.ren_shuo"
+          },
+          "costs": [
+            {
+              "op": "consumeItem",
+              "itemInstanceId": "item_instance.ren_shuo.medicine",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setItemState",
+                  "itemInstanceId": "item_instance.ren_shuo.medicine",
+                  "state": "state.used"
+                },
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.aluo",
+                  "delta": 2,
+                  "max": 2
+                },
+                {
+                  "op": "addInsight",
+                  "route": "protector",
+                  "amount": 1
+                },
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.breathing_fragment.location",
+                  "sourceId": "character.aluo",
+                  "confidence": "sourced"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.elder_veteran",
+                  "fate": "fate.safe"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.aluo",
+                  "fate": "fate.accompanying"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r04"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r03.force_testimony",
+          "labelKey": "choice.changan.renshuo.r03.force_testimony.label",
+          "intentKey": "choice.changan.renshuo.r03.force_testimony.intent",
+          "risk": "high",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.aluo",
+                  "delta": -2,
+                  "min": -2
+                },
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.civilians.full_names",
+                  "sourceId": "character.aluo",
+                  "confidence": "sourced"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "wei.knows_disobedience"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.aluo",
+                  "fate": "fate.accompanying"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r04"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r04",
+      "kind": "choice",
+      "stage": "stage.changan.confrontation",
+      "locationId": "location.changan.backyard",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r04.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.wei_shi"
+      ],
+      "environmentTags": [
+        "environment.courtyard",
+        "environment.horse_saddle"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r04.listen",
+          "labelKey": "choice.changan.renshuo.r04.listen.label",
+          "intentKey": "choice.changan.renshuo.r04.listen.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.wei.full_plan",
+                  "sourceId": "character.wei_shi",
+                  "confidence": "sourced"
+                },
+                {
+                  "op": "addInsight",
+                  "route": "breaker",
+                  "amount": 1
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r05"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r04.draw_saber",
+          "labelKey": "choice.changan.renshuo.r04.draw_saber.label",
+          "intentKey": "choice.changan.renshuo.r04.draw_saber.intent",
+          "risk": "high",
+          "availability": {
+            "op": "hasItem",
+            "itemInstanceId": "item_instance.ren_shuo.saber",
+            "states": [
+              "state.intact"
+            ],
+            "holderId": "character.ren_shuo"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setHeat",
+                  "value": 2
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.wei_shi",
+                  "fate": "fate.wounded"
+                },
+                {
+                  "op": "addInsight",
+                  "route": "protector",
+                  "amount": 1
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r05"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r04.fake_join",
+          "labelKey": "choice.changan.renshuo.r04.fake_join.label",
+          "intentKey": "choice.changan.renshuo.r04.fake_join.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "compare",
+            "path": "abilities.strategy",
+            "cmp": "gte",
+            "value": 1
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "wei.feint_join"
+                },
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.wei.horse_location",
+                  "sourceId": "character.wei_shi",
+                  "confidence": "witnessed"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r05"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r04.appeal_old_bond",
+          "labelKey": "choice.changan.renshuo.r04.appeal_old_bond.label",
+          "intentKey": "choice.changan.renshuo.r04.appeal_old_bond.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "hasItem",
+            "itemInstanceId": "item_instance.ren_shuo.arrowhead",
+            "states": [
+              "state.intact"
+            ],
+            "holderId": "character.ren_shuo"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.wei_shi",
+                  "delta": 0
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "wei.hesitated"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r05"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r05",
+      "kind": "choice",
+      "stage": "stage.changan.commitment",
+      "locationId": "location.changan.near_camp_path",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r05.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.wei_shi",
+        "character.aluo",
+        "character.civilians"
+      ],
+      "environmentTags": [
+        "environment.alley",
+        "environment.horses",
+        "environment.loot"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r05.report",
+          "labelKey": "choice.changan.renshuo.r05.report.label",
+          "intentKey": "choice.changan.renshuo.r05.report.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "relationship",
+            "characterId": "character.camp_officer",
+            "attitude": {
+              "gte": -1
+            }
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.wei_shi",
+                  "fate": "fate.captured"
+                },
+                {
+                  "op": "addInsight",
+                  "route": "breaker",
+                  "amount": 1
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "wei.reported"
+                },
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.camp_officer",
+                  "delta": 1,
+                  "max": 2
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.civilians",
+                  "fate": "fate.accompanying"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r06_armor"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r05.stop_quietly",
+          "labelKey": "choice.changan.renshuo.r05.stop_quietly.label",
+          "intentKey": "choice.changan.renshuo.r05.stop_quietly.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "knows",
+            "claimId": "claim.wei.full_plan"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "wei.stopped"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.wei_shi",
+                  "fate": "fate.missing"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.civilians",
+                  "fate": "fate.safe"
+                },
+                {
+                  "op": "addInsight",
+                  "route": "protector",
+                  "amount": 1
+                },
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.camp_officer",
+                  "delta": -1,
+                  "min": -2
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r06_armor"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r05.acquiesce",
+          "labelKey": "choice.changan.renshuo.r05.acquiesce.label",
+          "intentKey": "choice.changan.renshuo.r05.acquiesce.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "wei.acquiesced"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.civilians",
+                  "fate": "fate.safe"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "order.abandoned"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r06_armor"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r05.fight_here",
+          "labelKey": "choice.changan.renshuo.r05.fight_here.label",
+          "intentKey": "choice.changan.renshuo.r05.fight_here.intent",
+          "risk": "lethal",
+          "availability": {
+            "op": "hasItem",
+            "itemInstanceId": "item_instance.ren_shuo.saber",
+            "states": [
+              "state.intact"
+            ],
+            "holderId": "character.ren_shuo"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setHeat",
+                  "value": 2
+                },
+                {
+                  "op": "changeInjury",
+                  "delta": 1,
+                  "maximum": 4
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.wei_shi",
+                  "fate": "fate.fled"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.civilians",
+                  "fate": "fate.accompanying"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r06_armor"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r06_armor",
+      "kind": "choice",
+      "stage": "stage.changan.equipment",
+      "locationId": "location.changan.backyard",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r06_armor.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.aluo",
+        "character.civilians"
+      ],
+      "environmentTags": [
+        "environment.courtyard",
+        "environment.salvage"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r06_armor.wear_full",
+          "labelKey": "choice.changan.renshuo.r06_armor.wear_full.label",
+          "intentKey": "choice.changan.renshuo.r06_armor.wear_full.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "unequipItem",
+                  "itemInstanceId": "item_instance.ren_shuo.damaged_armor"
+                },
+                {
+                  "op": "transferItem",
+                  "itemInstanceId": "item_instance.ren_shuo.damaged_armor",
+                  "holderId": "character.civilians"
+                },
+                {
+                  "op": "transferItem",
+                  "itemInstanceId": "item_instance.ren_shuo.full_armor",
+                  "holderId": "character.ren_shuo"
+                },
+                {
+                  "op": "equipItem",
+                  "itemInstanceId": "item_instance.ren_shuo.full_armor"
+                },
+                {
+                  "op": "setHeat",
+                  "value": 2
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "equipment.full_armor"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r06_medicine"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r06_armor.distribute",
+          "labelKey": "choice.changan.renshuo.r06_armor.distribute.label",
+          "intentKey": "choice.changan.renshuo.r06_armor.distribute.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "characterFate",
+                "characterId": "character.civilians",
+                "fate": "fate.accompanying"
+              },
+              {
+                "op": "characterFate",
+                "characterId": "character.civilians",
+                "fate": "fate.safe"
+              },
+              {
+                "op": "characterFate",
+                "characterId": "character.aluo",
+                "fate": "fate.accompanying"
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setItemState",
+                  "itemInstanceId": "item_instance.ren_shuo.full_armor",
+                  "state": "state.damaged"
+                },
+                {
+                  "op": "addInsight",
+                  "route": "protector",
+                  "amount": 1
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "stretcher_armor_ren"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r06_medicine"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r06_armor.keep_light",
+          "labelKey": "choice.changan.renshuo.r06_armor.keep_light.label",
+          "intentKey": "choice.changan.renshuo.r06_armor.keep_light.intent",
+          "risk": "none",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "armor_refused"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r06_medicine"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r06_medicine",
+      "kind": "choice",
+      "stage": "stage.changan.equipment",
+      "locationId": "location.changan.backyard",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r06_medicine.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.elder_veteran",
+        "character.aluo"
+      ],
+      "environmentTags": [
+        "environment.courtyard",
+        "environment.medical"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r06_medicine.self",
+          "labelKey": "choice.changan.renshuo.r06_medicine.self.label",
+          "intentKey": "choice.changan.renshuo.r06_medicine.self.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "hasItem",
+                "itemInstanceId": "item_instance.ren_shuo.medicine",
+                "states": [
+                  "state.intact"
+                ],
+                "holderId": "character.ren_shuo"
+              },
+              {
+                "op": "compare",
+                "path": "injury",
+                "cmp": "gte",
+                "value": 1
+              }
+            ]
+          },
+          "costs": [
+            {
+              "op": "consumeItem",
+              "itemInstanceId": "item_instance.ren_shuo.medicine",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setItemState",
+                  "itemInstanceId": "item_instance.ren_shuo.medicine",
+                  "state": "state.used"
+                },
+                {
+                  "op": "changeInjury",
+                  "delta": -1,
+                  "minimum": 0
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.elder_veteran",
+                  "fate": "fate.dead"
+                },
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.aluo",
+                  "delta": -1,
+                  "min": -2
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r07"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r06_medicine.give_old",
+          "labelKey": "choice.changan.renshuo.r06_medicine.give_old.label",
+          "intentKey": "choice.changan.renshuo.r06_medicine.give_old.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "hasItem",
+            "itemInstanceId": "item_instance.ren_shuo.medicine",
+            "states": [
+              "state.intact"
+            ],
+            "holderId": "character.ren_shuo"
+          },
+          "costs": [
+            {
+              "op": "consumeItem",
+              "itemInstanceId": "item_instance.ren_shuo.medicine",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setItemState",
+                  "itemInstanceId": "item_instance.ren_shuo.medicine",
+                  "state": "state.used"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.elder_veteran",
+                  "fate": "fate.safe"
+                },
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.aluo",
+                  "delta": 1,
+                  "max": 2
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r07"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r06_medicine.leave",
+          "labelKey": "choice.changan.renshuo.r06_medicine.leave.label",
+          "intentKey": "choice.changan.renshuo.r06_medicine.leave.intent",
+          "risk": "high",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.elder_veteran",
+                  "fate": "fate.dead"
+                },
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.aluo",
+                  "delta": -1,
+                  "min": -2
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r07"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r07",
+      "kind": "growth",
+      "stage": "stage.changan.growth",
+      "locationId": "location.changan.ruined_temple",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r07.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.elder_veteran"
+      ],
+      "environmentTags": [
+        "environment.temple",
+        "environment.old_soldier"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r07.breaker",
+          "labelKey": "choice.changan.renshuo.r07.breaker.label",
+          "intentKey": "choice.changan.renshuo.r07.breaker.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "path": "insights.breaker",
+                "cmp": "gte",
+                "value": 1
+              },
+              {
+                "op": "compare",
+                "path": "resources.time",
+                "cmp": "gte",
+                "value": 1
+              }
+            ]
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "time",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "transferItem",
+                  "itemInstanceId": "item_instance.ren_shuo.manual",
+                  "holderId": "character.ren_shuo"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "route.breaker"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "manual.carried_ren"
+                },
+                {
+                  "op": "learnTechnique",
+                  "techniqueId": "technique.ren_shuo.breaker.break_siege"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r08"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r07.protector",
+          "labelKey": "choice.changan.renshuo.r07.protector.label",
+          "intentKey": "choice.changan.renshuo.r07.protector.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "path": "insights.protector",
+                "cmp": "gte",
+                "value": 1
+              },
+              {
+                "op": "compare",
+                "path": "resources.time",
+                "cmp": "gte",
+                "value": 1
+              }
+            ]
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "time",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "transferItem",
+                  "itemInstanceId": "item_instance.ren_shuo.manual",
+                  "holderId": "character.ren_shuo"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "route.protector"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "manual.carried_ren"
+                },
+                {
+                  "op": "learnTechnique",
+                  "techniqueId": "technique.ren_shuo.protector.return_guard"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r08"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r07.copy_retreat",
+          "labelKey": "choice.changan.renshuo.r07.copy_retreat.label",
+          "intentKey": "choice.changan.renshuo.r07.copy_retreat.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.retreat.record",
+                  "sourceId": "character.elder_veteran",
+                  "confidence": "witnessed"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "legacy.retreat_record"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r08"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r07.skip",
+          "labelKey": "choice.changan.renshuo.r07.skip.label",
+          "intentKey": "choice.changan.renshuo.r07.skip.intent",
+          "risk": "none",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "manual.abandoned_ren"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r08"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r07.breathing",
+          "labelKey": "choice.changan.renshuo.r07.breathing.label",
+          "intentKey": "choice.changan.renshuo.r07.breathing.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "knows",
+                    "claimId": "claim.breathing_fragment.location"
+                  },
+                  {
+                    "op": "relationship",
+                    "characterId": "character.aluo",
+                    "attitude": {
+                      "gte": 2
+                    }
+                  }
+                ]
+              },
+              {
+                "op": "compare",
+                "path": "resources.time",
+                "cmp": "gte",
+                "value": 1
+              }
+            ]
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "time",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "changeResource",
+                  "resource": "breath",
+                  "delta": 1,
+                  "max": 4
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "condition.hidden_internal_injury"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r08"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r08",
+      "kind": "choice",
+      "stage": "stage.changan.gate",
+      "locationId": "location.changan.west_gate",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r08.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.wei_shi",
+        "character.aluo",
+        "character.civilians"
+      ],
+      "environmentTags": [
+        "environment.crowd",
+        "environment.military_checkpoint",
+        "environment.gate"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r08.civilians_first",
+          "labelKey": "choice.changan.renshuo.r08.civilians_first.label",
+          "intentKey": "choice.changan.renshuo.r08.civilians_first.intent",
+          "risk": "high",
+          "availability": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "characterFate",
+                "characterId": "character.aluo",
+                "fate": "fate.accompanying"
+              },
+              {
+                "op": "characterFate",
+                "characterId": "character.civilians",
+                "fate": "fate.accompanying"
+              },
+              {
+                "op": "characterFate",
+                "characterId": "character.civilians",
+                "fate": "fate.safe"
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setResource",
+                  "resource": "time",
+                  "value": 0
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.aluo",
+                  "fate": "fate.safe"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.civilians",
+                  "fate": "fate.safe"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "civilians_protected_ren"
+                },
+                {
+                  "op": "addConduct",
+                  "conduct": "conduct.protect_weak"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09a"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r08.with_wei",
+          "labelKey": "choice.changan.renshuo.r08.with_wei.label",
+          "intentKey": "choice.changan.renshuo.r08.with_wei.intent",
+          "risk": "high",
+          "availability": {
+            "op": "not",
+            "condition": {
+              "op": "hasFlag",
+              "flag": "wei.reported"
+            }
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addInsight",
+                  "route": "breaker",
+                  "amount": 1
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "wei.breakout"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.aluo",
+                  "fate": "fate.safe"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.civilians",
+                  "fate": "fate.safe"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09a"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r08.trade_token",
+          "labelKey": "choice.changan.renshuo.r08.trade_token.label",
+          "intentKey": "choice.changan.renshuo.r08.trade_token.intent",
+          "risk": "high",
+          "availability": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "hasItem",
+                "itemInstanceId": "item_instance.ren_shuo.camp_token",
+                "states": [
+                  "state.intact"
+                ],
+                "holderId": "character.ren_shuo"
+              },
+              {
+                "op": "relationship",
+                "characterId": "character.camp_officer",
+                "attitude": {
+                  "gte": -1
+                }
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setItemState",
+                  "itemInstanceId": "item_instance.ren_shuo.camp_token",
+                  "state": "state.given"
+                },
+                {
+                  "op": "setHeat",
+                  "value": 3
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.aluo",
+                  "fate": "fate.accompanying"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.civilians",
+                  "fate": "fate.accompanying"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09a"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r08.arrowhead_trick",
+          "labelKey": "choice.changan.renshuo.r08.arrowhead_trick.label",
+          "intentKey": "choice.changan.renshuo.r08.arrowhead_trick.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "hasItem",
+            "itemInstanceId": "item_instance.ren_shuo.arrowhead",
+            "states": [
+              "state.intact"
+            ],
+            "holderId": "character.ren_shuo"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setItemState",
+                  "itemInstanceId": "item_instance.ren_shuo.arrowhead",
+                  "state": "state.given"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.aluo",
+                  "fate": "fate.safe"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.civilians",
+                  "fate": "fate.safe"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "arrowhead_used"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09a"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r08.solo_rearguard",
+          "labelKey": "choice.changan.renshuo.r08.solo_rearguard.label",
+          "intentKey": "choice.changan.renshuo.r08.solo_rearguard.intent",
+          "risk": "lethal",
+          "availability": {
+            "op": "compare",
+            "path": "insights.protector",
+            "cmp": "gte",
+            "value": 1
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "changeInjury",
+                  "delta": 1,
+                  "maximum": 4
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.aluo",
+                  "fate": "fate.safe"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.civilians",
+                  "fate": "fate.safe"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "civilians_protected_ren"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "achievement.solo_rearguard_ren"
+                },
+                {
+                  "op": "addConduct",
+                  "conduct": "conduct.protect_weak"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09a"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r09a",
+      "kind": "combat",
+      "stage": "stage.changan.final",
+      "locationId": "location.changan.gate_hill",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r09a.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.wei_shi"
+      ],
+      "environmentTags": [
+        "environment.open_ground",
+        "environment.horses",
+        "environment.gate_wall"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r09a.demand_free",
+          "labelKey": "choice.changan.renshuo.r09a.demand_free.label",
+          "intentKey": "choice.changan.renshuo.r09a.demand_free.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "characterFate",
+                "characterId": "character.civilians",
+                "fate": "fate.accompanying"
+              },
+              {
+                "op": "characterFate",
+                "characterId": "character.civilians",
+                "fate": "fate.safe"
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "wei.first_weakened"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09b"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r09a.expose_plan",
+          "labelKey": "choice.changan.renshuo.r09a.expose_plan.label",
+          "intentKey": "choice.changan.renshuo.r09a.expose_plan.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "knows",
+            "claimId": "claim.wei.full_plan"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "wei.men_wavering"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09b"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r09a.fight",
+          "labelKey": "choice.changan.renshuo.r09a.fight.label",
+          "intentKey": "choice.changan.renshuo.r09a.fight.intent",
+          "risk": "high",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09b"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r09a.zhao_ally",
+          "labelKey": "choice.changan.renshuo.r09a.zhao_ally.label",
+          "intentKey": "choice.changan.renshuo.r09a.zhao_ally.intent",
+          "risk": "high",
+          "availability": {
+            "op": "characterFate",
+            "characterId": "character.zhao_heng",
+            "fate": "fate.wounded"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "changeInjury",
+                  "delta": 1,
+                  "maximum": 4
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "zhao.allied"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09b"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r09a.zhao_shoulder",
+          "labelKey": "choice.changan.renshuo.r09a.zhao_shoulder.label",
+          "intentKey": "choice.changan.renshuo.r09a.zhao_shoulder.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "knows",
+            "claimId": "claim.zhao.left_shoulder"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.zhao.left_shoulder",
+                  "sourceId": "character.ren_shuo",
+                  "confidence": "confirmed"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09b"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r09b",
+      "kind": "combat",
+      "stage": "stage.changan.final",
+      "locationId": "location.changan.gate_hill",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r09b.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.wei_shi"
+      ],
+      "environmentTags": [
+        "environment.open_ground",
+        "environment.horses"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r09b.breaker",
+          "labelKey": "choice.changan.renshuo.r09b.breaker.label",
+          "intentKey": "choice.changan.renshuo.r09b.breaker.intent",
+          "risk": "high",
+          "availability": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "techniqueKnown",
+                "techniqueId": "technique.ren_shuo.breaker.break_siege"
+              },
+              {
+                "op": "compare",
+                "path": "resources.breath",
+                "cmp": "gte",
+                "value": 1
+              }
+            ]
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "breath",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "changeInjury",
+                  "delta": 1,
+                  "maximum": 4
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "wei.opening"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09c"
+              },
+              "when": {
+                "op": "not",
+                "condition": {
+                  "op": "hasFlag",
+                  "flag": "wei.first_weakened"
+                }
+              }
+            },
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "wei.opening"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09c"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r09b.protector",
+          "labelKey": "choice.changan.renshuo.r09b.protector.label",
+          "intentKey": "choice.changan.renshuo.r09b.protector.intent",
+          "risk": "high",
+          "availability": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "techniqueKnown",
+                "techniqueId": "technique.ren_shuo.protector.return_guard"
+              },
+              {
+                "op": "compare",
+                "path": "resources.breath",
+                "cmp": "gte",
+                "value": 1
+              }
+            ]
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "breath",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "changeInjury",
+                  "delta": 1,
+                  "maximum": 4
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "wei.opening"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "civilians_protected_ren"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09c"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r09b.armor_block",
+          "labelKey": "choice.changan.renshuo.r09b.armor_block.label",
+          "intentKey": "choice.changan.renshuo.r09b.armor_block.intent",
+          "risk": "high",
+          "availability": {
+            "op": "hasFlag",
+            "flag": "equipment.full_armor"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setItemState",
+                  "itemInstanceId": "item_instance.ren_shuo.full_armor",
+                  "state": "state.damaged"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "wei.disarmed"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "wei.opening"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r09c"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r09b.grapple",
+          "labelKey": "choice.changan.renshuo.r09b.grapple.label",
+          "intentKey": "choice.changan.renshuo.r09b.grapple.intent",
+          "risk": "lethal",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "changeInjury",
+                  "delta": 1,
+                  "minimum": 2,
+                  "maximum": 4
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.wei_shi",
+                  "fate": "fate.severely_wounded"
+                },
+                {
+                  "op": "setItemState",
+                  "itemInstanceId": "item_instance.ren_shuo.saber",
+                  "state": "state.lost"
+                },
+                {
+                  "op": "addConduct",
+                  "conduct": "conduct.no_kill_comrade"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "wei.opening"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r10"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r09c",
+      "kind": "combat",
+      "stage": "stage.changan.final",
+      "locationId": "location.changan.gate_hill",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r09c.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.wei_shi"
+      ],
+      "environmentTags": [
+        "environment.open_ground",
+        "environment.chaos"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r09c.kill",
+          "labelKey": "choice.changan.renshuo.r09c.kill.label",
+          "intentKey": "choice.changan.renshuo.r09c.kill.intent",
+          "risk": "lethal",
+          "availability": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "hasFlag",
+                "flag": "wei.opening"
+              },
+              {
+                "op": "hasItem",
+                "itemInstanceId": "item_instance.ren_shuo.saber",
+                "states": [
+                  "state.intact"
+                ],
+                "holderId": "character.ren_shuo"
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.wei_shi",
+                  "fate": "fate.dead"
+                },
+                {
+                  "op": "addConduct",
+                  "conduct": "conduct.killed_comrade"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r10"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r09c.disarm",
+          "labelKey": "choice.changan.renshuo.r09c.disarm.label",
+          "intentKey": "choice.changan.renshuo.r09c.disarm.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "hasFlag",
+                "flag": "wei.opening"
+              },
+              {
+                "op": "hasFlag",
+                "flag": "wei.disarmed"
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.wei_shi",
+                  "fate": "fate.captured"
+                },
+                {
+                  "op": "addConduct",
+                  "conduct": "conduct.no_kill_comrade"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "achievement.spared_comrade"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r10"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r09c.break_saber",
+          "labelKey": "choice.changan.renshuo.r09c.break_saber.label",
+          "intentKey": "choice.changan.renshuo.r09c.break_saber.intent",
+          "risk": "high",
+          "availability": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "hasFlag",
+                "flag": "wei.opening"
+              },
+              {
+                "op": "hasItem",
+                "itemInstanceId": "item_instance.ren_shuo.saber",
+                "states": [
+                  "state.intact"
+                ],
+                "holderId": "character.ren_shuo"
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setItemState",
+                  "itemInstanceId": "item_instance.ren_shuo.saber",
+                  "state": "state.destroyed"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "legacy.broken_saber"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r10"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r09c.let_go",
+          "labelKey": "choice.changan.renshuo.r09c.let_go.label",
+          "intentKey": "choice.changan.renshuo.r09c.let_go.intent",
+          "risk": "high",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.wei_shi",
+                  "fate": "fate.alive"
+                },
+                {
+                  "op": "setFreedom",
+                  "value": "imprisoned"
+                },
+                {
+                  "op": "addConduct",
+                  "conduct": "conduct.freedom_for_comrade"
+                },
+                {
+                  "op": "addConduct",
+                  "conduct": "conduct.took_blame"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r10"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r09c.leave_chaos",
+          "labelKey": "choice.changan.renshuo.r09c.leave_chaos.label",
+          "intentKey": "choice.changan.renshuo.r09c.leave_chaos.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "hasFlag",
+                "flag": "route.breaker"
+              },
+              {
+                "op": "compare",
+                "path": "resources.time",
+                "cmp": "gte",
+                "value": 1
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.wei_shi",
+                  "fate": "fate.active"
+                },
+                {
+                  "op": "addConduct",
+                  "conduct": "conduct.no_kill_comrade"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.renshuo.r10"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.renshuo.r10",
+      "kind": "ending",
+      "stage": "stage.changan.aftermath",
+      "locationId": "location.changan.aftermath",
+      "priority": 100,
+      "textKey": "event.changan.renshuo.r10.text",
+      "actorIds": [
+        "character.ren_shuo",
+        "character.aluo",
+        "character.civilians",
+        "character.elder_veteran",
+        "character.future_successor"
+      ],
+      "environmentTags": [
+        "environment.night",
+        "environment.city_fire"
+      ],
+      "choices": [
+        {
+          "id": "choice.changan.renshuo.r10.protect",
+          "labelKey": "choice.changan.renshuo.r10.protect.label",
+          "intentKey": "choice.changan.renshuo.r10.protect.intent",
+          "risk": "none",
+          "availability": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "characterFate",
+                "characterId": "character.aluo",
+                "fate": "fate.safe"
+              },
+              {
+                "op": "characterFate",
+                "characterId": "character.civilians",
+                "fate": "fate.safe"
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "ending.preference.protect_ren"
+                }
+              ],
+              "next": {
+                "type": "resolveEnding"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r10.record",
+          "labelKey": "choice.changan.renshuo.r10.record.label",
+          "intentKey": "choice.changan.renshuo.r10.record.intent",
+          "risk": "none",
+          "availability": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "hasItem",
+                "itemInstanceId": "item_instance.ren_shuo.camp_token",
+                "states": [
+                  "state.intact",
+                  "state.given"
+                ],
+                "holderId": "character.ren_shuo"
+              },
+              {
+                "op": "knows",
+                "claimId": "claim.retreat.record"
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "ending.preference.record_ren"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "evidence.saved_ren"
+                }
+              ],
+              "next": {
+                "type": "resolveEnding"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r10.entrust",
+          "labelKey": "choice.changan.renshuo.r10.entrust.label",
+          "intentKey": "choice.changan.renshuo.r10.entrust.intent",
+          "risk": "none",
+          "availability": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "hasItem",
+                "itemInstanceId": "item_instance.ren_shuo.manual",
+                "states": [
+                  "state.intact"
+                ],
+                "holderId": "character.ren_shuo"
+              },
+              {
+                "op": "hasItem",
+                "itemInstanceId": "item_instance.ren_shuo.saber",
+                "states": [
+                  "state.intact",
+                  "state.damaged"
+                ],
+                "holderId": "character.ren_shuo"
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "transferItem",
+                  "itemInstanceId": "item_instance.ren_shuo.manual",
+                  "holderId": "character.future_successor"
+                },
+                {
+                  "op": "setItemState",
+                  "itemInstanceId": "item_instance.ren_shuo.manual",
+                  "state": "state.given"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "legacy.entrusted_ren"
+                }
+              ],
+              "next": {
+                "type": "resolveEnding"
+              },
+              "when": {
+                "op": "hasItem",
+                "itemInstanceId": "item_instance.ren_shuo.manual",
+                "states": [
+                  "state.intact"
+                ],
+                "holderId": "character.ren_shuo"
+              }
+            },
+            {
+              "effects": [
+                {
+                  "op": "unequipItem",
+                  "itemInstanceId": "item_instance.ren_shuo.saber"
+                },
+                {
+                  "op": "transferItem",
+                  "itemInstanceId": "item_instance.ren_shuo.saber",
+                  "holderId": "character.future_successor"
+                },
+                {
+                  "op": "setItemState",
+                  "itemInstanceId": "item_instance.ren_shuo.saber",
+                  "state": "state.given"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "legacy.entrusted_ren"
+                }
+              ],
+              "next": {
+                "type": "resolveEnding"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r10.leave",
+          "labelKey": "choice.changan.renshuo.r10.leave.label",
+          "intentKey": "choice.changan.renshuo.r10.leave.intent",
+          "risk": "none",
+          "availability": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "compare",
+                "path": "freedom",
+                "cmp": "eq",
+                "value": "free"
+              },
+              {
+                "op": "compare",
+                "path": "freedom",
+                "cmp": "eq",
+                "value": "escaped"
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "ending.preference.leave_ren"
+                }
+              ],
+              "next": {
+                "type": "resolveEnding"
+              },
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.renshuo.r10.prison",
+          "labelKey": "choice.changan.renshuo.r10.prison.label",
+          "intentKey": "choice.changan.renshuo.r10.prison.intent",
+          "risk": "none",
+          "availability": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "compare",
+                "path": "freedom",
+                "cmp": "eq",
+                "value": "imprisoned"
+              },
+              {
+                "op": "compare",
+                "path": "freedom",
+                "cmp": "eq",
+                "value": "captured"
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "effects": [
+                {
+                  "op": "addFlag",
+                  "flag": "legacy.prison_ren"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "ending.preference.prison_ren"
+                }
+              ],
+              "next": {
+                "type": "resolveEnding"
+              },
+              "default": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "ending.changan.renshuo.prison_ren",
+      "family": "ending_family.prison",
+      "priority": 500,
+      "titleKey": "ending.changan.renshuo.prison_ren.title",
+      "summaryKey": "ending.changan.renshuo.prison_ren.summary",
+      "when": {
+        "op": "any",
+        "conditions": [
+          {
+            "op": "compare",
+            "path": "freedom",
+            "cmp": "eq",
+            "value": "imprisoned"
+          },
+          {
+            "op": "compare",
+            "path": "freedom",
+            "cmp": "eq",
+            "value": "captured"
+          }
+        ]
+      },
+      "excludeWhen": null,
+      "requiredCosts": [
+        "cost.freedom"
+      ]
+    },
+    {
+      "id": "ending.changan.renshuo.protect_ren",
+      "family": "ending_family.protect",
+      "priority": 400,
+      "titleKey": "ending.changan.renshuo.protect_ren.title",
+      "summaryKey": "ending.changan.renshuo.protect_ren.summary",
+      "when": {
+        "op": "all",
+        "conditions": [
+          {
+            "op": "hasFlag",
+            "flag": "ending.preference.protect_ren"
+          },
+          {
+            "op": "hasConduct",
+            "conduct": "conduct.protect_weak"
+          }
+        ]
+      },
+      "excludeWhen": null,
+      "requiredCosts": [
+        "cost.identity_or_military"
+      ]
+    },
+    {
+      "id": "ending.changan.renshuo.record_ren",
+      "family": "ending_family.record",
+      "priority": 300,
+      "titleKey": "ending.changan.renshuo.record_ren.title",
+      "summaryKey": "ending.changan.renshuo.record_ren.summary",
+      "when": {
+        "op": "all",
+        "conditions": [
+          {
+            "op": "hasFlag",
+            "flag": "ending.preference.record_ren"
+          },
+          {
+            "op": "hasFlag",
+            "flag": "evidence.saved_ren"
+          }
+        ]
+      },
+      "excludeWhen": null,
+      "requiredCosts": [
+        "cost.people_or_reputation"
+      ]
+    },
+    {
+      "id": "ending.changan.renshuo.breakthrough",
+      "family": "ending_family.duty",
+      "priority": 200,
+      "titleKey": "ending.changan.renshuo.breakthrough.title",
+      "summaryKey": "ending.changan.renshuo.breakthrough.summary",
+      "when": {
+        "op": "any",
+        "conditions": [
+          {
+            "op": "not",
+            "condition": {
+              "op": "hasFlag",
+              "flag": "order.abandoned"
+            }
+          },
+          {
+            "op": "hasFlag",
+            "flag": "wei.breakout"
+          }
+        ]
+      },
+      "excludeWhen": null,
+      "requiredCosts": [
+        "cost.companions"
+      ]
+    },
+    {
+      "id": "ending.changan.renshuo.nameless_ren",
+      "family": "ending_family.nameless",
+      "priority": 100,
+      "titleKey": "ending.changan.renshuo.nameless_ren.title",
+      "summaryKey": "ending.changan.renshuo.nameless_ren.summary",
+      "when": {
+        "op": "always"
+      },
+      "excludeWhen": null,
+      "requiredCosts": [
+        "cost.failed_commitments"
+      ]
+    }
+  ],
+  "invariants": {
+    "mutuallyExclusiveFlags": [
+      [
+        "route.breaker",
+        "route.protector"
+      ]
+    ],
+    "maxCaptureContinuationDepth": 1
+  },
+  "texts": {
+    "choice.changan.renshuo.r01.accept.label": "领命出营，不多辩解",
+    "choice.changan.renshuo.r01.accept.intent": "保住时间，接受怀疑。",
+    "choice.changan.renshuo.r01.report.label": "向军司马呈报侦察所见",
+    "choice.changan.renshuo.r01.report.intent": "消耗余时，部分洗清嫌疑。",
+    "choice.changan.renshuo.r01.peek_order.label": "借整理装备，偷看那份调令",
+    "choice.changan.renshuo.r01.peek_order.intent": "以谋略发现调令来源可疑。",
+    "choice.changan.renshuo.r01.warn.label": "托营中旧识给军属报信",
+    "choice.changan.renshuo.r01.warn.intent": "耗尽人情，换取军属预警。",
+    "event.changan.renshuo.r01.text": "军司马把没有盖印的调令递来，要你找到魏石的下落并核实军属处境。帐中另有书记在比对你的腰牌与出营记录。",
+    "choice.changan.renshuo.r02.interrogate.label": "逼问摔伤者，追查魏石去向",
+    "choice.changan.renshuo.r02.interrogate.intent": "获魏石路线，破阵领悟。",
+    "choice.changan.renshuo.r02.trace_sword.label": "沿足迹追那道不明剑痕",
+    "choice.changan.renshuo.r02.trace_sword.intent": "消耗余时，发现师门短剑特征。",
+    "choice.changan.renshuo.r02.copy_names.label": "先抄录名册上的人名",
+    "choice.changan.renshuo.r02.copy_names.intent": "消耗余时，获得军属名单。",
+    "choice.changan.renshuo.r02.scavenge.label": "翻找废墟中遗留装备",
+    "choice.changan.renshuo.r02.scavenge.intent": "消耗余时，取得遗留物品。",
+    "event.changan.renshuo.r02.text": "废仓外残留焦痕和新翻的土。摔断腿的董卓旧部躺在棚下，身上覆着半张沾泥名册副本。墙头另有更轻的足迹。",
+    "choice.changan.renshuo.r03.show_token.label": "出示腰牌，说明奉命核查",
+    "choice.changan.renshuo.r03.show_token.intent": "暴露身份，换取信息。",
+    "choice.changan.renshuo.r03.help.label": "收起刀，先帮忙抬伤者进屋",
+    "choice.changan.renshuo.r03.help.intent": "消耗余时，获取信任和方向。",
+    "choice.changan.renshuo.r03.give_medicine.label": "把止血散留给最重的人",
+    "choice.changan.renshuo.r03.give_medicine.intent": "消耗唯一药品，换取高信任。",
+    "choice.changan.renshuo.r03.force_testimony.label": "以军中身份迫她交出证词",
+    "choice.changan.renshuo.r03.force_testimony.intent": "破坏所有信任。",
+    "event.changan.renshuo.r03.text": "阿萝正在替烧伤老卒换药，身边坐着个不到十岁的男孩。她认出你的刀——并州人——并说魏石昨日已来过。",
+    "choice.changan.renshuo.r04.listen.label": "让他说完，再问马鞍的来历",
+    "choice.changan.renshuo.r04.listen.intent": "获知完整计划，破阵领悟。",
+    "choice.changan.renshuo.r04.draw_saber.label": "拔刀问罪，不给辩解机会",
+    "choice.changan.renshuo.r04.draw_saber.intent": "魏石带伤退走，风声暴露。",
+    "choice.changan.renshuo.r04.fake_join.label": "假装同意入伙",
+    "choice.changan.renshuo.r04.fake_join.intent": "获取军马地点，延迟对抗。",
+    "choice.changan.renshuo.r04.appeal_old_bond.label": "以箭簇旧谊劝他停手",
+    "choice.changan.renshuo.r04.appeal_old_bond.intent": "不流血通过，需交担保。",
+    "event.changan.renshuo.r04.text": "魏石从角门走进来，肩扛一副马鞍。他眼角笑纹比记忆中多了你不想读的东西——马鞍皮扣上沾着新鲜血迹。",
+    "choice.changan.renshuo.r05.report.label": "举发魏石，回营报告",
+    "choice.changan.renshuo.r05.report.intent": "完成军令，魏石全力反击。",
+    "choice.changan.renshuo.r05.stop_quietly.label": "阻止他，但不去举发",
+    "choice.changan.renshuo.r05.stop_quietly.intent": "释放马匹，军属安全。",
+    "choice.changan.renshuo.r05.acquiesce.label": "默许他的计划，要求他救军属",
+    "choice.changan.renshuo.r05.acquiesce.intent": "成为共谋，保军属。",
+    "choice.changan.renshuo.r05.fight_here.label": "拔出刀，在此解决",
+    "choice.changan.renshuo.r05.fight_here.intent": "立即交锋。",
+    "event.changan.renshuo.r05.text": "魏石部下牵马到巷口，鞍上绑着抢来的粮秣兵器。他以同袍之名要你默许，并答应放走阿萝与军属。",
+    "choice.changan.renshuo.r06_armor.wear_full.label": "换上完整札甲",
+    "choice.changan.renshuo.r06_armor.wear_full.intent": "获得两击防护，暴露身份。",
+    "choice.changan.renshuo.r06_armor.distribute.label": "把完整甲拆作护板分发",
+    "choice.changan.renshuo.r06_armor.distribute.intent": "护卫队伍，护军领悟。",
+    "choice.changan.renshuo.r06_armor.keep_light.label": "不取甲，轻身赶路",
+    "choice.changan.renshuo.r06_armor.keep_light.intent": "保留轻身，破阵条件。",
+    "event.changan.renshuo.r06_armor.text": "墙角一副完整札甲，比你身上破损的重得多。老卒高烧溃烂，你自己的伤也还没好。",
+    "choice.changan.renshuo.r06_medicine.self.label": "用药处理自己的旧伤",
+    "choice.changan.renshuo.r06_medicine.self.intent": "伤势降一级，老卒无人救治。",
+    "choice.changan.renshuo.r06_medicine.give_old.label": "把药留给发高烧的老卒",
+    "choice.changan.renshuo.r06_medicine.give_old.intent": "老卒存活，自己负伤作战。",
+    "choice.changan.renshuo.r06_medicine.leave.label": "催促立即出发",
+    "choice.changan.renshuo.r06_medicine.leave.intent": "药保留，老卒死亡。",
+    "event.changan.renshuo.r06_medicine.text": "老卒的烧伤开始溃烂。军医走前只留下这一包药。你的左肋伤口也还没愈合。",
+    "choice.changan.renshuo.r07.breaker.label": "学破围：正面突破多人封锁",
+    "choice.changan.renshuo.r07.breaker.intent": "消耗余时，掌握破围。",
+    "choice.changan.renshuo.r07.protector.label": "学回锋护列：放弃追击以保护目标",
+    "choice.changan.renshuo.r07.protector.intent": "消耗余时，掌握回锋护列。",
+    "choice.changan.renshuo.r07.copy_retreat.label": "不练刀，只抄录撤阵记录",
+    "choice.changan.renshuo.r07.copy_retreat.intent": "放弃成招，获跨周目知识。",
+    "choice.changan.renshuo.r07.skip.label": "不停留，趁撤军前赶路",
+    "choice.changan.renshuo.r07.skip.intent": "放弃刀谱。",
+    "choice.changan.renshuo.r07.breathing.label": "按《调息图诀》压住旧伤",
+    "choice.changan.renshuo.r07.breathing.intent": "消耗余时，临时提高内息。",
+    "event.changan.renshuo.r07.text": "退养老卒认出你的刀法，从铺下摸出半册汗渍浸黄的《并州军刀撮要》。书页上密密麻麻记着每次撤阵的伤亡。",
+    "choice.changan.renshuo.r08.civilians_first.label": "让阿萝和军属先过，自己留下断后",
+    "choice.changan.renshuo.r08.civilians_first.intent": "进入R09，护军结局。",
+    "choice.changan.renshuo.r08.with_wei.label": "趁魏石控制侧门，带所有人突围",
+    "choice.changan.renshuo.r08.with_wei.intent": "破阵领悟，承受劫财代价。",
+    "choice.changan.renshuo.r08.trade_token.label": "交出腰牌，用军中身份换通行",
+    "choice.changan.renshuo.r08.trade_token.intent": "失去身份凭证，风声缉拿。",
+    "choice.changan.renshuo.r08.arrowhead_trick.label": "把同袍箭簇插入门缝，骗开侧门",
+    "choice.changan.renshuo.r08.arrowhead_trick.intent": "失去信物。",
+    "choice.changan.renshuo.r08.solo_rearguard.label": "独自断后，让所有人先走",
+    "choice.changan.renshuo.r08.solo_rearguard.intent": "所有人安全，自身负伤。",
+    "event.changan.renshuo.r08.text": "城门只剩一车宽的缝。魏石的人马在城外小丘上等你。军属、阿萝和弟弟还跟在身后。",
+    "choice.changan.renshuo.r09a.demand_free.label": "放下刀，要求他先放军属",
+    "choice.changan.renshuo.r09a.demand_free.intent": "缓和首轮。",
+    "choice.changan.renshuo.r09a.expose_plan.label": "指出他在利用军属的恐慌",
+    "choice.changan.renshuo.r09a.expose_plan.intent": "部下动摇。",
+    "choice.changan.renshuo.r09a.fight.label": "拔刀，不问理由",
+    "choice.changan.renshuo.r09a.fight.intent": "魏石全力迎战。",
+    "choice.changan.renshuo.r09a.zhao_ally.label": "与赵衡联手对付魏石",
+    "choice.changan.renshuo.r09a.zhao_ally.intent": "跨周目：赵衡存活。",
+    "choice.changan.renshuo.r09a.zhao_shoulder.label": "向赵衡指出左肩旧伤",
+    "choice.changan.renshuo.r09a.zhao_shoulder.intent": "跨周目见闻。",
+    "event.changan.renshuo.r09a.text": "魏石牵凉州马等在外面。他拔刀时仍是替你挡箭的起手式。身后部下已换上劫掠的甲胄。",
+    "choice.changan.renshuo.r09b.breaker.label": "破围：正面打穿围堵",
+    "choice.changan.renshuo.r09b.breaker.intent": "消耗内息，击溃部下。",
+    "choice.changan.renshuo.r09b.protector.label": "回锋护列：挡住他对军属的突击",
+    "choice.changan.renshuo.r09b.protector.intent": "消耗内息，保护军属。",
+    "choice.changan.renshuo.r09b.armor_block.label": "用札甲硬挡一刀，夺其兵器",
+    "choice.changan.renshuo.r09b.armor_block.intent": "甲受损，缴获兵刃。",
+    "choice.changan.renshuo.r09b.grapple.label": "弃刀抱住他，一同滚下斜坡",
+    "choice.changan.renshuo.r09b.grapple.intent": "双方重伤。",
+    "event.changan.renshuo.r09b.text": "魏石的刀势压到近前。你必须用本局所学破开局面——或守住身后的人。",
+    "choice.changan.renshuo.r09c.kill.label": "杀死魏石",
+    "choice.changan.renshuo.r09c.kill.intent": "关上不杀同袍之门。",
+    "choice.changan.renshuo.r09c.disarm.label": "缴他的刀，不取性命",
+    "choice.changan.renshuo.r09c.disarm.intent": "不杀同袍。",
+    "choice.changan.renshuo.r09c.break_saber.label": "折断自己的刀，断绝同袍之义",
+    "choice.changan.renshuo.r09c.break_saber.intent": "失去兵器和部分传承。",
+    "choice.changan.renshuo.r09c.let_go.label": "放他离去，自己留下善后",
+    "choice.changan.renshuo.r09c.let_go.intent": "魏石存活，任朔受军法。",
+    "choice.changan.renshuo.r09c.leave_chaos.label": "趁城破大乱离开",
+    "choice.changan.renshuo.r09c.leave_chaos.intent": "不分胜负。",
+    "event.changan.renshuo.r09c.text": "魏石露出破绽。城墙上已经冒出第一缕黑烟。你必须决定如何结束这场同袍之争。",
+    "choice.changan.renshuo.r10.protect.label": "先安置活下来的军属和阿萝",
+    "choice.changan.renshuo.r10.protect.intent": "护人优先。",
+    "choice.changan.renshuo.r10.record.label": "回营报告，记下全部真相",
+    "choice.changan.renshuo.r10.record.intent": "留证优先。",
+    "choice.changan.renshuo.r10.entrust.label": "将刀谱和刀托付给后辈",
+    "choice.changan.renshuo.r10.entrust.intent": "传承优先。",
+    "choice.changan.renshuo.r10.leave.label": "独自走向下一仗",
+    "choice.changan.renshuo.r10.leave.intent": "独行结局。",
+    "choice.changan.renshuo.r10.prison.label": "在营中承担一切责任",
+    "choice.changan.renshuo.r10.prison.intent": "收押结局。",
+    "event.changan.renshuo.r10.text": "长安半城火半城烟。身后的活人和手中的刀，没有一样是出发时的模样。你只能把一件事完整地带进后世。",
+    "character.ren_shuo.name": "任朔",
+    "character.wei_shi.name": "魏石",
+    "character.aluo.name": "阿萝",
+    "character.civilians.name": "军属与病患",
+    "character.elder_veteran.name": "退养老卒",
+    "character.attacker.name": "持卷者",
+    "character.zhao_heng.name": "赵衡",
+    "character.future_successor.name": "后世传人",
+    "character.camp_officer.name": "军司马",
+    "character.du_jian.name": "杜缄",
+    "location.changan.bingzhou_camp.name": "并州军营外围",
+    "location.changan.west_market_ruins.name": "西市废墟",
+    "location.changan.military_family_lane.name": "军属里巷",
+    "location.changan.backyard.name": "军属里巷后院",
+    "location.changan.near_camp_path.name": "军营小路",
+    "location.changan.ruined_temple.name": "废寺偏殿",
+    "location.changan.west_gate.name": "长安西门",
+    "location.changan.gate_hill.name": "城门外小丘",
+    "location.changan.aftermath.name": "长安余烬",
+    "item.ren_shuo.saber.name": "旧环首刀",
+    "item.ren_shuo.damaged_armor.name": "破损札甲",
+    "item.ren_shuo.full_armor.name": "完整札甲",
+    "item.ren_shuo.common_clothes.name": "百姓夹衣",
+    "item.ren_shuo.arrowhead.name": "同袍箭簇",
+    "item.ren_shuo.medicine.name": "任朔的止血散",
+    "item.ren_shuo.camp_token.name": "军中腰牌",
+    "item.ren_shuo.manual.name": "《并州军刀撮要》",
+    "technique.ren_shuo.breaker.break_siege.name": "破围",
+    "technique.ren_shuo.protector.return_guard.name": "回锋护列",
+    "claim.wei.trail_fuller.statement": "魏石踪迹比军司马所知更完整",
+    "claim.camp.fake_order.statement": "调令并非出自吕布直属",
+    "claim.wei.route.statement": "魏石向西市方向移动",
+    "claim.zhao.left_shoulder.statement": "赵衡左肩有旧伤",
+    "claim.civilians.names.statement": "名册上的军属姓名",
+    "claim.aluo.has_leaf.statement": "阿萝持有一份残页",
+    "claim.wei.direction.statement": "魏石昨夜往城门方向去了",
+    "claim.breathing_fragment.location.statement": "《调息图诀》残篇的位置",
+    "claim.wei.full_plan.statement": "魏石计划夺军马、劫财物并利用混乱出城",
+    "claim.civilians.full_names.statement": "阿萝手上的完整军属名单",
+    "claim.wei.horse_location.statement": "魏石存放军马的地点",
+    "claim.retreat.record.statement": "历次撤阵的伤亡记录",
+    "ending.changan.renshuo.prison_ren.title": "《军法之下》",
+    "ending.changan.renshuo.prison_ren.summary": "你以自己承受军法制裁换取他人安然出城。",
+    "ending.changan.renshuo.protect_ren.title": "《负刀护列》",
+    "ending.changan.renshuo.protect_ren.summary": "你失去军职或身份，但把军属和医女送出城门。",
+    "ending.changan.renshuo.record_ren.title": "《留刀存证》",
+    "ending.changan.renshuo.record_ren.summary": "有人把名册和撤阵记录带出长安，但不是所有人都能同行。",
+    "ending.changan.renshuo.breakthrough.title": "《打穿生路》",
+    "ending.changan.renshuo.breakthrough.summary": "你完成了军令或独自打穿了一条生路，留下了没有同行的代价。",
+    "ending.changan.renshuo.nameless_ren.title": "《刀折无名》",
+    "ending.changan.renshuo.nameless_ren.summary": "托付没有全部完成，但你的刀痕仍留在长安的余烬里。",
+    "scenario.changan.renshuo.title": "《长安残照》任朔路线"
+  }
+}
