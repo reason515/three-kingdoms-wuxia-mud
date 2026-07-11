@@ -427,7 +427,7 @@ async function loadBundle(char) {
     bundles[char] = JSON.parse(el.textContent);
     return bundles[char];
   }
-  const resp = await fetch(`content/changan/${char}/route.json`);
+  const resp = await fetch(`../content/changan/${char}/route.json`);
   bundles[char] = await resp.json();
   return bundles[char];
 }
