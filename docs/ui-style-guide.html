@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>汉末江湖录 · UI 活样式指南</title>
+<style>
+  /* ============================================================
+     设计 Token —— 全项目唯一来源，请勿散落硬编码色值
+     ============================================================ */
+  :root {
+    /* 纸与墨 */
+    --ink: #1c1a17;
+    --ink-soft: #3a352e;
+    --paper: #ece3d2;
+    --paper-2: #e2d6bd;
+    --paper-card: #f3ecdc;
+    /* 朱印与描金 */
+    --seal: #9e2b25;
+    --seal-deep: #7c211c;
+    --gold: #a8842f;
+    --gold-bright: #cba65b;
+    /* 青玉与中性 */
+    --jade: #4a6c5d;
+    --line: #c4b594;
+    /* 字体 */
+    --font-serif: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+    --font-mono: "Cascadia Code", "Consolas", "Courier New", monospace;
+    /* 间距 */
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px;
+    /* 圆角 */
+    --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+    --radius-pill: 999px; --radius-round: 50%;
+    /* 阴影 */
+    --shadow-sm: 0 4px 12px rgba(28,26,23,0.06);
+    --shadow-md: 0 6px 20px rgba(28,26,23,0.10);
+    --shadow-lg: 0 12px 40px rgba(28,26,23,0.18);
+    --border-1: 1px solid var(--line);
+    --border-accent: 2px solid var(--gold);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-serif);
+    background:
+      radial-gradient(circle at 20% 10%, rgba(168,132,47,0.08), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(158,43,37,0.06), transparent 45%),
+      linear-gradient(160deg, #ece3d2 0%, #e3d7bf 100%);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: var(--space-7) var(--space-5) var(--space-8); }
+
+  /* ---- 页头 ---- */
+  .guide-header {
+    text-align: center; padding: var(--space-7) var(--space-5);
+    border: var(--border-accent); border-radius: var(--radius-md);
+    background: linear-gradient(180deg, rgba(255,255,255,0.25), transparent 60%), var(--paper-card);
+    box-shadow: var(--shadow-lg); margin-bottom: var(--space-6); position: relative;
+  }
+  .guide-header h1 { font-size: 40px; letter-spacing: 8px; }
+  .guide-header p { color: var(--ink-soft); margin-top: var(--space-3); letter-spacing: 1px; }
+  .guide-header .seal-badge {
+    position: absolute; top: 18px; right: 22px; width: 60px; height: 60px;
+    background: var(--seal); color: #f3ecdc; border-radius: var(--radius-lg);
+    display: grid; place-items: center; line-height: 1.1; font-size: 16px;
+    transform: rotate(-4deg); box-shadow: 0 4px 14px rgba(124,33,28,0.45);
+  }
+
+  /* ---- 区块标题 ---- */
+  .sec { margin-bottom: var(--space-7); }
+  .sec-title {
+    display: flex; align-items: center; gap: var(--space-3);
+    font-size: 24px; letter-spacing: 4px; margin-bottom: var(--space-2);
+  }
+  .sec-title .no {
+    width: 36px; height: 36px; background: var(--ink); color: var(--gold-bright);
+    border-radius: var(--radius-round); display: grid; place-items: center; font-size: 16px;
+  }
+  .sec-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+  .sec-desc { color: var(--ink-soft); font-size: 14px; margin-bottom: var(--space-4); }
+
+  /* ---- 色板 ---- */
+  .swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+  .swatch { border: var(--border-1); border-radius: var(--radius-md); overflow: hidden; background: var(--paper-card); box-shadow: var(--shadow-sm); }
+  .swatch .chip { height: 76px; }
+  .swatch .meta { padding: var(--space-3); }
+  .swatch .meta b { font-size: 13px; }
+  .swatch .meta code { display: block; font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+  .swatch .meta small { display: block; font-size: 11.5px; color: var(--ink-soft); margin-top: 4px; }
+
+  /* ---- 字体示例 ---- */
+  .panel { background: var(--paper-card); border: var(--border-1); border-radius: var(--radius-md); padding: var(--space-5); box-shadow: var(--shadow-sm); }
+  .type-row { padding: var(--space-3) 0; border-bottom: 1px dashed var(--line); display: flex; align-items: baseline; gap: var(--space-4); flex-wrap: wrap; }
+  .type-row:last-child { border-bottom: none; }
+  .type-row .tag { font-family: var(--font-mono); font-size: 12px; color: var(--seal); flex: 0 0 130px; }
+  .mono { font-family: var(--font-mono); }
+
+  /* ---- 间距/圆角 ---- */
+  .scale-row { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-3); }
+  .scale-row .label { font-family: var(--font-mono); font-size: 12px; flex: 0 0 130px; color: var(--ink-soft); }
+  .scale-bar { height: 18px; background: var(--gold); border-radius: 3px; }
+  .radius-demo { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+  .radius-box { width: 90px; height: 70px; background: var(--ink); color: var(--gold-bright); display: grid; place-items: center; font-family: var(--font-mono); font-size: 11px; text-align: center; }
+
+  /* ============================================================
+     组件样式（可直接复制到项目中）
+     ============================================================ */
+  /* 按钮 */
+  .btn { font-family: var(--font-serif); font-size: 14px; letter-spacing: 1px; padding: 10px 22px; border-radius: var(--radius-sm); border: 1px solid transparent; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .btn-primary { background: var(--ink); color: var(--gold-bright); }
+  .btn-seal { background: var(--seal); color: #f3ecdc; }
+  .btn-secondary { background: transparent; border-color: var(--line); color: var(--ink); }
+  .btn-pill { border-radius: var(--radius-pill); background: var(--paper-2); border: 1px solid var(--line); color: var(--ink-soft); padding: 8px 18px; }
+  .btn:disabled, .btn.disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+
+  /* 卡片 */
+  .demo-card { background: var(--paper-card); border: var(--border-1); border-radius: var(--radius-md); padding: var(--space-5); box-shadow: var(--shadow-sm); }
+  .demo-card.accent-left { border-left: 4px solid var(--gold); }
+  .demo-card h4 { color: var(--seal-deep); margin-bottom: var(--space-2); letter-spacing: 1px; }
+  .demo-card p { font-size: 14px; color: var(--ink-soft); }
+
+  /* 标签 */
+  .tag-pill { display: inline-block; font-size: 13px; padding: 3px 10px; border-radius: var(--radius-sm); background: var(--paper-2); border: 1px solid var(--line); color: var(--ink-soft); }
+
+  /* 状态条 */
+  .stat { margin-bottom: var(--space-3); }
+  .stat .top { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+  .stat .top .name { color: var(--ink-soft); }
+  .stat .top .val { font-family: var(--font-mono); color: var(--ink); }
+  .stat .track { height: 14px; background: var(--paper-2); border-radius: var(--radius-pill); overflow: hidden; border: 1px solid var(--line); }
+  .stat .fill { height: 100%; border-radius: var(--radius-pill); }
+  .fill-hp { background: var(--seal); }
+  .fill-mp { background: var(--jade); }
+  .fill-xp { background: var(--gold); }
+
+  /* 命令输入 */
+  .cmd { display: flex; gap: var(--space-2); background: #211f1b; border-radius: var(--radius-lg); padding: var(--space-3) var(--space-4); box-shadow: inset 0 0 0 1px rgba(168,132,47,0.3); }
+  .cmd input { flex: 1; background: transparent; border: none; outline: none; color: #e6dcc6; font-family: var(--font-mono); font-size: 14px; }
+  .cmd input::placeholder { color: #8a8270; }
+  .cmd .send { background: var(--gold); color: #211f1b; border: none; border-radius: var(--radius-sm); padding: 6px 16px; cursor: pointer; font-family: var(--font-serif); }
+
+  /* 对话框 */
+  .dialog { background: #211f1b; border-radius: var(--radius-lg); padding: var(--space-5); color: #e6dcc6; box-shadow: inset 0 0 0 1px rgba(168,132,47,0.3); font-size: 14.5px; }
+  .dialog .say { padding-left: 4px; }
+  .dialog .say::before { content: "「"; color: var(--gold-bright); }
+  .dialog .say::after { content: "」"; color: var(--gold-bright); }
+  .dialog .narr { color: #9fb3a6; font-style: italic; border-left: 2px solid var(--jade); padding-left: var(--space-3); margin-top: var(--space-3); }
+
+  /* 印章/徽标 */
+  .badge-round { width: 44px; height: 44px; border-radius: var(--radius-round); display: grid; place-items: center; font-size: 18px; font-weight: 700; }
+  .badge-ink { background: var(--ink); color: var(--gold-bright); }
+  .badge-jade { background: var(--jade); color: #f3ecdc; }
+
+  /* ---- DO / DON'T ---- */
+  .dd { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .dd .box { border-radius: var(--radius-md); padding: var(--space-4); font-size: 14px; }
+  .dd .do { background: rgba(74,108,93,0.12); border: 1px solid var(--jade); }
+  .dd .dont { background: rgba(158,43,37,0.10); border: 1px solid var(--seal); }
+  .dd h4 { margin-bottom: var(--space-2); letter-spacing: 1px; }
+  .dd .do h4 { color: var(--jade); } .dd .dont h4 { color: var(--seal); }
+  .dd ul { list-style: none; } .dd li { padding: 4px 0 4px 22px; position: relative; color: var(--ink-soft); }
+  .dd .do li::before { content: "✓"; position: absolute; left: 0; color: var(--jade); font-weight: 700; }
+  .dd .dont li::before { content: "✕"; position: absolute; left: 0; color: var(--seal); font-weight: 700; }
+
+  /* ---- 实战界面 mock ---- */
+  .mock { display: grid; grid-template-columns: 1fr 260px; gap: var(--space-4); }
+  .mock .scene { background: var(--paper-card); border: var(--border-1); border-radius: var(--radius-md); padding: var(--space-5); box-shadow: var(--shadow-sm); }
+  .mock .scene .room-title { font-size: 20px; letter-spacing: 2px; color: var(--seal-deep); margin-bottom: var(--space-3); border-bottom: 1px solid var(--line); padding-bottom: var(--space-2); }
+  .mock .scene .room-desc { font-size: 14.5px; color: var(--ink-soft); margin-bottom: var(--space-4); }
+  .mock .scene .exits { font-family: var(--font-mono); font-size: 13px; color: var(--gold); margin-bottom: var(--space-4); }
+  .mock .side { background: var(--ink); border-radius: var(--radius-md); padding: var(--space-4); color: var(--paper); box-shadow: var(--shadow-md); height: fit-content; }
+  .mock .side h4 { color: var(--gold-bright); font-size: 14px; letter-spacing: 2px; margin-bottom: var(--space-3); text-align: center; }
+  .mock .side .stat .name { color: #cfc6b2; } .mock .side .stat .val { color: #fff; }
+  .mock .side .track { background: #3a352e; border-color: #4a4338; }
+
+  footer { text-align: center; margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 13px; letter-spacing: 2px; }
+
+  @media (max-width: 760px) {
+    .swatches { grid-template-columns: 1fr 1fr; }
+    .dd, .mock { grid-template-columns: 1fr; }
+    .guide-header h1 { font-size: 30px; letter-spacing: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="guide-header">
+    <div class="seal-badge">规范</div>
+    <h1>UI 活样式指南</h1>
+    <p>汉末江湖录 · 设计 Token 与组件库的可视化参考 —— 开发新界面前请先取用此处样式</p>
+  </header>
+
+  <!-- 1. 色彩 -->
+  <section class="sec">
+    <div class="sec-title"><span class="no">一</span>色彩 Token</div>
+    <p class="sec-desc">主色低饱和（纸/墨），强调色（朱印红、描金）少量点睛。配色比例参考 60 / 30 / 10。</p>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:#1c1a17"></div><div class="meta"><b>--ink</b><code>#1c1a17</code><small>主文字 / 深底</small></div></div>
+      <div class="swatch"><div class="chip" style="background:#3a352e"></div><div class="meta"><b>--ink-soft</b><code>#3a352e</code><small>次级正文</small></div></div>
+      <div class="swatch"><div class="chip" style="background:#ece3d2"></div><div class="meta"><b>--paper</b><code>#ece3d2</code><small>页面背景</small></div></div>
+      <div class="swatch"><div class="chip" style="background:#f3ecdc"></div><div class="meta"><b>--paper-card</b><code>#f3ecdc</code><small>卡片背景</small></div></div>
+      <div class="swatch"><div class="chip" style="background:#9e2b25"></div><div class="meta"><b>--seal</b><code>#9e2b25</code><small>朱印红 / 警示</small></div></div>
+      <div class="swatch"><div class="chip" style="background:#7c211c"></div><div class="meta"><b>--seal-deep</b><code>#7c211c</code><small>朱红深 / hover</small></div></div>
+      <div class="swatch"><div class="chip" style="background:#a8842f"></div><div class="meta"><b>--gold</b><code>#a8842f</code><small>描金 / 描边</small></div></div>
+      <div class="swatch"><div class="chip" style="background:#cba65b"></div><div class="meta"><b>--gold-bright</b><code>#cba65b</code><small>亮金 / 深底高亮</small></div></div>
+      <div class="swatch"><div class="chip" style="background:#4a6c5d"></div><div class="meta"><b>--jade</b><code>#4a6c5d</code><small>青玉 / 正向</small></div></div>
+      <div class="swatch"><div class="chip" style="background:#e2d6bd"></div><div class="meta"><b>--paper-2</b><code>#e2d6bd</code><small>次级背景</small></div></div>
+      <div class="swatch"><div class="chip" style="background:#c4b594"></div><div class="meta"><b>--line</b><code>#c4b594</code><small>描边 / 分隔</small></div></div>
+      <div class="swatch"><div class="chip" style="background:linear-gradient(135deg,#9e2b25,#a8842f)"></div><div class="meta"><b>强调渐变</b><code>seal → gold</code><small>点睛装饰</small></div></div>
+    </div>
+  </section>
+
+  <!-- 2. 字体 -->
+  <section class="sec">
+    <div class="sec-title"><span class="no">二</span>字体与字号</div>
+    <p class="sec-desc">正文与叙事用衬线 <code class="mono">--font-serif</code>；命令行 / 日志 / 数值用等宽 <code class="mono">--font-mono</code>。</p>
+    <div class="panel">
+      <div class="type-row"><span class="tag">display 48px</span><span style="font-size:42px;letter-spacing:8px;">汉末江湖录</span></div>
+      <div class="type-row"><span class="tag">h1 28px</span><span style="font-size:28px;letter-spacing:3px;">区块大标题</span></div>
+      <div class="type-row"><span class="tag">h2 22px</span><span style="font-size:22px;">卡片分组标题</span></div>
+      <div class="type-row"><span class="tag">h3 16px</span><span style="font-size:16px;">小标题</span></div>
+      <div class="type-row"><span class="tag">body 15px</span><span style="font-size:15px;">正文与叙事文本，行高 1.7，保证大段阅读舒适。你推开客栈的门，雨声被关在身后。</span></div>
+      <div class="type-row"><span class="tag">small 13px</span><span style="font-size:13px;color:var(--ink-soft)">说明、标签与脚注文字</span></div>
+      <div class="type-row"><span class="tag">mono</span><span class="mono" style="font-size:14px;">&gt; go north &nbsp;|&nbsp; 气血 78/100 &nbsp;|&nbsp; 暴击 +12%</span></div>
+    </div>
+  </section>
+
+  <!-- 3. 间距与圆角 -->
+  <section class="sec">
+    <div class="sec-title"><span class="no">三</span>间距 · 圆角</div>
+    <p class="sec-desc">间距基于 4px 网格；整体保持小圆角（4–8px），维持古朴方正气质。</p>
+    <div class="panel">
+      <div class="scale-row"><span class="label">--space-1 4px</span><div class="scale-bar" style="width:4px"></div></div>
+      <div class="scale-row"><span class="label">--space-2 8px</span><div class="scale-bar" style="width:8px"></div></div>
+      <div class="scale-row"><span class="label">--space-3 12px</span><div class="scale-bar" style="width:12px"></div></div>
+      <div class="scale-row"><span class="label">--space-4 16px</span><div class="scale-bar" style="width:16px"></div></div>
+      <div class="scale-row"><span class="label">--space-5 24px</span><div class="scale-bar" style="width:24px"></div></div>
+      <div class="scale-row"><span class="label">--space-6 32px</span><div class="scale-bar" style="width:32px"></div></div>
+      <div class="scale-row"><span class="label">--space-7 48px</span><div class="scale-bar" style="width:48px"></div></div>
+      <div class="scale-row"><span class="label">--space-8 64px</span><div class="scale-bar" style="width:64px"></div></div>
+      <div class="radius-demo" style="margin-top:var(--space-5)">
+        <div class="radius-box" style="border-radius:4px">sm 4px</div>
+        <div class="radius-box" style="border-radius:6px">md 6px</div>
+        <div class="radius-box" style="border-radius:8px">lg 8px</div>
+        <div class="radius-box" style="border-radius:999px">pill</div>
+        <div class="radius-box" style="border-radius:50%;width:70px">round</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 按钮 -->
+  <section class="sec">
+    <div class="sec-title"><span class="no">四</span>按钮</div>
+    <div class="panel">
+      <div class="btn-row">
+        <button class="btn btn-primary">确认前进</button>
+        <button class="btn btn-seal">拔刀相向</button>
+        <button class="btn btn-secondary">暂且作罢</button>
+        <button class="btn btn-pill">查看四周</button>
+        <button class="btn btn-pill">与掌柜交谈</button>
+        <button class="btn btn-pill">前往后院</button>
+        <button class="btn btn-primary disabled" disabled>内力不足</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 卡片 / 标签 / 徽标 -->
+  <section class="sec">
+    <div class="sec-title"><span class="no">五</span>卡片 · 标签 · 徽标</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+      <div class="demo-card accent-left">
+        <h4>破旧客栈</h4>
+        <p>梁柱积着经年的烟尘，掌柜倚在柜台后打盹。墙角几名旅人压低了声音说话。</p>
+        <div style="margin-top:var(--space-3);display:flex;gap:var(--space-2);flex-wrap:wrap;">
+          <span class="tag-pill">可休息</span><span class="tag-pill">有传闻</span><span class="tag-pill">NPC×2</span>
+        </div>
+      </div>
+      <div class="demo-card" style="display:flex;align-items:center;gap:var(--space-4);">
+        <div class="badge-round badge-ink">壹</div>
+        <div class="badge-round badge-jade">✓</div>
+        <div>
+          <h4 style="margin-bottom:4px;">徽标用法</h4>
+          <p>墨底金字用于序号；青玉底用于正向/完成态。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 状态条 -->
+  <section class="sec">
+    <div class="sec-title"><span class="no">六</span>状态面板</div>
+    <p class="sec-desc">数值用等宽字体；气血用朱红，内力用青玉，经验用描金。</p>
+    <div class="panel" style="max-width:420px;">
+      <div class="stat"><div class="top"><span class="name">气血</span><span class="val">78 / 100</span></div><div class="track"><div class="fill fill-hp" style="width:78%"></div></div></div>
+      <div class="stat"><div class="top"><span class="name">内力</span><span class="val">45 / 60</span></div><div class="track"><div class="fill fill-mp" style="width:75%"></div></div></div>
+      <div class="stat"><div class="top"><span class="name">经验</span><span class="val">320 / 500</span></div><div class="track"><div class="fill fill-xp" style="width:64%"></div></div></div>
+    </div>
+  </section>
+
+  <!-- 7. 命令输入 & 对话 -->
+  <section class="sec">
+    <div class="sec-title"><span class="no">七</span>命令输入 · 对话叙事</div>
+    <div style="display:grid;gap:var(--space-4);">
+      <div class="cmd">
+        <input type="text" placeholder="你想做什么？例如：查看四周、问掌柜近来的传闻……">
+        <button class="send">出招</button>
+      </div>
+      <div class="dialog">
+        <div class="say">问掌柜有没有见过受伤的剑客。</div>
+        <div class="narr">掌柜眯眼打量你片刻，压低声音：「昨夜倒真有个使剑的，左肩缠着布，往渡口去了。客官打听这个，可要当心。」</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. DO / DON'T -->
+  <section class="sec">
+    <div class="sec-title"><span class="no">八</span>文案语气 · 宜 / 忌</div>
+    <div class="dd">
+      <div class="box do">
+        <h4>宜</h4>
+        <ul>
+          <li>「你想这么做，但眼下没有合适的机会。也许可以先调查屋内的人。」</li>
+          <li>失败反馈给出"为什么不行"+"可以试什么"</li>
+          <li>保持武侠/古白话口吻，融入世界</li>
+          <li>文案走文本 key，预留国际化</li>
+        </ul>
+      </div>
+      <div class="box dont">
+        <h4>忌</h4>
+        <ul>
+          <li>「无效指令」「Error: invalid action」</li>
+          <li>生硬报错、跳出世界感</li>
+          <li>现代网络用语 / 表情滥用</li>
+          <li>大面积铺强调色，破坏沉稳基调</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. 实战界面 -->
+  <section class="sec">
+    <div class="sec-title"><span class="no">九</span>组合示例 · 游戏主界面</div>
+    <p class="sec-desc">将以上组件按规范组合，得到一个典型的探索界面。</p>
+    <div class="mock">
+      <div class="scene">
+        <div class="room-title">竹林小径</div>
+        <div class="room-desc">细雨初歇，竹叶上的水珠顺着脉络滑落。一条青石小路向北延伸，没入更深的竹影里。路旁的泥地上，有几行尚未被雨水抹平的脚印。</div>
+        <div class="exits">出口：北 · 竹林深处 &nbsp;|&nbsp; 南 · 官道 &nbsp;|&nbsp; 东 · 废庙</div>
+        <div class="btn-row" style="margin-bottom:var(--space-4)">
+          <button class="btn btn-pill">查看脚印</button>
+          <button class="btn btn-pill">向北深入</button>
+          <button class="btn btn-pill">原地吐纳</button>
+        </div>
+        <div class="cmd">
+          <input type="text" placeholder="顺着脚印往北边追过去……">
+          <button class="send">出招</button>
+        </div>
+      </div>
+      <aside class="side">
+        <h4>无名游侠</h4>
+        <div class="stat"><div class="top"><span class="name">气血</span><span class="val">78/100</span></div><div class="track"><div class="fill fill-hp" style="width:78%"></div></div></div>
+        <div class="stat"><div class="top"><span class="name">内力</span><span class="val">45/60</span></div><div class="track"><div class="fill fill-mp" style="width:75%"></div></div></div>
+        <div style="margin-top:var(--space-3);font-size:12.5px;color:#cfc6b2;line-height:1.9;">
+          武功：基础剑法 (3)<br>
+          声望：洛阳百姓 ▲<br>
+          任务：追查受伤剑客
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <footer>
+    汉末江湖录 · UI 活样式指南 &nbsp;|&nbsp; 配套文档 docs/UI_DESIGN_SPEC.md &nbsp;|&nbsp; 文字为骨 · 江湖为魂
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>汉末江湖录 · 游戏概念图</title>
+<style>
+  :root {
+    --ink: #1c1a17;
+    --ink-soft: #3a352e;
+    --paper: #ece3d2;
+    --paper-2: #e2d6bd;
+    --paper-card: #f3ecdc;
+    --gold: #a8842f;
+    --gold-bright: #cba65b;
+    --seal: #9e2b25;
+    --seal-deep: #7c211c;
+    --jade: #4a6c5d;
+    --line: #c4b594;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(168,132,47,0.08), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(158,43,37,0.06), transparent 45%),
+      linear-gradient(160deg, #ece3d2 0%, #e3d7bf 100%);
+    color: var(--ink);
+    line-height: 1.7;
+    padding: 40px 20px 80px;
+    min-height: 100vh;
+  }
+
+  .scroll {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  /* ===== 标题区 ===== */
+  header {
+    text-align: center;
+    position: relative;
+    padding: 48px 24px 40px;
+    margin-bottom: 36px;
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.25), rgba(255,255,255,0) 60%),
+      var(--paper-card);
+    box-shadow: 0 12px 40px rgba(28,26,23,0.18), inset 0 0 0 6px rgba(168,132,47,0.12);
+    overflow: hidden;
+  }
+  header::before {
+    content: "汉末 · 江湖 · 乱世 · 武侠";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 120px;
+    color: rgba(28,26,23,0.03);
+    letter-spacing: 20px;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .seal {
+    position: absolute;
+    top: 22px;
+    right: 26px;
+    width: 72px;
+    height: 72px;
+    background: var(--seal);
+    color: #f3ecdc;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    align-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.1;
+    padding: 8px;
+    box-shadow: 0 4px 14px rgba(124,33,28,0.45);
+    transform: rotate(-4deg);
+    letter-spacing: 2px;
+  }
+  h1 {
+    font-size: 54px;
+    letter-spacing: 12px;
+    color: var(--ink);
+    position: relative;
+    text-shadow: 0 2px 0 rgba(255,255,255,0.4);
+  }
+  .subtitle {
+    margin-top: 14px;
+    font-size: 17px;
+    color: var(--ink-soft);
+    letter-spacing: 2px;
+    position: relative;
+  }
+  .tagline {
+    margin: 22px auto 0;
+    max-width: 760px;
+    font-size: 16px;
+    color: var(--ink-soft);
+    position: relative;
+    padding: 14px 20px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* ===== 通用区块 ===== */
+  section { margin-bottom: 30px; }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .section-title .no {
+    flex: 0 0 auto;
+    width: 38px;
+    height: 38px;
+    background: var(--ink);
+    color: var(--gold-bright);
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    border-radius: 50%;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  }
+  .section-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .card {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 40%),
+      var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 22px 24px;
+    box-shadow: 0 6px 20px rgba(28,26,23,0.08);
+  }
+
+  /* ===== 核心理念公式 ===== */
+  .formula {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 12px;
+  }
+  .formula .term {
+    flex: 1 1 180px;
+    text-align: center;
+    padding: 20px 14px;
+    border-radius: 6px;
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+  }
+  .formula .term b {
+    display: block;
+    font-size: 22px;
+    color: var(--gold-bright);
+    letter-spacing: 3px;
+    margin-bottom: 6px;
+  }
+  .formula .term span { font-size: 13px; color: #cfc6b2; }
+  .formula .plus {
+    display: grid;
+    place-items: center;
+    font-size: 30px;
+    color: var(--seal);
+    font-weight: 700;
+  }
+
+  /* ===== 网格卡片 ===== */
+  .grid {
+    display: grid;
+    gap: 16px;
+  }
+  .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .tile {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--gold);
+    border-radius: 5px;
+    padding: 16px 18px;
+    box-shadow: 0 4px 12px rgba(28,26,23,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(28,26,23,0.14);
+  }
+  .tile h3 {
+    font-size: 16px;
+    color: var(--seal-deep);
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .tile p { font-size: 13.5px; color: var(--ink-soft); }
+
+  /* ===== 三层交互 ===== */
+  .layers { display: flex; flex-direction: column; gap: 10px; }
+  .layer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 6px;
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+  }
+  .layer .num {
+    flex: 0 0 auto;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 18px; font-weight: 700;
+    background: var(--jade); color: #f3ecdc;
+  }
+  .layer .body h3 { font-size: 16px; letter-spacing: 1px; }
+  .layer .body p { font-size: 13.5px; color: var(--ink-soft); }
+  .layer-arrow { text-align: center; color: var(--gold); font-size: 18px; }
+
+  /* ===== 核心循环 ===== */
+  .loop {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .loop .step {
+    padding: 12px 18px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 30px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  .loop .step.accent { background: var(--seal); }
+  .loop .arrow { color: var(--gold); font-size: 20px; }
+
+  /* ===== 自然语言示例 ===== */
+  .dialog {
+    background: #211f1b;
+    border-radius: 8px;
+    padding: 20px 22px;
+    color: #e6dcc6;
+    font-size: 14.5px;
+    box-shadow: inset 0 0 0 1px rgba(168,132,47,0.3);
+  }
+  .dialog .line { margin-bottom: 10px; padding-left: 18px; position: relative; }
+  .dialog .line::before {
+    content: "「";
+    position: absolute; left: 0; color: var(--gold-bright);
+  }
+  .dialog .line::after { content: "」"; color: var(--gold-bright); }
+  .dialog .reply {
+    color: #9fb3a6; font-style: italic; padding-left: 18px;
+    border-left: 2px solid var(--jade); margin: 6px 0 16px;
+  }
+  .dialog .reply::before { content: "— 世界回应："; color: var(--jade); font-style: normal; }
+
+  /* ===== 区域选择 ===== */
+  .region {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--paper-card);
+  }
+  .region.featured { border: 2px solid var(--seal); }
+  .region .head {
+    padding: 12px 16px;
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .region.featured .head { background: var(--seal); color: #f3ecdc; }
+  .region .head h3 { font-size: 16px; letter-spacing: 1px; }
+  .region .head .pick {
+    font-size: 11px; padding: 3px 8px; border-radius: 20px;
+    background: var(--gold); color: #fff; letter-spacing: 1px;
+  }
+  .region .body { padding: 14px 16px; font-size: 13.5px; color: var(--ink-soft); }
+  .region .tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .region .tags span {
+    font-size: 12px; padding: 3px 10px; border-radius: 4px;
+    background: var(--paper-2); border: 1px solid var(--line); color: var(--ink-soft);
+  }
+
+  /* ===== 范围清单 ===== */
+  .scope { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .scope .col h3 {
+    font-size: 17px; margin-bottom: 12px; letter-spacing: 2px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--line);
+  }
+  .scope .yes h3 { color: var(--jade); }
+  .scope .no h3 { color: var(--seal); }
+  .scope ul { list-style: none; }
+  .scope li {
+    font-size: 13.5px; padding: 5px 0 5px 24px; position: relative; color: var(--ink-soft);
+  }
+  .scope .yes li::before {
+    content: "✓"; position: absolute; left: 0; color: var(--jade); font-weight: 700;
+  }
+  .scope .no li::before {
+    content: "✕"; position: absolute; left: 0; color: var(--seal); font-weight: 700;
+  }
+
+  /* ===== Demo 目标 ===== */
+  .demo-goals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .goal {
+    text-align: center; padding: 18px 12px; border-radius: 6px;
+    background: var(--paper-card); border: 1px solid var(--line);
+  }
+  .goal .ic { font-size: 26px; margin-bottom: 8px; }
+  .goal h3 { font-size: 14px; color: var(--seal-deep); margin-bottom: 4px; }
+  .goal p { font-size: 12.5px; color: var(--ink-soft); }
+
+  /* ===== 待确认 ===== */
+  .questions { list-style: none; counter-reset: q; }
+  .questions li {
+    counter-increment: q;
+    padding: 12px 16px 12px 50px;
+    position: relative;
+    border-bottom: 1px dashed var(--line);
+    font-size: 14px; color: var(--ink-soft);
+  }
+  .questions li::before {
+    content: "问" counter(q);
+    position: absolute; left: 14px; top: 12px;
+    color: var(--seal); font-weight: 700;
+  }
+
+  footer {
+    text-align: center; margin-top: 50px; padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft); font-size: 13px; letter-spacing: 2px;
+  }
+
+  @media (max-width: 760px) {
+    h1 { font-size: 38px; letter-spacing: 6px; }
+    .grid.cols-3, .grid.cols-4, .demo-goals { grid-template-columns: 1fr 1fr; }
+    .grid.cols-2, .scope { grid-template-columns: 1fr; }
+    .seal { width: 56px; height: 56px; font-size: 15px; }
+    header::before { font-size: 70px; }
+  }
+</style>
+</head>
+<body>
+<div class="scroll">
+
+  <header>
+    <div class="seal">江湖<br>录</div>
+    <h1>汉末江湖录</h1>
+    <div class="subtitle">三国乱世为骨 · 江湖武侠为魂 · 纯文字探索 RPG / 类 MUD</div>
+    <p class="tagline">从无名之人出发，在城镇、荒道、客栈、废庙与军阀势力之间游历，通过探险、练功、选择与结交人物，卷入乱世背后的江湖纷争。</p>
+  </header>
+
+  <!-- 核心理念 -->
+  <section>
+    <div class="section-title"><span class="no">一</span>核心理念</div>
+    <div class="card">
+      <div class="formula">
+        <div class="term"><b>MUD 氛围</b><span>文字想象 · 空间探索</span></div>
+        <div class="plus">+</div>
+        <div class="term"><b>简单操作</b><span>自然语言 · 低门槛</span></div>
+        <div class="plus">+</div>
+        <div class="term"><b>深度系统</b><span>练功 · 声望 · 阵营</span></div>
+        <div class="plus">+</div>
+        <div class="term"><b>有趣剧情</b><span>选择 · 关系 · 后果</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 设计目标 -->
+  <section>
+    <div class="section-title"><span class="no">二</span>核心设计目标</div>
+    <div class="grid cols-3">
+      <div class="tile"><h3>历史 + 武侠</h3><p>不复刻演义，不架空玄幻，让玩家从江湖底层看到汉末乱世。</p></div>
+      <div class="tile"><h3>文字为主</h3><p>用房间描述、传闻、对话与战斗文字构建沉浸体验。</p></div>
+      <div class="tile"><h3>剧情驱动</h3><p>任务与人物关系是玩家继续探索的主要动力，而非单纯引导练级。</p></div>
+      <div class="tile"><h3>MUD 感</h3><p>房间、出口、NPC、物品、技能、战斗、声望与指令交互俱全。</p></div>
+      <div class="tile"><h3>低门槛操作</h3><p>吸收 MUD 的系统深度，避免过高的指令记忆成本。</p></div>
+      <div class="tile"><h3>Web 优先</h3><p>先做浏览器原型，预留移动端、多语言与未来独立发行。</p></div>
+    </div>
+  </section>
+
+  <!-- 三层交互 -->
+  <section>
+    <div class="section-title"><span class="no">三</span>自然语言交互 · 三层结构</div>
+    <div class="layers">
+      <div class="layer">
+        <div class="num">1</div>
+        <div class="body"><h3>玩家表达层</h3><p>玩家用自然语言描述想做什么，像和文字冒险主持人对话。</p></div>
+      </div>
+      <div class="layer-arrow">▼</div>
+      <div class="layer">
+        <div class="num">2</div>
+        <div class="body"><h3>意图解析层</h3><p>系统识别意图：移动、观察、询问、攻击、练功、使用物品……</p></div>
+      </div>
+      <div class="layer-arrow">▼</div>
+      <div class="layer">
+        <div class="num">3</div>
+        <div class="body"><h3>规则执行层</h3><p>只有符合场景、角色状态与游戏规则的行动才会被执行。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 自然语言示例 -->
+  <section>
+    <div class="section-title"><span class="no">四</span>像对话一样进入世界</div>
+    <div class="dialog">
+      <div class="line">去北边那条竹林小路。</div>
+      <div class="line">问掌柜有没有见过受伤的剑客。</div>
+      <div class="line">我想找个安静地方练一会儿吐纳。</div>
+      <div class="line">如果那山贼拔刀，我先后退半步，用剑护住要害。</div>
+      <div class="reply">你想这么做，但眼下并没有合适的机会。也许可以先调查屋内的人，或询问掌柜。</div>
+      <p style="font-size:13px;color:#9fb3a6;margin-top:6px;">失败反馈也要有叙事感 —— 让玩家知道"为什么不行"和"接下来可以试什么"。</p>
+    </div>
+  </section>
+
+  <!-- 深度来源 -->
+  <section>
+    <div class="section-title"><span class="no">五</span>深度来自选择与系统联动</div>
+    <div class="grid cols-2">
+      <div class="tile"><h3>武功路线</h3><p>不同武功带来战斗与剧情的差异化体验。</p></div>
+      <div class="tile"><h3>声望 · 阵营 · 关系</h3><p>人物关系与立场影响任务结果走向。</p></div>
+      <div class="tile"><h3>隐藏线索</h3><p>探索发现的细节会改变玩家对事件的判断。</p></div>
+      <div class="tile"><h3>多解法</h3><p>同一问题可用武力、交涉、潜行、医术、声望等方式解决。</p></div>
+    </div>
+  </section>
+
+  <!-- 核心循环 -->
+  <section>
+    <div class="section-title"><span class="no">六</span>核心游戏循环</div>
+    <div class="card">
+      <div class="loop">
+        <div class="step">进入房间</div><div class="arrow">→</div>
+        <div class="step">阅读描述</div><div class="arrow">→</div>
+        <div class="step">方向 / 调查 / 对话</div><div class="arrow">→</div>
+        <div class="step">获得线索或资源</div><div class="arrow">→</div>
+        <div class="step accent">练功或战斗</div><div class="arrow">→</div>
+        <div class="step">推进任务</div><div class="arrow">→</div>
+        <div class="step accent">解锁新区域 / 新选择</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 玩家身份 -->
+  <section>
+    <div class="section-title"><span class="no">七</span>玩家身份 · 候选方向</div>
+    <div class="grid cols-4">
+      <div class="tile" style="border-left-color:var(--seal);"><h3>★ 没落门派弟子 + 无名游侠</h3><p>初步推荐：有小的出身钩子，但不被强绑定。</p></div>
+      <div class="tile"><h3>无名游侠</h3><p>自由度高，适合探索与多阵营选择。</p></div>
+      <div class="tile"><h3>寒门士子习武者</h3><p>更易连接朝堂、士族与江湖。</p></div>
+      <div class="tile"><h3>乱世斥候 / 信使</h3><p>适合跑图、情报、密信与战争支线。</p></div>
+    </div>
+  </section>
+
+  <!-- 首发区域 -->
+  <section>
+    <div class="section-title"><span class="no">八</span>首个区域候选</div>
+    <div class="grid cols-3">
+      <div class="region featured">
+        <div class="head"><h3>方案 A · 洛阳城外</h3><span class="pick">推荐</span></div>
+        <div class="body">
+          历史感强，适合引出朝堂、董卓余波、流民、密信，对新玩家最易建立"三国入口"。
+          <div class="tags">
+            <span>官道</span><span>破旧客栈</span><span>竹林小径</span>
+            <span>废庙</span><span>山贼营地</span><span>渡口</span>
+          </div>
+        </div>
+      </div>
+      <div class="region">
+        <div class="head"><h3>方案 B · 荆州水道</h3></div>
+        <div class="body">江湖气更浓，适合门派、商船、侠客、情报。</div>
+      </div>
+      <div class="region">
+        <div class="head"><h3>方案 C · 徐州乱后</h3></div>
+        <div class="body">乱世创伤明显，容易写出道德选择。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo 目标 -->
+  <section>
+    <div class="section-title"><span class="no">九</span>首个 Demo 目标 · 15–30 分钟</div>
+    <div class="demo-goals">
+      <div class="goal"><div class="ic">🗺️</div><h3>探索小区域</h3><p>5–8 个房间组成</p></div>
+      <div class="goal"><div class="ic">💬</div><h3>对话获取线索</h3><p>2–4 个 NPC</p></div>
+      <div class="goal"><div class="ic">⚔️</div><h3>学习武功</h3><p>1–2 门基础武功</p></div>
+      <div class="goal"><div class="ic">🔥</div><h3>低难度战斗</h3><p>完成一场</p></div>
+      <div class="goal"><div class="ic">🎭</div><h3>剧情选择</h3><p>一次轻微后果</p></div>
+      <div class="goal"><div class="ic">🌏</div><h3>乱世交汇</h3><p>三国 × 江湖秘闻</p></div>
+    </div>
+  </section>
+
+  <!-- 系统范围 -->
+  <section>
+    <div class="section-title"><span class="no">十</span>第一版系统范围</div>
+    <div class="card">
+      <div class="scope">
+        <div class="col yes">
+          <h3>包含</h3>
+          <ul>
+            <li>房间与出口</li>
+            <li>命令输入 · 快捷按钮</li>
+            <li>当前状态面板</li>
+            <li>NPC 对话 · 简单任务状态</li>
+            <li>基础战斗 · 基础练功</li>
+            <li>背包与物品 · 本地存档</li>
+            <li>中文文本 key 结构预留</li>
+          </ul>
+        </div>
+        <div class="col no">
+          <h3>暂不包含</h3>
+          <ul>
+            <li>真正多人在线</li>
+            <li>复杂经济系统</li>
+            <li>大型开放世界</li>
+            <li>程序生成世界</li>
+            <li>付费系统</li>
+            <li>Steam / TapTap SDK 接入</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 待确认 -->
+  <section>
+    <div class="section-title"><span class="no">⁇</span>待确认问题</div>
+    <div class="card">
+      <ul class="questions">
+        <li>玩家是否可以改变三国大历史，还是主要影响江湖支线？</li>
+        <li>游戏更偏单机剧情 RPG，还是未来想接近在线 MUD？</li>
+        <li>武功系统偏写实低武，还是允许较夸张的内功招式？</li>
+        <li>是否计划加入挂机 / 离线练功？</li>
+        <li>首发语言是否只做中文，但从代码层面预留英文？</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    汉末江湖录 · 游戏概念图 &nbsp;|&nbsp; 基于 GAME_CONCEPT.md 生成 &nbsp;|&nbsp; 文字为骨 · 江湖为魂
+  </footer>
+
+</div>
+</body>
+</html>
