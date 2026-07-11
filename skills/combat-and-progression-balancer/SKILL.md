@@ -1,6 +1,6 @@
 ---
 name: combat-and-progression-balancer
-description: Designs and balances narrative combat, run-based growth, abilities, scarce resources, difficulty, unlocks and anti-grind progression for the mobile-first, choice-driven Three Kingdoms wuxia text RPG. Use when tuning 武/谋/义/势, injuries, 风声/heat, time, favor, intelligence, martial specialties, 3–6 round combats, challenge modifiers, or permanent unlocks.
+description: Designs and balances narrative combat, run-based growth, abilities, scarce resources, difficulty, unlocks and anti-grind progression for the mobile-first, choice-driven Three Kingdoms wuxia text RPG. Use when tuning 武/谋/势, non-numeric conduct tags, injuries, 风声/heat, time, favor, intelligence, martial specialties, 3–6 round combats, challenge modifiers, or permanent unlocks.
 ---
 
 # Combat and Progression Balancer
@@ -15,16 +15,16 @@ Make growth expand the player's methods and identity without overwhelming mobile
 - Abilities should primarily unlock new actions or alter costs, not merely add numbers.
 - Keep state legible enough that players can make informed tradeoffs.
 - Failure should create different outcomes and knowledge where possible, not only force a restart.
+- Track death and freedom separately from the main ending family; capture, imprisonment and escape can all be meaningful outcomes.
 - Permanent progression should broaden possibilities more than increase raw power.
 
-## Default MVP abilities
+## Default MVP abilities and conduct
 
 - `武`: force, protection, intimidation and direct breakthrough.
 - `谋`: investigation, deception detection, planning and inference.
-- `义`: trust, oath-bound aid and principled routes.
 - `势`: identity, reputation, contacts and faction leverage.
 
-Do not automatically treat `义` as a universal morality score. Some scenarios should make competing loyalties incompatible.
+Do not model `义` as a universal numeric morality score. Record concrete conduct tags such as 守诺、背诺、护弱、不杀、代人受过, then let each NPC and ending interpret them from its own perspective.
 
 ## Default scarce resources
 

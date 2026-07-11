@@ -24,8 +24,9 @@ read situation → choose action → pay cost → update world state
 3. **Persistent world logic**: locations, NPCs, items, injuries, factions and events exist as rule-controlled state.
 4. **Finite content, combinatorial replay**: use conditional events, identities, routes and state combinations rather than filler generation.
 5. **Data-driven content**: scenarios, events, choices, conditions, effects and text should be content data where practical.
-6. **Readable feedback**: prose carries atmosphere; compact state feedback supports decisions.
-7. **Small vertical slice** before a large world or live service.
+6. **Deterministic core rules**: critical story outcomes follow visible conditions and authored effects, not hidden random rolls.
+7. **Readable feedback**: prose carries atmosphere; compact state feedback supports decisions.
+8. **Small vertical slice** before a large world or live service.
 
 ## Choice rule
 
@@ -47,6 +48,8 @@ Use a small set unless the scenario proves it needs more:
 - `time`: expiring opportunities and mutually exclusive objectives;
 - `injury`: limits forceful actions and affects later combat;
 - `heat`（风声）: outside attention and pursuit pressure, progressing through 平静、起疑、暴露、缉拿;
+- `freedom`: 自由、落网、收押、脱逃 or 被迫效力; derive 被追捕 from 缉拿 while still free, and never treat it as automatic capture;
+- `life`: 生还、死亡 or 生死不明, independent from the ending family;
 - `favor`: limited ability to call on relationships;
 - `intel`: known claims, sources, confidence and possible contradictions;
 - `relationships`: trust, debt, fear and allegiance;

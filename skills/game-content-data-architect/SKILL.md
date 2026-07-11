@@ -22,16 +22,16 @@ Turn historical scenario design into maintainable, testable content data so bran
 ## Core content types
 
 - `scenario`: historical anchors, stages, run limits, identities, pools, endings and challenge rules.
-- `identity`: starting abilities, relationships, knowledge, items and route access.
+- `identity`: starting abilities, conduct tags, relationships, knowledge, items and route access.
 - `location`: description states, routes, present actors, tags and time behavior.
-- `character`: identity, faction, motives, relationship dimensions, schedule and fate states.
+- `character`: identity, faction, motives, relationship dimensions, schedule, life state, freedom state and fate tags.
 - `event`: trigger, priority, stage, location, text, choices and follow-up scheduling.
 - `choice`: label, visible conditions, hidden conditions, costs, effects, delayed effects and destination.
 - `ability`: category, tier, unlocked verbs and cost modifiers.
 - `item`: tags, uses, state and choice hooks.
 - `claim`: subject, statement, source, confidence, contradictions and confirmation rules.
 - `evidence`: acquisition route, supported or challenged claims, persistence and reveal text.
-- `ending`: required state, exclusions, priority, protagonist result, character fates and commentary.
+- `ending`: required state, exclusions, priority, ending family, life/freedom dimensions, character fates and commentary.
 - `challenge`: seed, fixed setup, modifiers, scoring dimensions and leaderboard category.
 - `localization`: language, key, text, variables and context notes.
 - `save`: run state, meta unlocks, discovered evidence, endings and version.
@@ -57,6 +57,7 @@ Check at minimum:
 - every reachable event has at least one valid exit or an intentional ending;
 - endings are reachable and priority conflicts are deterministic;
 - mutually exclusive flags cannot coexist accidentally;
+- death, capture, imprisonment and normal-action states do not conflict;
 - delayed effects have valid trigger windows;
 - evidence completion does not require mutually exclusive facts in one run;
 - seeded challenge content is deterministic;
