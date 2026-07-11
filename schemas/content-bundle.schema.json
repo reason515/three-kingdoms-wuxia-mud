@@ -1,0 +1,388 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/three-kingdoms-wuxia-mud/content-bundle.schema.json",
+  "title": "Three Kingdoms Wuxia MUD Content Bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "contentVersion",
+    "bundleId",
+    "locale",
+    "scenario",
+    "initialState",
+    "characters",
+    "locations",
+    "itemDefinitions",
+    "itemInstances",
+    "techniques",
+    "claims",
+    "events",
+    "endings",
+    "invariants",
+    "texts"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "$ref": "#/$defs/version" },
+    "contentVersion": { "$ref": "#/$defs/version" },
+    "bundleId": { "$ref": "#/$defs/id" },
+    "locale": { "type": "string", "minLength": 2 },
+    "scenario": { "$ref": "#/$defs/scenario" },
+    "initialState": { "$ref": "#/$defs/initialState" },
+    "characters": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/character" }
+    },
+    "locations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/location" }
+    },
+    "itemDefinitions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/itemDefinition" }
+    },
+    "itemInstances": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/itemInstance" }
+    },
+    "techniques": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/technique" }
+    },
+    "claims": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/claim" }
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/event" }
+    },
+    "endings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/ending" }
+    },
+    "invariants": { "$ref": "#/$defs/invariants" },
+    "texts": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "$defs": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "textKey": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "titleKey", "entryEventId", "stages", "historicalAnchors"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "titleKey": { "$ref": "#/$defs/textKey" },
+        "entryEventId": { "$ref": "#/$defs/id" },
+        "stages": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "historicalAnchors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "stage", "immutable"],
+            "properties": {
+              "id": { "$ref": "#/$defs/id" },
+              "stage": { "$ref": "#/$defs/id" },
+              "immutable": { "const": true }
+            }
+          }
+        }
+      }
+    },
+    "initialState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "playerCharacterId",
+        "abilities",
+        "resources",
+        "injury",
+        "heat",
+        "life",
+        "freedom",
+        "conduct",
+        "flags",
+        "knowledge",
+        "insights",
+        "relationships"
+      ],
+      "properties": {
+        "playerCharacterId": { "$ref": "#/$defs/id" },
+        "abilities": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["martial", "strategy", "influence"],
+          "properties": {
+            "martial": { "type": "integer", "minimum": 0, "maximum": 3 },
+            "strategy": { "type": "integer", "minimum": 0, "maximum": 3 },
+            "influence": { "type": "integer", "minimum": 0, "maximum": 3 }
+          }
+        },
+        "resources": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["breath", "time", "favor"],
+          "properties": {
+            "breath": { "type": "integer", "minimum": 0, "maximum": 4 },
+            "time": { "type": "integer", "minimum": 0, "maximum": 3 },
+            "favor": { "type": "integer", "minimum": 0, "maximum": 2 }
+          }
+        },
+        "injury": { "type": "integer", "minimum": 0, "maximum": 4 },
+        "heat": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "life": { "enum": ["alive", "dead", "missing"] },
+        "freedom": { "enum": ["free", "captured", "imprisoned", "escaped", "coerced"] },
+        "conduct": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "flags": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "knowledge": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "insights": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["characterId", "attitude", "tags"],
+            "properties": {
+              "characterId": { "$ref": "#/$defs/id" },
+              "attitude": { "type": "integer", "minimum": -2, "maximum": 2 },
+              "tags": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+            }
+          }
+        }
+      }
+    },
+    "character": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "nameKey", "factionIds", "tags", "defaultFate"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "nameKey": { "$ref": "#/$defs/textKey" },
+        "factionIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "tags": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "defaultFate": { "$ref": "#/$defs/id" }
+      }
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "nameKey", "tags"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "nameKey": { "$ref": "#/$defs/textKey" },
+        "tags": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+      }
+    },
+    "itemDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "nameKey", "slot", "tags", "allowedStates"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "nameKey": { "$ref": "#/$defs/textKey" },
+        "slot": { "enum": ["weapon", "armor", "token", "consumable", "story", "none"] },
+        "tags": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "allowedStates": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "itemInstance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "definitionId", "holderId", "state", "equipped", "quantity"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "definitionId": { "$ref": "#/$defs/id" },
+        "holderId": { "$ref": "#/$defs/id" },
+        "state": { "$ref": "#/$defs/id" },
+        "equipped": { "type": "boolean" },
+        "quantity": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "technique": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "nameKey", "route", "tier", "requiredEnvironmentTags", "exclusiveGroup"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "nameKey": { "$ref": "#/$defs/textKey" },
+        "route": { "$ref": "#/$defs/id" },
+        "tier": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "requiredEnvironmentTags": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "exclusiveGroup": { "type": ["string", "null"], "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$" }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "subjectId", "statementKey", "defaultConfidence", "contradicts"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "subjectId": { "$ref": "#/$defs/id" },
+        "statementKey": { "$ref": "#/$defs/textKey" },
+        "defaultConfidence": { "enum": ["rumor", "sourced", "witnessed", "corroborated", "confirmed"] },
+        "contradicts": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "required": ["op"],
+      "properties": {
+        "op": {
+          "enum": [
+            "always", "all", "any", "not", "compare", "hasFlag", "hasConduct",
+            "hasItem", "relationship", "techniqueKnown", "knows", "environmentHas", "characterFate"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "effect": {
+      "type": "object",
+      "required": ["op"],
+      "properties": {
+        "op": {
+          "enum": [
+            "spendResource", "changeResource", "setResource", "changeInjury", "setInjury", "setHeat",
+            "setLife", "setFreedom", "addFlag", "removeFlag", "addConduct", "removeConduct",
+            "changeRelationship", "addRelationshipTag", "removeRelationshipTag", "setCharacterFate",
+            "transferItem", "setItemState", "consumeItem", "learnTechnique", "addInsight", "addKnowledge",
+            "scheduleEvent", "cancelEvent", "emitFeedback"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "next": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["event", "resolveEnding", "end"] },
+        "eventId": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "event" } } },
+          "then": { "required": ["eventId"] }
+        }
+      ]
+    },
+    "resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["effects", "next"],
+      "properties": {
+        "when": { "$ref": "#/$defs/condition" },
+        "default": { "type": "boolean" },
+        "effects": { "type": "array", "items": { "$ref": "#/$defs/effect" } },
+        "next": { "$ref": "#/$defs/next" }
+      },
+      "oneOf": [
+        { "required": ["when"], "not": { "required": ["default"] } },
+        { "required": ["default"], "properties": { "default": { "const": true } }, "not": { "required": ["when"] } }
+      ]
+    },
+    "choice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "labelKey", "intentKey", "risk", "availability", "costs", "resolutions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "labelKey": { "$ref": "#/$defs/textKey" },
+        "intentKey": { "$ref": "#/$defs/textKey" },
+        "lockedReasonKey": { "$ref": "#/$defs/textKey" },
+        "risk": { "enum": ["none", "costly", "high", "lethal"] },
+        "availability": { "$ref": "#/$defs/condition" },
+        "costs": { "type": "array", "items": { "$ref": "#/$defs/effect" } },
+        "resolutions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/resolution" }
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "stage", "locationId", "priority", "textKey", "actorIds", "environmentTags", "choices"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["scene", "choice", "combat", "growth", "capture", "ending"] },
+        "stage": { "$ref": "#/$defs/id" },
+        "locationId": { "$ref": "#/$defs/id" },
+        "priority": { "type": "integer" },
+        "textKey": { "$ref": "#/$defs/textKey" },
+        "actorIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "environmentTags": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "choices": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": { "$ref": "#/$defs/choice" }
+        }
+      }
+    },
+    "ending": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "family", "priority", "titleKey", "summaryKey", "when", "requiredCosts"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "family": { "$ref": "#/$defs/id" },
+        "priority": { "type": "integer" },
+        "titleKey": { "$ref": "#/$defs/textKey" },
+        "summaryKey": { "$ref": "#/$defs/textKey" },
+        "when": { "$ref": "#/$defs/condition" },
+        "excludeWhen": { "oneOf": [{ "$ref": "#/$defs/condition" }, { "type": "null" }] },
+        "requiredCosts": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+      }
+    },
+    "invariants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mutuallyExclusiveFlags", "maxCaptureContinuationDepth"],
+      "properties": {
+        "mutuallyExclusiveFlags": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "items": { "$ref": "#/$defs/id" },
+            "uniqueItems": true
+          }
+        },
+        "maxCaptureContinuationDepth": { "type": "integer", "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

@@ -1,0 +1,439 @@
+{
+  "$schema": "../../schemas/content-bundle.schema.json",
+  "schemaVersion": "0.1.0",
+  "contentVersion": "0.1.0",
+  "bundleId": "changan.dujian.schema_example",
+  "locale": "zh-CN",
+  "scenario": {
+    "id": "scenario.changan.dujian.schema_example",
+    "titleKey": "scenario.changan.dujian.schema_example.title",
+    "entryEventId": "event.changan.dujian.example.d01",
+    "stages": [
+      "stage.changan.escort",
+      "stage.changan.example_end"
+    ],
+    "historicalAnchors": [
+      {
+        "id": "anchor.changan.fall",
+        "stage": "stage.changan.example_end",
+        "immutable": true
+      }
+    ]
+  },
+  "initialState": {
+    "playerCharacterId": "character.du_jian",
+    "abilities": {
+      "martial": 2,
+      "strategy": 2,
+      "influence": 1
+    },
+    "resources": {
+      "breath": 3,
+      "time": 3,
+      "favor": 1
+    },
+    "injury": 0,
+    "heat": 1,
+    "life": "alive",
+    "freedom": "free",
+    "conduct": [],
+    "flags": [],
+    "knowledge": [],
+    "insights": {
+      "guard": 0,
+      "roam": 0
+    },
+    "relationships": [
+      {
+        "characterId": "character.zhao_heng",
+        "attitude": 0,
+        "tags": ["relation.same_school"]
+      },
+      {
+        "characterId": "character.xu_jian",
+        "attitude": 1,
+        "tags": []
+      }
+    ]
+  },
+  "characters": [
+    {
+      "id": "character.du_jian",
+      "nameKey": "character.du_jian.name",
+      "factionIds": ["faction.wang_yun_house"],
+      "tags": ["role.player", "role.swordsman"],
+      "defaultFate": "fate.active"
+    },
+    {
+      "id": "character.zhao_heng",
+      "nameKey": "character.zhao_heng.name",
+      "factionIds": ["faction.wang_yun_house"],
+      "tags": ["role.swordsman"],
+      "defaultFate": "fate.active"
+    },
+    {
+      "id": "character.xu_jian",
+      "nameKey": "character.xu_jian.name",
+      "factionIds": ["faction.wang_yun_house"],
+      "tags": ["role.scribe", "role.protected_target"],
+      "defaultFate": "fate.accompanying"
+    },
+    {
+      "id": "character.west_market_attackers",
+      "nameKey": "character.west_market_attackers.name",
+      "factionIds": ["faction.unknown"],
+      "tags": ["role.hostile_group"],
+      "defaultFate": "fate.active"
+    }
+  ],
+  "locations": [
+    {
+      "id": "location.changan.wang_yun_outer_alley",
+      "nameKey": "location.changan.wang_yun_outer_alley.name",
+      "tags": ["environment.alley", "environment.guarded"]
+    },
+    {
+      "id": "location.changan.west_market_warehouse",
+      "nameKey": "location.changan.west_market_warehouse.name",
+      "tags": ["environment.narrow", "environment.doorway", "environment.wooden_crates"]
+    }
+  ],
+  "itemDefinitions": [
+    {
+      "id": "item.du_jian.short_sword",
+      "nameKey": "item.du_jian.short_sword.name",
+      "slot": "weapon",
+      "tags": ["item.visible", "item.same_school_weapon"],
+      "allowedStates": ["state.intact", "state.damaged", "state.destroyed", "state.confiscated", "state.lost"]
+    },
+    {
+      "id": "item.du_jian.sword_seal",
+      "nameKey": "item.du_jian.sword_seal.name",
+      "slot": "token",
+      "tags": ["item.visible", "item.same_school_token"],
+      "allowedStates": ["state.intact", "state.given", "state.confiscated", "state.lost"]
+    },
+    {
+      "id": "item.du_jian.sealed_document",
+      "nameKey": "item.du_jian.sealed_document.name",
+      "slot": "story",
+      "tags": ["item.visible", "item.document"],
+      "allowedStates": ["state.intact", "state.burned", "state.given", "state.confiscated", "state.lost"]
+    }
+  ],
+  "itemInstances": [
+    {
+      "id": "item_instance.du_jian.short_sword",
+      "definitionId": "item.du_jian.short_sword",
+      "holderId": "character.du_jian",
+      "state": "state.intact",
+      "equipped": true,
+      "quantity": 1
+    },
+    {
+      "id": "item_instance.du_jian.sword_seal",
+      "definitionId": "item.du_jian.sword_seal",
+      "holderId": "character.du_jian",
+      "state": "state.intact",
+      "equipped": true,
+      "quantity": 1
+    },
+    {
+      "id": "item_instance.du_jian.sealed_document",
+      "definitionId": "item.du_jian.sealed_document",
+      "holderId": "character.du_jian",
+      "state": "state.intact",
+      "equipped": false,
+      "quantity": 1
+    }
+  ],
+  "techniques": [
+    {
+      "id": "technique.du_jian.guard.crosscurrent",
+      "nameKey": "technique.du_jian.guard.crosscurrent.name",
+      "route": "route.guard",
+      "tier": 1,
+      "requiredEnvironmentTags": [],
+      "exclusiveGroup": "exclusive.du_jian.primary_route"
+    },
+    {
+      "id": "technique.du_jian.roam.wall_step",
+      "nameKey": "technique.du_jian.roam.wall_step.name",
+      "route": "route.roam",
+      "tier": 1,
+      "requiredEnvironmentTags": ["environment.wooden_crates"],
+      "exclusiveGroup": "exclusive.du_jian.primary_route"
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim.document.resealed",
+      "subjectId": "item.du_jian.sealed_document",
+      "statementKey": "claim.document.resealed.statement",
+      "defaultConfidence": "witnessed",
+      "contradicts": []
+    }
+  ],
+  "events": [
+    {
+      "id": "event.changan.dujian.example.d01",
+      "kind": "choice",
+      "stage": "stage.changan.escort",
+      "locationId": "location.changan.wang_yun_outer_alley",
+      "priority": 100,
+      "textKey": "event.changan.dujian.example.d01.text",
+      "actorIds": ["character.du_jian", "character.zhao_heng"],
+      "environmentTags": ["environment.alley", "environment.guarded"],
+      "choices": [
+        {
+          "id": "choice.changan.dujian.example.d01.accept",
+          "labelKey": "choice.changan.dujian.example.d01.accept.label",
+          "intentKey": "choice.changan.dujian.example.d01.accept.intent",
+          "risk": "costly",
+          "availability": { "op": "always" },
+          "costs": [],
+          "resolutions": [
+            {
+              "default": true,
+              "effects": [
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.zhao_heng",
+                  "delta": 1
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.dujian.example.d02"
+              }
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.dujian.example.d01.ask",
+          "labelKey": "choice.changan.dujian.example.d01.ask.label",
+          "intentKey": "choice.changan.dujian.example.d01.ask.intent",
+          "risk": "costly",
+          "availability": { "op": "always" },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "time",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "default": true,
+              "effects": [
+                {
+                  "op": "changeRelationship",
+                  "characterId": "character.zhao_heng",
+                  "delta": -1
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "knowledge.aluo_is_witness"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.dujian.example.d02"
+              }
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.dujian.example.d01.inspect_seal",
+          "labelKey": "choice.changan.dujian.example.d01.inspect_seal.label",
+          "intentKey": "choice.changan.dujian.example.d01.inspect_seal.intent",
+          "risk": "none",
+          "availability": {
+            "op": "compare",
+            "path": "abilities.strategy",
+            "cmp": "gte",
+            "value": 1
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "default": true,
+              "effects": [
+                {
+                  "op": "addKnowledge",
+                  "claimId": "claim.document.resealed",
+                  "sourceId": "character.du_jian",
+                  "confidence": "witnessed"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.dujian.example.d02"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "event.changan.dujian.example.d02",
+      "kind": "combat",
+      "stage": "stage.changan.escort",
+      "locationId": "location.changan.west_market_warehouse",
+      "priority": 100,
+      "textKey": "event.changan.dujian.example.d02.text",
+      "actorIds": ["character.du_jian", "character.xu_jian", "character.west_market_attackers"],
+      "environmentTags": ["environment.narrow", "environment.doorway", "environment.wooden_crates"],
+      "choices": [
+        {
+          "id": "choice.changan.dujian.example.d02.guard_xu",
+          "labelKey": "choice.changan.dujian.example.d02.guard_xu.label",
+          "intentKey": "choice.changan.dujian.example.d02.guard_xu.intent",
+          "risk": "costly",
+          "availability": {
+            "op": "hasItem",
+            "itemInstanceId": "item_instance.du_jian.short_sword",
+            "states": ["state.intact", "state.damaged"]
+          },
+          "costs": [
+            {
+              "op": "spendResource",
+              "resource": "breath",
+              "amount": 1
+            }
+          ],
+          "resolutions": [
+            {
+              "default": true,
+              "effects": [
+                {
+                  "op": "addInsight",
+                  "route": "guard",
+                  "amount": 1
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.xu_jian",
+                  "fate": "fate.protected"
+                }
+              ],
+              "next": { "type": "resolveEnding" }
+            }
+          ]
+        },
+        {
+          "id": "choice.changan.dujian.example.d02.chase_archer",
+          "labelKey": "choice.changan.dujian.example.d02.chase_archer.label",
+          "intentKey": "choice.changan.dujian.example.d02.chase_archer.intent",
+          "risk": "high",
+          "availability": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "path": "injury",
+                "cmp": "lte",
+                "value": 1
+              },
+              {
+                "op": "not",
+                "condition": {
+                  "op": "hasFlag",
+                  "flag": "equipment.heavy_armor_equipped"
+                }
+              }
+            ]
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "default": true,
+              "effects": [
+                {
+                  "op": "addInsight",
+                  "route": "roam",
+                  "amount": 1
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.xu_jian",
+                  "fate": "fate.wounded"
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "trace.ren_shuo"
+                }
+              ],
+              "next": { "type": "resolveEnding" }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "ending.changan.dujian.example.guard",
+      "family": "ending_family.example_guard",
+      "priority": 200,
+      "titleKey": "ending.changan.dujian.example.guard.title",
+      "summaryKey": "ending.changan.dujian.example.guard.summary",
+      "when": {
+        "op": "compare",
+        "path": "insights.guard",
+        "cmp": "gte",
+        "value": 1
+      },
+      "excludeWhen": null,
+      "requiredCosts": ["cost.breath"]
+    },
+    {
+      "id": "ending.changan.dujian.example.roam",
+      "family": "ending_family.example_roam",
+      "priority": 100,
+      "titleKey": "ending.changan.dujian.example.roam.title",
+      "summaryKey": "ending.changan.dujian.example.roam.summary",
+      "when": { "op": "always" },
+      "excludeWhen": null,
+      "requiredCosts": ["cost.xu_wounded"]
+    }
+  ],
+  "invariants": {
+    "mutuallyExclusiveFlags": [
+      ["route.guard", "route.roam"],
+      ["manual.carried", "manual.entrusted"]
+    ],
+    "maxCaptureContinuationDepth": 1
+  },
+  "texts": {
+    "scenario.changan.dujian.schema_example.title": "《长安残照》杜缄 Schema 示例",
+    "character.du_jian.name": "杜缄",
+    "character.zhao_heng.name": "赵衡",
+    "character.xu_jian.name": "许简",
+    "character.west_market_attackers.name": "西市袭击者",
+    "location.changan.wang_yun_outer_alley.name": "王允府外巷",
+    "location.changan.west_market_warehouse.name": "西市废仓",
+    "item.du_jian.short_sword.name": "师门短剑",
+    "item.du_jian.sword_seal.name": "师门剑印",
+    "item.du_jian.sealed_document.name": "封存文书",
+    "technique.du_jian.guard.crosscurrent.name": "横剑截流",
+    "technique.du_jian.roam.wall_step.name": "踏墙换位",
+    "claim.document.resealed.statement": "封泥有二次加热痕迹",
+    "event.changan.dujian.example.d01.text": "赵衡把封泥未干的文书递到杜缄手中，命他护送许简并带回阿萝。",
+    "choice.changan.dujian.example.d01.accept.label": "接过文书，不再多问",
+    "choice.changan.dujian.example.d01.accept.intent": "保住时机与师兄信任，但放弃追问",
+    "choice.changan.dujian.example.d01.ask.label": "问清阿萝犯了什么罪",
+    "choice.changan.dujian.example.d01.ask.intent": "消耗一段余时，确认她是证人而非犯人",
+    "choice.changan.dujian.example.d01.inspect_seal.label": "借整理衣襟，验看封泥",
+    "choice.changan.dujian.example.d01.inspect_seal.intent": "以谋略检查文书是否被重封",
+    "event.changan.dujian.example.d02.text": "短箭钉入木柱，许简被门槛绊倒；他双手护着文书，刀锋已经压向肩颈。",
+    "choice.changan.dujian.example.d02.guard_xu.label": "横剑挡在许简身前",
+    "choice.changan.dujian.example.d02.guard_xu.intent": "消耗内息，留在许简身边承担正面压力",
+    "choice.changan.dujian.example.d02.chase_archer.label": "踏上木箱，越过持刀人追箭手",
+    "choice.changan.dujian.example.d02.chase_archer.intent": "放弃许简身边的位置，换取追踪敌人的机会",
+    "ending.changan.dujian.example.guard.title": "示例：守住身后",
+    "ending.changan.dujian.example.guard.summary": "你以内息换取了许简的安全。",
+    "ending.changan.dujian.example.roam.title": "示例：追迹而行",
+    "ending.changan.dujian.example.roam.summary": "你追上箭手，却让许简付出了受伤的代价。"
+  }
+}
