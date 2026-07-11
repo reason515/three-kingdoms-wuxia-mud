@@ -555,8 +555,8 @@ class Validation:
             for actor_index, actor in enumerate(event.get("actorIds", [])):
                 self.reference(actor, "characters", f"{where}.actorIds[{actor_index}]")
             choices = event.get("choices")
-            if not isinstance(choices, list) or not 1 <= len(choices) <= 5:
-                self.error(f"{where}.choices", "必须包含 1～5 个选项")
+            if not isinstance(choices, list) or not 1 <= len(choices) <= 6:
+                self.error(f"{where}.choices", "必须包含 1～6 个选项")
                 continue
             for choice_index, choice in enumerate(choices):
                 choice_where = f"{where}.choices[{choice_index}]"

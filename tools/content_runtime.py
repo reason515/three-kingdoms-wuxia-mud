@@ -146,6 +146,40 @@ class ContentRuntime:
         elif destination["type"] == "resolveEnding": self.ending = self.resolve_ending()
         else: self.ending = "end"
 
+    def clone(self) -> "ContentRuntime":
+        """Lightweight copy that shares immutable bundle / event refs."""
+        c = ContentRuntime.__new__(ContentRuntime)
+        c.bundle = self.bundle
+        c.events = self.events
+        c.endings = self.endings
+        c.definitions = self.definitions
+        c.player = self.player
+        c.current = self.current
+        c.ending = self.ending
+        s = self.state
+        c.state = {
+            "abilities": dict(s["abilities"]),
+            "resources": dict(s["resources"]),
+            "injury": s["injury"],
+            "heat": s["heat"],
+            "life": s["life"],
+            "freedom": s["freedom"],
+            "flags": set(s["flags"]),
+            "conduct": set(s["conduct"]),
+            "knowledge": set(s["knowledge"]),
+            "insights": dict(s["insights"]),
+            "relationships": {
+                cid: {"attitude": rel["attitude"], "tags": set(rel["tags"])}
+                for cid, rel in s["relationships"].items()
+            },
+            "fates": dict(s["fates"]),
+            "items": {iid: dict(item) for iid, item in s["items"].items()},
+            "techniques": set(s["techniques"]),
+            "scheduled": set(s["scheduled"]),
+        }
+        c.log = list(self.log)
+        return c
+
     def resolve_ending(self) -> str:
         for ending in self.endings:
             if self.check(ending["when"]) and (ending.get("excludeWhen") is None or not self.check(ending["excludeWhen"])):

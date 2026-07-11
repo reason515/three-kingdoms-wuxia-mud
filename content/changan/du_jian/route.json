@@ -3446,6 +3446,64 @@
               "default": true
             }
           ]
+        },
+        {
+          "id": "choice.changan.dujian.d10.solo",
+          "labelKey": "choice.changan.dujian.d10.solo.label",
+          "intentKey": "choice.changan.dujian.d10.solo.intent",
+          "risk": "high",
+          "availability": {
+            "op": "always"
+          },
+          "costs": [],
+          "resolutions": [
+            {
+              "when": {
+                "op": "compare",
+                "path": "resources.time",
+                "cmp": "gte",
+                "value": 1
+              },
+              "effects": [
+                {
+                  "op": "spendResource",
+                  "resource": "time",
+                  "amount": 1
+                },
+                {
+                  "op": "changeInjury",
+                  "delta": 1,
+                  "maximum": 4
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "solo.forced_gate"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.dujian.d11a"
+              }
+            },
+            {
+              "default": true,
+              "effects": [
+                {
+                  "op": "changeInjury",
+                  "delta": 2,
+                  "maximum": 4
+                },
+                {
+                  "op": "addFlag",
+                  "flag": "solo.forced_gate"
+                }
+              ],
+              "next": {
+                "type": "event",
+                "eventId": "event.changan.dujian.d11a"
+              }
+            }
+          ]
         }
       ]
     },
@@ -5457,6 +5515,8 @@
     "ending.changan.dujian.duty.summary": "你完成了交付的命令，也留下了没有追问的代价。",
     "ending.changan.dujian.nameless.title": "《城下无名》",
     "ending.changan.dujian.nameless.summary": "托付没有全部完成，但你的选择仍留在他人的命运里。",
-    "scenario.changan.dujian.title": "《长安残照》杜缄路线"
+    "scenario.changan.dujian.title": "《长安残照》杜缄路线",
+    "choice.changan.dujian.d10.solo.label": "独自挤过城门，不管其余人",
+    "choice.changan.dujian.d10.solo.intent": "消耗余时并承受一级伤势，独自突破城门。"
   }
 }
