@@ -24,24 +24,27 @@ class QuietHandler(http.server.SimpleHTTPRequestHandler):
         pass  # suppress logs
 
 
+NO_PROXY_OPENER = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+
+
 def fetch(url: str) -> tuple[int, bytes]:
     try:
-        with urllib.request.urlopen(url, timeout=5) as resp:
+        with NO_PROXY_OPENER.open(url, timeout=5) as resp:
             return resp.status, resp.read()
     except Exception as e:
         return 0, str(e).encode()
 
 
 def main() -> int:
-    PORT = 18080
-    server = http.server.HTTPServer(("127.0.0.1", PORT), QuietHandler)
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), QuietHandler)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     time.sleep(0.3)
 
-    base = f"http://127.0.0.1:{PORT}"
+    base = f"http://127.0.0.1:{server.server_port}"
     resources = [
         ("游戏页面", f"{base}/docs/game.html", "text/html", "汉末江湖录".encode()),
+        ("MUD规则模块", f"{base}/docs/mud-engine.js", "text/javascript", b"MUD_LOCATIONS"),
         ("杜缄内容包", f"{base}/content/changan/du_jian/route.json", "application/json", b'"bundleId"'),
         ("任朔内容包", f"{base}/content/changan/ren_shuo/route.json", "application/json", b'"bundleId"'),
     ]
@@ -73,6 +76,7 @@ def main() -> int:
             failed += 1
 
     server.shutdown()
+    server.server_close()
     print(f"\n{'='*50}\n{'全部通过' if not failed else f'失败 {failed} 项'}")
     return 1 if failed else 0
 

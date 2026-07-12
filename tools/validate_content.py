@@ -552,6 +552,10 @@ class Validation:
                 self.error(f"{where}.stage", f"未知阶段：{event.get('stage')}")
             self.reference(event.get("locationId"), "locations", f"{where}.locationId")
             self.check_text(event.get("textKey"), f"{where}.textKey")
+            for variant_index, variant in enumerate(event.get("textVariants", [])):
+                variant_where = f"{where}.textVariants[{variant_index}]"
+                self.validate_condition(variant.get("when"), f"{variant_where}.when")
+                self.check_text(variant.get("textKey"), f"{variant_where}.textKey")
             for actor_index, actor in enumerate(event.get("actorIds", [])):
                 self.reference(actor, "characters", f"{where}.actorIds[{actor_index}]")
             choices = event.get("choices")
@@ -597,6 +601,8 @@ class Validation:
                         continue
                     if "when" in resolution:
                         self.validate_condition(resolution["when"], f"{resolution_where}.when")
+                    if "resultTextKey" in resolution:
+                        self.check_text(resolution["resultTextKey"], f"{resolution_where}.resultTextKey")
                     effects = resolution.get("effects")
                     if not isinstance(effects, list):
                         self.error(f"{resolution_where}.effects", "必须是数组")
@@ -619,6 +625,10 @@ class Validation:
                 priorities[priority] = ending.get("id", where)
             self.check_text(ending.get("titleKey"), f"{where}.titleKey")
             self.check_text(ending.get("summaryKey"), f"{where}.summaryKey")
+            for variant_index, variant in enumerate(ending.get("summaryVariants", [])):
+                variant_where = f"{where}.summaryVariants[{variant_index}]"
+                self.validate_condition(variant.get("when"), f"{variant_where}.when")
+                self.check_text(variant.get("textKey"), f"{variant_where}.textKey")
             self.validate_condition(ending.get("when"), f"{where}.when")
             if ending.get("excludeWhen") is not None:
                 self.validate_condition(ending["excludeWhen"], f"{where}.excludeWhen")

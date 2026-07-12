@@ -29,6 +29,7 @@ class ContentRuntime:
         self.player = initial["playerCharacterId"]
         self.current = bundle["scenario"]["entryEventId"]
         self.ending: str | None = None
+        self.last_result_text_key: str | None = None
         self.log: list[str] = []
 
     def get_path(self, path: str) -> Any:
@@ -131,7 +132,7 @@ class ContentRuntime:
         if {"route.guard", "route.roam"} <= self.state["flags"]: raise AssertionError("exclusive routes coexist")
         if {"manual.carried", "manual.entrusted"} <= self.state["flags"]: raise AssertionError("manual states coexist")
 
-    def choose(self, choice_id: str) -> None:
+    def choose(self, choice_id: str) -> str | None:
         event = self.events[self.current]
         choice = next((x for x in event["choices"] if x["id"] == choice_id), None)
         if choice is None: raise AssertionError(f"{choice_id} not in {self.current}")
@@ -141,10 +142,12 @@ class ContentRuntime:
         if resolution is None: raise AssertionError(f"no resolution: {choice_id}")
         for effect in resolution["effects"]: self.effect(effect)
         self.normalize(); self.log.append(choice_id)
+        self.last_result_text_key = resolution.get("resultTextKey")
         destination = resolution["next"]
         if destination["type"] == "event": self.current = destination["eventId"]
         elif destination["type"] == "resolveEnding": self.ending = self.resolve_ending()
         else: self.ending = "end"
+        return self.last_result_text_key
 
     def clone(self) -> "ContentRuntime":
         """Lightweight copy that shares immutable bundle / event refs."""
@@ -156,6 +159,7 @@ class ContentRuntime:
         c.player = self.player
         c.current = self.current
         c.ending = self.ending
+        c.last_result_text_key = self.last_result_text_key
         s = self.state
         c.state = {
             "abilities": dict(s["abilities"]),

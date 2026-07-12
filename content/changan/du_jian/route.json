@@ -1,7 +1,7 @@
 {
   "$schema": "../../../schemas/content-bundle.schema.json",
-  "schemaVersion": "0.1.0",
-  "contentVersion": "0.1.0",
+  "schemaVersion": "0.2.0",
+  "contentVersion": "0.2.0",
   "bundleId": "changan.dujian",
   "locale": "zh-CN",
   "scenario": {
@@ -116,6 +116,18 @@
         "role.healer"
       ],
       "defaultFate": "fate.unmet"
+    },
+    {
+      "id": "character.a_he",
+      "nameKey": "character.a_he.name",
+      "factionIds": [
+        "faction.civilians"
+      ],
+      "tags": [
+        "role.child",
+        "relation.aluo_younger_brother"
+      ],
+      "defaultFate": "fate.with_aluo"
     },
     {
       "id": "character.civilians",
@@ -632,7 +644,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d02"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d01.accept.0"
             }
           ]
         },
@@ -671,7 +684,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d02"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d01.ask.0"
             }
           ]
         },
@@ -701,7 +715,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d02"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d01.inspect_seal.0"
             }
           ]
         },
@@ -732,7 +747,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d02"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d01.warn_foster_mother.0"
             }
           ]
         }
@@ -796,7 +812,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d03"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d02.guard_xu.0"
             }
           ]
         },
@@ -854,7 +871,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d03"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d02.chase_archer.0"
             }
           ]
         },
@@ -887,7 +905,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d03"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d02.drop_shelf.0"
             }
           ]
         },
@@ -923,7 +942,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d03"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d02.show_seal.0"
             }
           ]
         }
@@ -936,6 +956,29 @@
       "locationId": "location.changan.west_market_warehouse",
       "priority": 100,
       "textKey": "event.changan.dujian.d03.text",
+      "textVariants": [
+        {
+          "when": {
+            "op": "hasFlag",
+            "flag": "combat.west_market.victory"
+          },
+          "textKey": "event.changan.dujian.d03.combat_victory"
+        },
+        {
+          "when": {
+            "op": "hasFlag",
+            "flag": "combat.west_market.defeat"
+          },
+          "textKey": "event.changan.dujian.d03.combat_defeat"
+        },
+        {
+          "when": {
+            "op": "hasFlag",
+            "flag": "combat.west_market.retreat"
+          },
+          "textKey": "event.changan.dujian.d03.combat_retreat"
+        }
+      ],
       "actorIds": [
         "character.du_jian",
         "character.xu_jian",
@@ -978,7 +1021,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d03_treat"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d03.stay.0"
             }
           ]
         },
@@ -1009,7 +1053,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d04b"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d03.chase.0"
             }
           ]
         },
@@ -1053,7 +1098,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d04a"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d03.remove_fire.0"
             }
           ]
         },
@@ -1087,7 +1133,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d04b"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d03.call_patrol.0"
             }
           ]
         }
@@ -1150,7 +1197,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d04a"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d03_treat.use_medicine.0"
             }
           ]
         },
@@ -1189,7 +1237,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d04a"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d03_treat.spend_time.0"
             }
           ]
         }
@@ -1244,7 +1293,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d05"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d04a.take_leaf.0"
             }
           ]
         },
@@ -1271,7 +1321,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d05"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d04a.refuse_leaf.0"
             }
           ]
         },
@@ -1302,7 +1353,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d05"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d04a.xu_hides_leaf.0"
             }
           ]
         }
@@ -1353,7 +1405,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d05"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d04b.take_copy.0"
             }
           ]
         },
@@ -1393,7 +1446,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d05"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d04b.save_attacker.0"
             }
           ]
         },
@@ -1426,7 +1480,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d05"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d04b.follow_blood.0"
             }
           ]
         },
@@ -1473,7 +1528,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d05"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d04b.kill_attacker.0"
             }
           ]
         }
@@ -1490,7 +1546,8 @@
         "character.du_jian",
         "character.aluo",
         "character.civilians",
-        "character.elder"
+        "character.elder",
+        "character.a_he"
       ],
       "environmentTags": [
         "environment.courtyard",
@@ -1550,13 +1607,19 @@
                   "op": "setCharacterFate",
                   "characterId": "character.civilians",
                   "fate": "fate.accompanying"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.accompanying"
                 }
               ],
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d06_armor"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d05.take_all.0"
             }
           ]
         },
@@ -1585,13 +1648,19 @@
                   "op": "setCharacterFate",
                   "characterId": "character.civilians",
                   "fate": "fate.abandoned"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.accompanying"
                 }
               ],
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d06_armor"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d05.take_siblings.0"
             }
           ]
         },
@@ -1631,13 +1700,19 @@
                   "op": "setCharacterFate",
                   "characterId": "character.civilians",
                   "fate": "fate.abandoned"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.separated"
                 }
               ],
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d06_armor"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d05.give_route.0"
             }
           ]
         },
@@ -1677,13 +1752,19 @@
                   "op": "setCharacterFate",
                   "characterId": "character.civilians",
                   "fate": "fate.abandoned"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.accompanying"
                 }
               ],
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d06_armor"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d05.force_aluo.0"
             }
           ]
         }
@@ -1699,7 +1780,8 @@
       "actorIds": [
         "character.du_jian",
         "character.aluo",
-        "character.civilians"
+        "character.civilians",
+        "character.a_he"
       ],
       "environmentTags": [
         "environment.courtyard",
@@ -1749,7 +1831,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d06_medicine"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d06_armor.wear.0"
             }
           ]
         },
@@ -1785,7 +1868,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d06_medicine"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d06_armor.stretcher.0"
             }
           ]
         },
@@ -1810,7 +1894,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d06_medicine"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d06_armor.leave.0"
             }
           ]
         }
@@ -1826,7 +1911,8 @@
       "actorIds": [
         "character.du_jian",
         "character.aluo",
-        "character.elder"
+        "character.elder",
+        "character.a_he"
       ],
       "environmentTags": [
         "environment.courtyard",
@@ -1893,7 +1979,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d07"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d06_medicine.self.0"
             }
           ]
         },
@@ -1941,7 +2028,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d07"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d06_medicine.give_own.0"
             }
           ]
         },
@@ -2005,7 +2093,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d07"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d06_medicine.aluo_treats.0"
             }
           ]
         },
@@ -2037,7 +2126,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d07"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d06_medicine.leave.0"
             }
           ]
         }
@@ -2052,7 +2142,8 @@
       "textKey": "event.changan.dujian.d07.text",
       "actorIds": [
         "character.du_jian",
-        "character.aluo"
+        "character.aluo",
+        "character.a_he"
       ],
       "environmentTags": [
         "environment.doorframe",
@@ -2114,7 +2205,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d08"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d07.guard.0"
             }
           ]
         },
@@ -2179,7 +2271,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d08"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d07.roam.0"
             }
           ]
         },
@@ -2231,7 +2324,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d08"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d07.entrust.0"
             }
           ]
         },
@@ -2256,7 +2350,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d08"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d07.skip.0"
             }
           ]
         },
@@ -2317,7 +2412,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d08"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d07.breathing.0"
             }
           ]
         }
@@ -2333,7 +2429,8 @@
       "actorIds": [
         "character.du_jian",
         "character.zhao_heng",
-        "character.aluo"
+        "character.aluo",
+        "character.a_he"
       ],
       "environmentTags": [
         "environment.stone_steps",
@@ -2391,13 +2488,19 @@
                   "characterId": "character.zhao_heng",
                   "delta": 1,
                   "max": 2
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.captured"
                 }
               ],
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d08.obey.0"
             }
           ]
         },
@@ -2463,7 +2566,8 @@
                   "state.burned"
                 ],
                 "holderId": "character.du_jian"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d08.document_only.0"
             },
             {
               "effects": [
@@ -2489,7 +2593,8 @@
                   "state.intact"
                 ],
                 "holderId": "character.du_jian"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d08.document_only.1"
             },
             {
               "effects": [
@@ -2515,7 +2620,8 @@
                   "state.intact"
                 ],
                 "holderId": "character.du_jian"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d08.document_only.2"
             },
             {
               "effects": [],
@@ -2523,7 +2629,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d09"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d08.document_only.3"
             }
           ]
         },
@@ -2571,7 +2678,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d09"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d08.confront.0"
             }
           ]
         },
@@ -2619,7 +2727,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d09"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d08.promise.0"
             }
           ]
         },
@@ -2645,7 +2754,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d09"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d08.draw_sword.0"
             }
           ]
         }
@@ -2661,7 +2771,8 @@
       "actorIds": [
         "character.du_jian",
         "character.aluo",
-        "character.civilians"
+        "character.civilians",
+        "character.a_he"
       ],
       "environmentTags": [
         "environment.narrow",
@@ -2725,7 +2836,8 @@
                 ],
                 "holderId": "character.du_jian",
                 "equipped": true
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d09.guard.0"
             },
             {
               "effects": [
@@ -2747,7 +2859,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d10"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d09.guard.1"
             }
           ]
         },
@@ -2788,6 +2901,11 @@
                   "op": "setCharacterFate",
                   "characterId": "character.aluo",
                   "fate": "fate.accompanying"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.accompanying"
                 }
               ],
               "next": {
@@ -2800,7 +2918,8 @@
                 "attitude": {
                   "gte": 1
                 }
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d09.roam.0"
             },
             {
               "effects": [
@@ -2821,7 +2940,8 @@
               "when": {
                 "op": "hasFlag",
                 "flag": "civilians_follow"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d09.roam.1"
             },
             {
               "effects": [
@@ -2833,13 +2953,19 @@
                   "op": "setCharacterFate",
                   "characterId": "character.aluo",
                   "fate": "fate.missing"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.missing"
                 }
               ],
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d10"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d09.roam.2"
             }
           ]
         },
@@ -2885,7 +3011,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d10"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d09.seal.0"
             }
           ]
         },
@@ -2943,7 +3070,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d10"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d09.collapse.0"
             }
           ]
         },
@@ -3007,7 +3135,8 @@
                   "state.intact"
                 ],
                 "holderId": "character.du_jian"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d09.drop_evidence.0"
             },
             {
               "effects": [
@@ -3033,7 +3162,8 @@
                   "state.burned"
                 ],
                 "holderId": "character.du_jian"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d09.drop_evidence.1"
             },
             {
               "effects": [
@@ -3058,7 +3188,8 @@
                   "state.intact"
                 ],
                 "holderId": "character.du_jian"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d09.drop_evidence.2"
             },
             {
               "effects": [],
@@ -3066,7 +3197,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d10"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d09.drop_evidence.3"
             }
           ]
         }
@@ -3083,7 +3215,8 @@
         "character.du_jian",
         "character.aluo",
         "character.xu_jian",
-        "character.civilians"
+        "character.civilians",
+        "character.a_he"
       ],
       "environmentTags": [
         "environment.crowd",
@@ -3126,13 +3259,19 @@
                 {
                   "op": "addFlag",
                   "flag": "achievement.wounded_rearguard"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.safe"
                 }
               ],
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d11a"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d10.aluo_first.0"
             }
           ]
         },
@@ -3163,6 +3302,11 @@
                   "op": "setCharacterFate",
                   "characterId": "character.civilians",
                   "fate": "fate.abandoned"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.safe"
                 }
               ],
               "next": {
@@ -3184,7 +3328,8 @@
                     "flag": "aluo_knows_route"
                   }
                 ]
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d10.xu_first.0"
             },
             {
               "effects": [
@@ -3202,13 +3347,19 @@
                   "op": "setCharacterFate",
                   "characterId": "character.civilians",
                   "fate": "fate.abandoned"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.captured"
                 }
               ],
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d11a"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d10.xu_first.1"
             }
           ]
         },
@@ -3272,6 +3423,11 @@
                   "op": "setCharacterFate",
                   "characterId": "character.civilians",
                   "fate": "fate.safe"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.safe"
                 }
               ],
               "next": {
@@ -3293,7 +3449,8 @@
                     }
                   }
                 ]
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d10.split.0"
             },
             {
               "effects": [
@@ -3312,7 +3469,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11a"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d10.split.1"
             }
           ]
         },
@@ -3368,13 +3526,19 @@
                 {
                   "op": "addConduct",
                   "conduct": "conduct.protect_weak"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.safe"
                 }
               ],
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d11a"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d10.give_seal.0"
             }
           ]
         },
@@ -3437,13 +3601,19 @@
                   "op": "setCharacterFate",
                   "characterId": "character.civilians",
                   "fate": "fate.safe"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.safe"
                 }
               ],
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d11_capture"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d10.surrender.0"
             }
           ]
         },
@@ -3483,7 +3653,8 @@
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d11a"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d10.solo.0"
             },
             {
               "default": true,
@@ -3501,7 +3672,8 @@
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d11a"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d10.solo.1"
             }
           ]
         }
@@ -3589,7 +3761,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11_capture"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11a.surrender.0"
             }
           ]
         },
@@ -3654,6 +3827,11 @@
                 {
                   "op": "addFlag",
                   "flag": "captured.by_zhao"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.safe"
                 }
               ],
               "next": {
@@ -3686,7 +3864,8 @@
                     }
                   }
                 ]
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d11a.burn_evidence.0"
             },
             {
               "effects": [
@@ -3720,6 +3899,11 @@
                 {
                   "op": "addFlag",
                   "flag": "captured.by_zhao"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.safe"
                 }
               ],
               "next": {
@@ -3753,7 +3937,8 @@
                     }
                   }
                 ]
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d11a.burn_evidence.1"
             },
             {
               "effects": [
@@ -3774,7 +3959,8 @@
                   "state.intact"
                 ],
                 "holderId": "character.du_jian"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d11a.burn_evidence.2"
             },
             {
               "effects": [
@@ -3788,7 +3974,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11b"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11a.burn_evidence.3"
             }
           ]
         },
@@ -3814,7 +4001,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11b"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11a.fight.0"
             }
           ]
         },
@@ -3865,7 +4053,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11b"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11a.fight_looters.0"
             }
           ]
         },
@@ -3891,9 +4080,19 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11b"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11a.shoulder.0"
             }
           ]
+        }
+      ],
+      "textVariants": [
+        {
+          "when": {
+            "op": "knows",
+            "claimId": "claim.zhao.left_shoulder"
+          },
+          "textKey": "event.changan.dujian.d11a.shoulder_known"
         }
       ]
     },
@@ -3962,7 +4161,8 @@
               "when": {
                 "op": "hasFlag",
                 "flag": "zhao.first_attack_weakened"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d11b.guard.0"
             },
             {
               "effects": [
@@ -3981,7 +4181,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11c"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11b.guard.1"
             }
           ]
         },
@@ -4026,7 +4227,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11_roam_cost"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11b.roam.0"
             }
           ]
         },
@@ -4091,7 +4293,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11c"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11b.learn_disarm.0"
             }
           ]
         },
@@ -4137,7 +4340,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11c"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11b.armor.0"
             }
           ]
         },
@@ -4178,7 +4382,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11b.grapple.0"
             }
           ]
         }
@@ -4226,7 +4431,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11c"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11_roam_cost.leave_sword.0"
             }
           ]
         },
@@ -4256,7 +4462,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d11c"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11_roam_cost.take_wound.0"
             }
           ]
         }
@@ -4320,7 +4527,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11c.kill.0"
             }
           ]
         },
@@ -4379,7 +4587,8 @@
                 "attitude": {
                   "gte": -1
                 }
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d11c.disarm.0"
             },
             {
               "effects": [
@@ -4401,7 +4610,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11c.disarm.1"
             }
           ]
         },
@@ -4447,7 +4657,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11c.break_sword.0"
             }
           ]
         },
@@ -4504,7 +4715,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11c.return_manual.0"
             }
           ]
         },
@@ -4546,7 +4758,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11c.leave.0"
             }
           ]
         }
@@ -4596,7 +4809,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11_capture.confess.0"
             }
           ]
         },
@@ -4627,13 +4841,19 @@
                 {
                   "op": "addFlag",
                   "flag": "pursuit.misdirected"
+                },
+                {
+                  "op": "setCharacterFate",
+                  "characterId": "character.a_he",
+                  "fate": "fate.safe"
                 }
               ],
               "next": {
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11_capture.lie.0"
             }
           ]
         },
@@ -4701,7 +4921,8 @@
                   "state.confiscated"
                 ],
                 "holderId": "character.zhao_heng"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d11_capture.trade_evidence.0"
             },
             {
               "effects": [
@@ -4731,7 +4952,8 @@
                   "state.confiscated"
                 ],
                 "holderId": "character.zhao_heng"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d11_capture.trade_evidence.1"
             },
             {
               "effects": [
@@ -4754,7 +4976,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11_capture.trade_evidence.2"
             }
           ]
         },
@@ -4784,7 +5007,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11_capture.silent.0"
             }
           ]
         },
@@ -4831,7 +5055,8 @@
                 "type": "event",
                 "eventId": "event.changan.dujian.d12"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d11_capture.escape.0"
             }
           ]
         }
@@ -4849,7 +5074,8 @@
         "character.aluo",
         "character.xu_jian",
         "character.civilians",
-        "character.future_successor"
+        "character.future_successor",
+        "character.a_he"
       ],
       "environmentTags": [
         "environment.night",
@@ -4919,7 +5145,8 @@
               "next": {
                 "type": "resolveEnding"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d12.protect.0"
             }
           ]
         },
@@ -4986,7 +5213,8 @@
               "next": {
                 "type": "resolveEnding"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d12.record.0"
             }
           ]
         },
@@ -5054,7 +5282,8 @@
                   "state.intact"
                 ],
                 "holderId": "character.du_jian"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d12.entrust.0"
             },
             {
               "effects": [
@@ -5073,7 +5302,8 @@
                   "state.given"
                 ],
                 "holderId": "character.aluo"
-              }
+              },
+              "resultTextKey": "result.choice.changan.dujian.d12.entrust.1"
             },
             {
               "effects": [
@@ -5099,7 +5329,8 @@
               "next": {
                 "type": "resolveEnding"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d12.entrust.2"
             }
           ]
         },
@@ -5137,7 +5368,8 @@
               "next": {
                 "type": "resolveEnding"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d12.leave.0"
             }
           ]
         },
@@ -5168,9 +5400,95 @@
               "next": {
                 "type": "resolveEnding"
               },
-              "default": true
+              "default": true,
+              "resultTextKey": "result.choice.changan.dujian.d12.wall.0"
             }
           ]
+        }
+      ],
+      "textVariants": [
+        {
+          "when": {
+            "op": "compare",
+            "path": "freedom",
+            "cmp": "eq",
+            "value": "imprisoned"
+          },
+          "textKey": "event.changan.dujian.d12.prison"
+        },
+        {
+          "when": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "characterFate",
+                    "characterId": "character.aluo",
+                    "fate": "fate.safe"
+                  },
+                  {
+                    "op": "characterFate",
+                    "characterId": "character.aluo",
+                    "fate": "fate.accompanying"
+                  }
+                ]
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "characterFate",
+                    "characterId": "character.xu_jian",
+                    "fate": "fate.safe"
+                  },
+                  {
+                    "op": "characterFate",
+                    "characterId": "character.xu_jian",
+                    "fate": "fate.protected"
+                  }
+                ]
+              }
+            ]
+          },
+          "textKey": "event.changan.dujian.d12.aluo_xu"
+        },
+        {
+          "when": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "characterFate",
+                "characterId": "character.aluo",
+                "fate": "fate.safe"
+              },
+              {
+                "op": "characterFate",
+                "characterId": "character.aluo",
+                "fate": "fate.accompanying"
+              }
+            ]
+          },
+          "textKey": "event.changan.dujian.d12.aluo"
+        },
+        {
+          "when": {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "characterFate",
+                "characterId": "character.xu_jian",
+                "fate": "fate.safe"
+              },
+              {
+                "op": "characterFate",
+                "characterId": "character.xu_jian",
+                "fate": "fate.protected"
+              }
+            ]
+          },
+          "textKey": "event.changan.dujian.d12.xu"
         }
       ]
     }
@@ -5192,6 +5510,24 @@
       "requiredCosts": [
         "cost.freedom",
         "cost.equipment"
+      ],
+      "summaryVariants": [
+        {
+          "when": {
+            "op": "compare",
+            "path": "life",
+            "cmp": "eq",
+            "value": "dead"
+          },
+          "textKey": "ending.changan.dujian.prison.summary.dead"
+        },
+        {
+          "when": {
+            "op": "hasFlag",
+            "flag": "legacy.entrusted"
+          },
+          "textKey": "ending.changan.dujian.prison.summary.legacy"
+        }
       ]
     },
     {
@@ -5216,6 +5552,24 @@
       "excludeWhen": null,
       "requiredCosts": [
         "cost.identity_or_school_or_evidence"
+      ],
+      "summaryVariants": [
+        {
+          "when": {
+            "op": "compare",
+            "path": "life",
+            "cmp": "eq",
+            "value": "dead"
+          },
+          "textKey": "ending.changan.dujian.protect.summary.dead"
+        },
+        {
+          "when": {
+            "op": "hasFlag",
+            "flag": "legacy.entrusted"
+          },
+          "textKey": "ending.changan.dujian.protect.summary.legacy"
+        }
       ]
     },
     {
@@ -5240,6 +5594,24 @@
       "excludeWhen": null,
       "requiredCosts": [
         "cost.people_or_reputation"
+      ],
+      "summaryVariants": [
+        {
+          "when": {
+            "op": "compare",
+            "path": "life",
+            "cmp": "eq",
+            "value": "dead"
+          },
+          "textKey": "ending.changan.dujian.record.summary.dead"
+        },
+        {
+          "when": {
+            "op": "hasFlag",
+            "flag": "legacy.entrusted"
+          },
+          "textKey": "ending.changan.dujian.record.summary.legacy"
+        }
       ]
     },
     {
@@ -5255,6 +5627,24 @@
       "excludeWhen": null,
       "requiredCosts": [
         "cost.aluo_or_civilians_or_xu"
+      ],
+      "summaryVariants": [
+        {
+          "when": {
+            "op": "compare",
+            "path": "life",
+            "cmp": "eq",
+            "value": "dead"
+          },
+          "textKey": "ending.changan.dujian.duty.summary.dead"
+        },
+        {
+          "when": {
+            "op": "hasFlag",
+            "flag": "legacy.entrusted"
+          },
+          "textKey": "ending.changan.dujian.duty.summary.legacy"
+        }
       ]
     },
     {
@@ -5269,6 +5659,24 @@
       "excludeWhen": null,
       "requiredCosts": [
         "cost.failed_commitments"
+      ],
+      "summaryVariants": [
+        {
+          "when": {
+            "op": "compare",
+            "path": "life",
+            "cmp": "eq",
+            "value": "dead"
+          },
+          "textKey": "ending.changan.dujian.nameless.summary.dead"
+        },
+        {
+          "when": {
+            "op": "hasFlag",
+            "flag": "legacy.entrusted"
+          },
+          "textKey": "ending.changan.dujian.nameless.summary.legacy"
+        }
       ]
     }
   ],
@@ -5289,180 +5697,183 @@
     "choice.changan.dujian.d01.accept.label": "接过文书，不再多问",
     "choice.changan.dujian.d01.accept.intent": "保住时机和师兄信任，但放弃追问。",
     "choice.changan.dujian.d01.ask.label": "问清阿萝犯了什么罪",
-    "choice.changan.dujian.d01.ask.intent": "消耗一段余时，确认阿萝是证人而非犯人。",
+    "choice.changan.dujian.d01.ask.intent": "会耽搁行程；会伤及彼此信任。",
     "choice.changan.dujian.d01.inspect_seal.label": "借整理衣襟，验看封泥",
     "choice.changan.dujian.d01.inspect_seal.intent": "以谋略检查文书是否被重封。",
     "choice.changan.dujian.d01.warn_foster_mother.label": "托府中旧识给养母报信",
     "choice.changan.dujian.d01.warn_foster_mother.intent": "耗尽人情，换养母提前避难。",
-    "event.changan.dujian.d01.text": "府门内的灯还亮着，门外却已换了第三班持戟武吏——这不是寻常的守夜排布，这是准备抓人的阵仗。\n\n赵衡没有披甲，只穿了一件洗得发白的旧襜褕。那是师父的遗物，袖口还留着师娘缝补的针脚。他把一卷封泥未干的文书递到你手中。\n\n赵衡：护许简去城西旧宅，再把誊录名册的医女带回来。\n\n他说\"带回来\"时，右手仍压在刀柄上。那是师父生前纠正他最多的一处旧习。你忽然想起阿萝上次来府送药册时说过的话——名册上被墨笔圈掉的那些人，没有一个活过第三天。",
+    "event.changan.dujian.d01.text": "府门内的灯还亮着，门外却已换了第三班持戟武吏。城中近来每逢换岗都会多查一遍籍贯，今夜尤其严。\n\n赵衡没有披甲，只穿着师父留下的旧襜褕。去年长安落雪，养母病重，正是他冒着宵禁替你把药送进坊门；袖口那道补丁，还是那夜被墙钉刮破后留下的。\n\n赵衡：护许简去城西旧宅，再把誊录名册的医女带回来。\n\n他说“带回来”时，右手仍压在刀柄上。那是师父纠正了他十年也没改掉的习惯。你不知道他在防谁，但你知道他从不轻易把师父的旧衣穿出来。",
     "choice.changan.dujian.d02.guard_xu.label": "横剑挡在许简身前",
-    "choice.changan.dujian.d02.guard_xu.intent": "消耗内息，留在许简身边承担正面压力。",
+    "choice.changan.dujian.d02.guard_xu.intent": "需要动用内息。",
     "choice.changan.dujian.d02.chase_archer.label": "踏上木箱，越过持刀人追箭手",
-    "choice.changan.dujian.d02.chase_archer.intent": "离开许简身边，换取追踪敌人的机会。",
+    "choice.changan.dujian.d02.chase_archer.intent": "局面一旦失手便难以挽回。",
     "choice.changan.dujian.d02.drop_shelf.label": "割断货架绳索，分开两名敌人",
-    "choice.changan.dujian.d02.drop_shelf.intent": "借环境结束战斗，但火折会被油水浸坏。",
+    "choice.changan.dujian.d02.drop_shelf.intent": "会改变物件去向。",
     "choice.changan.dujian.d02.show_seal.label": "亮出师门剑印喝问来路",
-    "choice.changan.dujian.d02.show_seal.intent": "保住许简，但公开暴露身份。",
+    "choice.changan.dujian.d02.show_seal.intent": "身份可能暴露。",
     "event.changan.dujian.d02.text": "废仓的门轴响了半声。一枚短箭便从麻包堆后飞出，钉进许简身后的木柱。两名蒙面人同时扑出：一人直取文书，一人横刀封住退路。\n\n许简不会武。箭响时他本能地缩身后退，却被门槛绊得仰倒——怀里的文书仍抱得死紧，十指几乎嵌进封套。他双手腾不出来，只能眼看刀锋压向肩颈。\n\n巷口窄得只能容两人并肩。火油罐就堆在你右手边三步的位置。",
     "choice.changan.dujian.d03.stay.label": "留下替许简止血",
     "choice.changan.dujian.d03.stay.intent": "放走持卷者，再决定以药还是时间救许简。",
     "choice.changan.dujian.d03.chase.label": "越墙追赶持卷者",
-    "choice.changan.dujian.d03.chase.intent": "放弃照看许简，继续追击。",
+    "choice.changan.dujian.d03.chase.intent": "局面一旦失手便难以挽回。",
     "choice.changan.dujian.d03.remove_fire.label": "踢翻灯脚，拖许简出仓",
-    "choice.changan.dujian.d03.remove_fire.intent": "消耗余时并让文书烧损，换许简安全。",
+    "choice.changan.dujian.d03.remove_fire.intent": "会耽搁行程；会改变物件去向。",
     "choice.changan.dujian.d03.call_patrol.label": "呼喊巡卒，自己继续追",
-    "choice.changan.dujian.d03.call_patrol.intent": "公开暴露路线，换许简得到救助。",
+    "choice.changan.dujian.d03.call_patrol.intent": "身份可能暴露。",
     "event.changan.dujian.d03.text": "持卷者翻上后墙时踢落了一块青砖。许简靠着门框缓缓坐下，指缝里渗出的血正顺着袖口往下滴，在土夯地面上洇成一枚一枚深色的铜钱。\n\n你追回文书的机会正在消失。他的血也在消失。\n\n火油顺着砖缝爬向灯脚——再有片刻，这个废仓里就没有你还能选择的事了。你最多只能先做一件事。",
+    "event.changan.dujian.d03.combat_victory": "持刀人的兵刃撞上砖地。你没有补第二剑，只用鞋尖把刀踢进流油照不到的墙角。\n\n另一名伏击者已经带着半卷抄本翻过后墙。你最后那一下逼得他右手按墙借力，指缝里的血在青砖上留下了一串暗痕。\n\n许简还站着，火油却正向灯脚流去。你赢下了窄门前的交锋，仍只能从伤者、持卷者和火势之间保住一件事。",
+    "event.changan.dujian.d03.combat_defeat": "你撞上倒塌的货架，短剑险些脱手。重新撑起身时，持刀人已经翻墙退走，许简肩头多了一道见骨的刀口。\n\n另一名伏击者带走了半卷抄本，只在墙头留下几滴血。碎裂的火油罐仍在向灯脚淌油。\n\n这场失手没有替你作出后面的选择：先替许简止血、追持卷者，还是扑灭将起的火，你仍只能保住一件事。",
+    "event.changan.dujian.d03.combat_retreat": "你护住头脸退到倒塌的货架之后，刀锋没有再追来。伏击者要的是退路和抄本，不是与你同死。\n\n等仓门重新安静，许简已经顺着砖墙坐下，肩头衣料被血浸透。墙头留着持卷者翻越时按下的血印，火油也仍向灯脚流去。\n\n撤出交锋保住了性命，却没有保住局面。止血、追人和灭火之中，你仍只能选择一件。",
     "choice.changan.dujian.d03_treat.use_medicine.label": "使用自己的止血散",
-    "choice.changan.dujian.d03_treat.use_medicine.intent": "耗掉唯一一包止血散，保住余时。",
+    "choice.changan.dujian.d03_treat.use_medicine.intent": "会耗掉手中物资；会改变物件去向。",
     "choice.changan.dujian.d03_treat.spend_time.label": "徒手压迫止血",
-    "choice.changan.dujian.d03_treat.spend_time.intent": "消耗余时，保留药物。",
+    "choice.changan.dujian.d03_treat.spend_time.intent": "会耽搁行程。",
     "event.changan.dujian.d03_treat.text": "许简的伤口在左肩下方，刀锋擦过锁骨才滑进肋间——不是致命的位置，但失血的速度比看上去快。他的嘴唇已经开始发白。\n\n你有药。但那是你给自己留的最后一包。从这里到城门，还要走几条巷子，谁也不确定自己的骨头能不能完整地走出去。",
     "choice.changan.dujian.d04a.take_leaf.label": "收下原始残页，答应先护阿萝",
-    "choice.changan.dujian.d04a.take_leaf.intent": "正式偏离原命令，亲自保管证据。",
+    "choice.changan.dujian.d04a.take_leaf.intent": "会改变物件去向。",
     "choice.changan.dujian.d04a.refuse_leaf.label": "只护许简，不碰残页",
-    "choice.changan.dujian.d04a.refuse_leaf.intent": "维持任务边界，但放弃完整证据。",
+    "choice.changan.dujian.d04a.refuse_leaf.intent": "会伤及彼此信任。",
     "choice.changan.dujian.d04a.xu_hides_leaf.label": "让许简带残页自行藏匿",
     "choice.changan.dujian.d04a.xu_hides_leaf.intent": "不亲自携证，但把证据命运交给许简。",
-    "event.changan.dujian.d04a.text": "旧宅的窗纸早被风揭去。许简从贴身衣层中取出一页薄简——竹片削得极薄，人名旁有三种不同墨记：黑墨写名，朱笔标出原籍，还有一种被刻意刮去的痕迹。\n\n许简：赵衡删了这些记号。我不知道他会杀多少人。但阿萝知道原簿是什么样子。她不能落到他手里。\n\n竹简上被刮去的墨迹，在月光下仍留着刀锋的走向。那种手法你认得——那是师门的剑法，不是杀人，是毁证。",
+    "event.changan.dujian.d04a.text": "旧宅窗纸早被风揭去。许简从贴身衣层中取出一页薄简。人名旁原有三种墨记，如今有一列被刀尖逐个刮去。\n\n许简：这是原簿留下的一页。赵衡命我重抄副本时，亲手划掉了这些分类。阿萝看过原簿，她若落到他手里，便活不到开口那日。\n\n刮痕边缘还粘着王允府封泥所用的朱砂。许简的证词未必能救所有人，却足够让你不能再把这份托付当作一趟普通护送。",
     "choice.changan.dujian.d04b.take_copy.label": "先夺副本，不管摔伤的人",
-    "choice.changan.dujian.d04b.take_copy.intent": "取得改动副本，但让阿萝知道你弃人取物。",
+    "choice.changan.dujian.d04b.take_copy.intent": "会伤及彼此信任；会改变物件去向。",
     "choice.changan.dujian.d04b.save_attacker.label": "救下摔伤者，再问谁放的箭",
-    "choice.changan.dujian.d04b.save_attacker.intent": "消耗余时，换取并州斥候痕迹。",
+    "choice.changan.dujian.d04b.save_attacker.intent": "会耽搁行程。",
     "choice.changan.dujian.d04b.follow_blood.label": "沿血脚印追远处弓手",
-    "choice.changan.dujian.d04b.follow_blood.intent": "放弃副本，增加游剑领悟。",
+    "choice.changan.dujian.d04b.follow_blood.intent": "局面一旦失手便难以挽回。",
     "choice.changan.dujian.d04b.kill_attacker.label": "杀死持卷者灭口",
-    "choice.changan.dujian.d04b.kill_attacker.intent": "取得副本并让风声暴露，但失去不杀可能。",
+    "choice.changan.dujian.d04b.kill_attacker.intent": "身份可能暴露；会伤及彼此信任；会改变物件去向。",
     "event.changan.dujian.d04b.text": "持卷者跃过第二道屋脊时脚下一滑。一支箭从更远处飞来，没有射你——射断了他用来落脚的旗绳。\n\n持卷者坠进草棚，副本散落一地。远处弓手已经收弓，瓦面上只留下半枚带血的靴印。靴印方向指向西市深处——那是并州斥候常走的路线。",
     "choice.changan.dujian.d05.take_all.label": "把伤者一同送出城",
-    "choice.changan.dujian.d05.take_all.intent": "队伍变慢，但把病患纳入保护。",
+    "choice.changan.dujian.d05.take_all.intent": "会耽搁行程。",
     "choice.changan.dujian.d05.take_siblings.label": "只带阿萝和她弟弟",
-    "choice.changan.dujian.d05.take_siblings.intent": "保住速度，但放弃病患。",
+    "choice.changan.dujian.d05.take_siblings.intent": "可能有人被留下。",
     "choice.changan.dujian.d05.give_route.label": "告诉她原路和口令，由她自己决定",
-    "choice.changan.dujian.d05.give_route.intent": "尊重阿萝的选择，但无人搬运病患。",
+    "choice.changan.dujian.d05.give_route.intent": "可能有人被留下。",
     "choice.changan.dujian.d05.force_aluo.label": "以王允府命令强行带人",
-    "choice.changan.dujian.d05.force_aluo.intent": "不耗时间，但彻底破坏阿萝信任。",
-    "event.changan.dujian.d05.text": "军属里巷比西市安静得多。阿萝没有藏。她跪在院子里替一名凉州老妇缝合腿伤，四周还躺着三个不能独自行走的人。\n\n阿萝：我知道你为何来。要我走，可以。先告诉我，这些人怎么办。\n\n她身边的男孩——不到十岁，握着一块刻歪的木头小剑——盯着你的剑柄，不是害怕，是在比较。",
+    "choice.changan.dujian.d05.force_aluo.intent": "会伤及彼此信任；可能有人被留下。",
+    "event.changan.dujian.d05.text": "军属里巷比西市安静得多。沿街各户原本挂着籍贯木牌，如今写着‘陇西’‘金城’的几块都被人连夜劈掉，只剩墙上的新白印。董卓死后，凉州从一个地名慢慢变成了一桩嫌疑。\n\n阿萝没有藏。她跪在院里替一名凉州老妇缝合腿伤，四周还躺着三个不能独自行走的人。不到十岁的阿禾握着一块刻歪的木剑，守在药囊旁边。\n\n阿萝：我知道你为何来。要我走，可以。先告诉我，这些人怎么办。\n\n王允府想从名册里找出董卓旧党，城外的溃兵却说名册要杀尽所有外乡人。两边争的是同一张纸；院里的人只知道，纸上的名字都是自己的。",
     "choice.changan.dujian.d06_armor.wear.label": "换上破损札甲，把夹衣留给伤者",
-    "choice.changan.dujian.d06_armor.wear.intent": "获得一次重击防护，但暴露身份并关闭游剑。",
+    "choice.changan.dujian.d06_armor.wear.intent": "身份可能暴露；会改变物件去向。",
     "choice.changan.dujian.d06_armor.stretcher.label": "把札甲绑在担架外侧",
-    "choice.changan.dujian.d06_armor.stretcher.intent": "保护护送队伍，自身仍无甲。",
+    "choice.changan.dujian.d06_armor.stretcher.intent": "会改变物件去向。",
     "choice.changan.dujian.d06_armor.leave.label": "不取札甲，立即整队",
     "choice.changan.dujian.d06_armor.leave.intent": "保留轻身能力，把札甲留给另一人物路线。",
     "event.changan.dujian.d06_armor.text": "墙角靠着一副从死人身上剥下来的破损札甲。甲片被血浸透又晒干，表面结了一层深褐色的壳，但甲衬还算完整——至少能挡一次刀砍或箭伤。\n\n穿它要付出代价。这副甲三斤五两，绑在身上你的轻身法便废了大半。而且它是从董卓旧部身上剥的——穿着它在长安街上走，每一个守卒都会多看你一眼。",
     "choice.changan.dujian.d06_medicine.self.label": "用自己的止血散处理旧伤",
-    "choice.changan.dujian.d06_medicine.self.intent": "治疗自己，老人因此无人用药。",
+    "choice.changan.dujian.d06_medicine.self.intent": "会耗掉手中物资；会伤及彼此信任；可能有人被留下；会改变物件去向。",
     "choice.changan.dujian.d06_medicine.give_own.label": "把自己的止血散给老人",
-    "choice.changan.dujian.d06_medicine.give_own.intent": "牺牲自己的备用药，换老人存活。",
+    "choice.changan.dujian.d06_medicine.give_own.intent": "会耗掉手中物资；会改变物件去向。",
     "choice.changan.dujian.d06_medicine.aluo_treats.label": "请阿萝用她的药救老人",
-    "choice.changan.dujian.d06_medicine.aluo_treats.intent": "保留自己的药，消耗阿萝药囊并获得调息线索。",
+    "choice.changan.dujian.d06_medicine.aluo_treats.intent": "会耗掉手中物资；会改变物件去向。",
     "choice.changan.dujian.d06_medicine.leave.label": "催促所有人立即出发",
-    "choice.changan.dujian.d06_medicine.leave.intent": "保留药物和余时，让老人死亡。",
+    "choice.changan.dujian.d06_medicine.leave.intent": "会伤及彼此信任；可能有人被留下。",
     "event.changan.dujian.d06_medicine.text": "阿萝的药囊已经瘪了大半。她只剩一包止血散——用黄麻纸包着，封口处留着用舌头舔湿再折紧的痕迹。那是她给自己弟弟备的。\n\n院角那个烧伤的老卒已经开始发抖了。不是疼，是冷——高烧前的寒战。你见过这种伤，如果不立刻清创敷药，他活不过今晚。\n\n你怀里可能还有你自己的那一包药。也可能没有。",
     "choice.changan.dujian.d07.guard.label": "以门框作界，演练守势",
-    "choice.changan.dujian.d07.guard.intent": "消耗余时，进入守剑并掌握横剑截流。",
+    "choice.changan.dujian.d07.guard.intent": "会耽搁行程；会改变物件去向。",
     "choice.changan.dujian.d07.roam.label": "沿断墙与残梁试走身位",
-    "choice.changan.dujian.d07.roam.intent": "消耗余时，进入游剑并掌握踏墙换位。",
+    "choice.changan.dujian.d07.roam.intent": "会耽搁行程；会改变物件去向。",
     "choice.changan.dujian.d07.entrust.label": "不练，把残谱交给阿萝保存",
-    "choice.changan.dujian.d07.entrust.intent": "放弃本局成招，换取跨周目传承。",
+    "choice.changan.dujian.d07.entrust.intent": "会改变物件去向。",
     "choice.changan.dujian.d07.skip.label": "不停留，趁闭门前赶路",
     "choice.changan.dujian.d07.skip.intent": "放弃残谱，保留余时和基础剑法。",
     "choice.changan.dujian.d07.breathing.label": "按《调息图诀》压住暗伤",
-    "choice.changan.dujian.d07.breathing.intent": "消耗余时，提高本局内息上限并恢复一息。",
+    "choice.changan.dujian.d07.breathing.intent": "会耽搁行程。",
     "event.changan.dujian.d07.text": "师父的旧剑匣藏在佛座后的暗格里。灰尘很厚，显然赵衡没有来过。\n\n匣里只剩半本《折锋六势》。后半册被人撕走了，断口整齐，是刀裁的。匣盖内侧刻着一行小字：守一人易，知所守难。\n\n城门方向又响了一遍鼓。比上一遍短了半拍——守军正在收紧盘查。你剩下的时间，最多够参悟一势。",
     "choice.changan.dujian.d08.obey.label": "履行命令，交出阿萝和文书",
-    "choice.changan.dujian.d08.obey.intent": "完成原命令，跳过终局冲突。",
+    "choice.changan.dujian.d08.obey.intent": "可能有人被留下；会改变物件去向。",
     "choice.changan.dujian.d08.document_only.label": "只交文书，要求放人",
-    "choice.changan.dujian.d08.document_only.intent": "失去一份文书，暂时保住阿萝。",
+    "choice.changan.dujian.d08.document_only.intent": "会改变物件去向。",
     "choice.changan.dujian.d08.confront.label": "亮出原始残页，质问他删去分类",
-    "choice.changan.dujian.d08.confront.intent": "让关系彻底决裂，并公开暴露。",
+    "choice.changan.dujian.d08.confront.intent": "身份可能暴露；会伤及彼此信任。",
     "choice.changan.dujian.d08.promise.label": "以同门身份承诺稍后交人",
     "choice.changan.dujian.d08.promise.intent": "以承诺换一段余时，背约会加深决裂。",
     "choice.changan.dujian.d08.draw_sword.label": "拔剑拒绝",
-    "choice.changan.dujian.d08.draw_sword.intent": "立即决裂；未成招时仍只用基础剑法。",
-    "event.changan.dujian.d08.text": "赵衡没有带大队人马，只带了两名持弩武吏——不是府中旧识，是生面孔。他站在废寺山门的石阶下，背对着最后一缕夕光。\n\n赵衡：师弟，把医女和文书给我。今日之事，我当你从未走错路。\n\n他的语气很平静。但你注意到他的左肩比右肩高了半寸——那是他将重心移向拔刀侧的预兆，师父纠正了他十年也没改掉。",
+    "choice.changan.dujian.d08.draw_sword.intent": "会伤及彼此信任。",
+    "event.changan.dujian.d08.text": "赵衡没有带大队人马，只带了两名生面孔的持弩武吏。山门外已经挤进第一批从城外逃来的百姓，有人边跑边撕掉衣襟上的籍贯木牌。\n\n赵衡：师弟，把医女和文书给我。今日之事，我当你从未走错路。\n\n他的语气仍像从前替你讲解剑谱。可两名弩手站的位置，一左一右封住了阿萝与巷口；他为你的每一种回答都预备了后手。",
     "choice.changan.dujian.d09.guard.label": "横剑截流，守住这一丈",
-    "choice.changan.dujian.d09.guard.intent": "消耗内息，确保队伍不减员。",
+    "choice.changan.dujian.d09.guard.intent": "需要动用内息；自己可能负伤；会改变物件去向。",
     "choice.changan.dujian.d09.roam.label": "踏墙换位，先制住屋顶追兵",
-    "choice.changan.dujian.d09.roam.intent": "越上屋顶控场，把地面退路交给阿萝。",
+    "choice.changan.dujian.d09.roam.intent": "身份可能暴露。",
     "choice.changan.dujian.d09.seal.label": "以剑印喝止同门武吏",
-    "choice.changan.dujian.d09.seal.intent": "不战通过，但风声升级为缉拿。",
+    "choice.changan.dujian.d09.seal.intent": "身份可能暴露。",
     "choice.changan.dujian.d09.collapse.label": "割断棚架，封住巷口",
-    "choice.changan.dujian.d09.collapse.intent": "消耗余时并损伤短剑，换无伤通过。",
+    "choice.changan.dujian.d09.collapse.intent": "会耽搁行程；会改变物件去向。",
     "choice.changan.dujian.d09.drop_evidence.label": "丢下文书，引追兵争抢",
-    "choice.changan.dujian.d09.drop_evidence.intent": "永久失去一份史证，换队伍通过。",
+    "choice.changan.dujian.d09.drop_evidence.intent": "会改变物件去向。",
     "event.changan.dujian.d09.text": "三名追兵堵在军属里巷出口。前面两人持刀，第三人已经踩上矮墙，想从屋顶越过你去抓阿萝。\n\n巷宽不足一丈。你可以守住地面，也可以抢先登墙——但你不能同时站在两个位置。你的影子只能遮住一条路。\n\n矮墙上的追兵已经探出半个身子。他看到了阿萝。",
     "choice.changan.dujian.d10.aluo_first.label": "让阿萝和伤者先走，自己留下断后",
-    "choice.changan.dujian.d10.aluo_first.intent": "把余时归零，确保同行者通过。",
+    "choice.changan.dujian.d10.aluo_first.intent": "局面一旦失手便难以挽回。",
     "choice.changan.dujian.d10.xu_first.label": "护许简和底稿先过拒马",
-    "choice.changan.dujian.d10.xu_first.intent": "保住许简与其记录，放弃军属。",
+    "choice.changan.dujian.d10.xu_first.intent": "可能有人被留下。",
     "choice.changan.dujian.d10.split.label": "分成两队，自己居中接应",
-    "choice.changan.dujian.d10.split.intent": "消耗内息，依据此前队形决定损失。",
+    "choice.changan.dujian.d10.split.intent": "需要动用内息。",
     "choice.changan.dujian.d10.give_seal.label": "把剑印交给阿萝冒充府中人",
-    "choice.changan.dujian.d10.give_seal.intent": "失去同门交涉手段，确保阿萝一队通过。",
+    "choice.changan.dujian.d10.give_seal.intent": "会改变物件去向。",
     "choice.changan.dujian.d10.surrender.label": "解剑归案，换阿萝一行通过",
-    "choice.changan.dujian.d10.surrender.intent": "失去时间、自由和全部可见物品。",
-    "event.changan.dujian.d10.text": "城门只开着容一辆车通过的缝。败兵、军属和百姓挤在拒马之间，守卒已经开始用矛杆驱赶没有路引的人。\n\n城墙上的火把把每个人的脸照成一半明一半暗。许简要保住底稿，阿萝要带走伤者。你若留下引开追兵，自己未必还能赶上城门关闭。\n\n你必须决定把谁留在身后。",
+    "choice.changan.dujian.d10.surrender.intent": "会改变物件去向。",
+    "event.changan.dujian.d10.text": "西侧城门只开着容一辆车通过的缝。败兵、军属和百姓挤在拒马之间，守卒正用矛杆驱赶没有路引的人。\n\n城头先后来了两名传令者：一个举着王允府的符节，命守卒严查凉州籍；另一个满身是血，只喊吕布前军已经退回城内。两道命令没有谁宣布作废，守门的人便只好把每一个陌生面孔都当成危险。\n\n许简要保住底稿，阿萝要带走伤者。你若留下引开追兵，自己未必还能赶上城门关闭。\n\n史书日后会把这一刻写成‘城门失守’。可站在门缝前的人看不见史书，只看得见下一辆车还能不能过去。",
     "choice.changan.dujian.d11a.surrender.label": "交出人和文书，解剑受缚",
-    "choice.changan.dujian.d11a.surrender.intent": "停止战斗，失去时间、自由和可见物品。",
+    "choice.changan.dujian.d11a.surrender.intent": "会改变物件去向。",
     "choice.changan.dujian.d11a.burn_evidence.label": "把史证抛入火中，只求他放人",
-    "choice.changan.dujian.d11a.burn_evidence.intent": "毁掉一份史证，交换结果由关系和承诺决定。",
+    "choice.changan.dujian.d11a.burn_evidence.intent": "会改变物件去向。",
     "choice.changan.dujian.d11a.fight.label": "拔剑，为身后的人争一条路",
-    "choice.changan.dujian.d11a.fight.intent": "让同门关系彻底决裂，进入正面交锋。",
+    "choice.changan.dujian.d11a.fight.intent": "会伤及彼此信任。",
     "choice.changan.dujian.d11a.fight_looters.label": "先与他联手挡住趁乱劫掠者",
-    "choice.changan.dujian.d11a.fight_looters.intent": "两人各受轻伤，救下一名百姓后再解决分歧。",
+    "choice.changan.dujian.d11a.fight_looters.intent": "自己可能负伤。",
     "choice.changan.dujian.d11a.shoulder.label": "指出他的左肩旧伤",
     "choice.changan.dujian.d11a.shoulder.intent": "利用跨周目见闻削弱第一轮攻势，但不能直接获胜.",
-    "event.changan.dujian.d11a.text": "夕光贴着城墙落下来，把赵衡的影子拖成一条细长的刀痕。远处传来城中军阵崩散的声音——不是战斗，是溃退。\n\n赵衡拔刀时，左肩比右肩慢了半寸。十年了，他还是改不掉那个起手式。\n\n赵衡：我最后问一次。人，还是名册？",
+    "event.changan.dujian.d11a.text": "夕光贴着城墙落下来，把赵衡的影子拖成一条细长的刀痕。远处传来军阵崩散的声音，不是交锋，是成队的人开始各自逃命。\n\n赵衡拔刀，刀尖没有指你，先封住了通往侧门的三步。\n\n赵衡：我最后问一次。人，还是名册？",
     "choice.changan.dujian.d11b.guard.label": "横剑截流，以守为攻",
-    "choice.changan.dujian.d11b.guard.intent": "消耗内息，拖住赵衡并制造破绽。",
+    "choice.changan.dujian.d11b.guard.intent": "需要动用内息；自己可能负伤。",
     "choice.changan.dujian.d11b.roam.label": "踏墙换位，越过刀锋去开侧门",
-    "choice.changan.dujian.d11b.roam.intent": "消耗内息打开出路，再选择遗剑或负伤。",
+    "choice.changan.dujian.d11b.roam.intent": "需要动用内息。",
     "choice.changan.dujian.d11b.learn_disarm.label": "以师门旧势诱他卸兵",
-    "choice.changan.dujian.d11b.learn_disarm.intent": "以伤势和内息换取隐藏招式“卸锋”。",
+    "choice.changan.dujian.d11b.learn_disarm.intent": "需要动用内息；自己可能负伤。",
     "choice.changan.dujian.d11b.armor.label": "用札甲硬受一刀，贴身反击",
-    "choice.changan.dujian.d11b.armor.intent": "毁掉札甲，重创赵衡并暴露到缉拿。",
+    "choice.changan.dujian.d11b.armor.intent": "身份可能暴露；会改变物件去向。",
     "choice.changan.dujian.d11b.grapple.label": "弃剑抱住他，一同滚下石阶",
-    "choice.changan.dujian.d11b.grapple.intent": "双方至少重伤，遗失短剑并直接结束交锋。",
+    "choice.changan.dujian.d11b.grapple.intent": "自己可能负伤；会改变物件去向；这一步可能致命。",
     "event.changan.dujian.d11b.text": "赵衡的刀势压到近前。关中长刀的刀背有三指宽，正面迎击如同撞上一面铁壁。他的第一刀没有劈你——他劈的是你和身后队伍之间的那一步空间。\n\n他在隔开你和你想保护的人。你必须用本局学到的那一招，来打开眼前这道更厚的门。",
     "choice.changan.dujian.d11_roam_cost.leave_sword.label": "遗下短剑，推开侧门",
-    "choice.changan.dujian.d11_roam_cost.leave_sword.intent": "失去师门兵器，保持身体完整。",
+    "choice.changan.dujian.d11_roam_cost.leave_sword.intent": "会改变物件去向。",
     "choice.changan.dujian.d11_roam_cost.take_wound.label": "回身取剑，承受追刀",
-    "choice.changan.dujian.d11_roam_cost.take_wound.intent": "保住短剑，但伤势上升一级。",
+    "choice.changan.dujian.d11_roam_cost.take_wound.intent": "自己可能负伤。",
     "event.changan.dujian.d11_roam_cost.text": "你已经越过赵衡的刀锋。但你的短剑卡在了侧门的铁闩与石缝之间——你方才用它拨开闩锁时，刀刃被铁锈咬住了半寸。\n\n师门短剑是你唯一的兵器。但它也是你唯一困在原地的理由。弃剑推门，或者回身拔剑再吃他一刀——你只能选一个。",
     "choice.changan.dujian.d11c.kill.label": "杀死赵衡",
-    "choice.changan.dujian.d11c.kill.intent": "以可用兵器终结威胁，同时背负杀死同门的后果。",
+    "choice.changan.dujian.d11c.kill.intent": "可能有人被留下；这一步可能致命。",
     "choice.changan.dujian.d11c.disarm.label": "卸下他的刀，不取性命",
     "choice.changan.dujian.d11c.disarm.intent": "使用卸锋结束战斗，保留不杀行止。",
     "choice.changan.dujian.d11c.break_sword.label": "折断自己的剑，断绝同门",
-    "choice.changan.dujian.d11c.break_sword.intent": "毁掉兵器和部分传承，换赵衡停手。",
+    "choice.changan.dujian.d11c.break_sword.intent": "会改变物件去向。",
     "choice.changan.dujian.d11c.return_manual.label": "把《折锋六势》还给他",
-    "choice.changan.dujian.d11c.return_manual.intent": "以残谱和本局进阶武学的后续使用权换放行。",
+    "choice.changan.dujian.d11c.return_manual.intent": "会改变物件去向。",
     "choice.changan.dujian.d11c.leave.label": "趁城门大乱离开",
     "choice.changan.dujian.d11c.leave.intent": "不分胜负，让赵衡成为后续伏笔。",
     "event.changan.dujian.d11c.text": "赵衡的刀势终于出现了缺口。他的右脚踩进了一道石阶的裂缝——那道裂缝从师父在世时就存在了，他从来记不住。\n\n他的呼吸也乱了。不是体力不支——是你方才的守势让他想起了师父。\n\n城门正在崩散。你必须在三息之内决定：杀他，放过他，或者把你们之间最后的牵系也一并斩断。",
     "choice.changan.dujian.d11_capture.confess.label": "承认护送阿萝，把责任揽在自己身上",
-    "choice.changan.dujian.d11_capture.confess.intent": "保护阿萝路线，接受正式收押。",
+    "choice.changan.dujian.d11_capture.confess.intent": "局面一旦失手便难以挽回。",
     "choice.changan.dujian.d11_capture.lie.label": "谎称阿萝已从北面出城",
-    "choice.changan.dujian.d11_capture.lie.intent": "以谋略误导追兵，随后接受收押。",
+    "choice.changan.dujian.d11_capture.lie.intent": "局面一旦失手便难以挽回。",
     "choice.changan.dujian.d11_capture.trade_evidence.label": "交出史证换取不牵连许简",
-    "choice.changan.dujian.d11_capture.trade_evidence.intent": "永久失去史证，换许简免于本轮追查。",
+    "choice.changan.dujian.d11_capture.trade_evidence.intent": "会改变物件去向。",
     "choice.changan.dujian.d11_capture.silent.label": "保持沉默",
-    "choice.changan.dujian.d11_capture.silent.intent": "伤势上升；濒危者会死亡，其余人正式收押。",
+    "choice.changan.dujian.d11_capture.silent.intent": "自己可能负伤；这一步可能致命。",
     "choice.changan.dujian.d11_capture.escape.label": "趁守卒奔逃，撞翻案桌取火折烧绳",
-    "choice.changan.dujian.d11_capture.escape.intent": "借完好火折或游剑身法脱逃，放弃全部没收物。",
+    "choice.changan.dujian.d11_capture.escape.intent": "局面一旦失手便难以挽回。",
     "event.changan.dujian.d11_capture.text": "短剑、剑印和残谱都被摆在案上。赵衡没有立刻杀你——他在看那半本《折锋六势》，手指停在你方才参悟的那一页。\n\n赵衡：阿萝去了哪里？\n\n城外的鼓声忽然停了。然后——整座长安被什么东西从地下撞了一下。守卒开始奔逃。但你手上的绳索还在。",
     "choice.changan.dujian.d12.protect.label": "先安置活下来的人",
     "choice.changan.dujian.d12.protect.intent": "把人物生还置于真相与武谱之前。",
     "choice.changan.dujian.d12.record.label": "整理底稿，记下发生的一切",
     "choice.changan.dujian.d12.record.intent": "保存可靠记录，但接受至少一名关键人物未获救。",
     "choice.changan.dujian.d12.entrust.label": "将残谱与兵器托付后辈",
-    "choice.changan.dujian.d12.entrust.intent": "形成传承维度，主结局仍由本局行止决定。",
+    "choice.changan.dujian.d12.entrust.intent": "会改变物件去向。",
     "choice.changan.dujian.d12.leave.label": "回望长安，独自离去",
     "choice.changan.dujian.d12.leave.intent": "以履约、杀人和人物命运结算本局。",
     "choice.changan.dujian.d12.wall.label": "在狱壁刻下最后一段剑诀",
     "choice.changan.dujian.d12.wall.intent": "在失去自由后留下武学或证词。",
-    "event.changan.dujian.d12.text": "入夜之后，长安方向的火照亮了半边天。你身边剩下的人、手里的剑和怀中的残页，没有一样还是出发时的模样。\n\n许简的袖口还沾着你替他止血时留下的指印。阿萝的头发被火燎去了一截。那个断肋骨的少年已经被老卒背了出来。\n\n远处有人催你继续赶路。你知道自己只能把一件东西完整地带进后世。",
+    "event.changan.dujian.d12.text": "入夜后，长安方向的火照亮了半边天。你清点仍在身边的人与物：有些托付已经有了去处，有些名字只能留在记忆里。\n\n败兵从官道上不断经过，没有人知道明日由谁发号施令。你只知道，自己还能决定怎样讲述今夜。",
     "character.du_jian.name": "杜缄",
     "character.zhao_heng.name": "赵衡",
     "character.xu_jian.name": "许简",
@@ -5517,6 +5928,123 @@
     "ending.changan.dujian.nameless.summary": "托付没有全部完成，但你的选择仍留在他人的命运里。",
     "scenario.changan.dujian.title": "《长安残照》杜缄路线",
     "choice.changan.dujian.d10.solo.label": "独自挤过城门，不管其余人",
-    "choice.changan.dujian.d10.solo.intent": "消耗余时并承受一级伤势，独自突破城门。"
+    "choice.changan.dujian.d10.solo.intent": "会耽搁行程；自己可能负伤。",
+    "character.a_he.name": "阿禾",
+    "event.changan.dujian.d11a.shoulder_known": "夕光贴着城墙落下来。任朔留下的见闻忽然与眼前重合：赵衡拔刀时左肩总比右肩慢半寸，并非习惯，而是旧箭伤牵住了肩胛。\n\n你终于知道该看哪里，却也知道一个破绽并不能替你决定是否出剑。\n\n赵衡：我最后问一次。人，还是名册？",
+    "event.changan.dujian.d12.prison": "火光从临时牢狱狭小的气窗映进来。短剑不在身边，指尖却还能在土墙上刻字。外面先是武吏奔逃，随后响起陌生军队撞门的声音。\n\n长安已经换了主人。你仍没有自由，但阿萝去了哪里、许简留下什么，至少还没有从你口中被夺走。",
+    "event.changan.dujian.d12.aluo_xu": "入夜后，长安方向的火照亮了半边天。许简的袖口还留着你替他止血时按下的血印，阿萝正重新清点药囊；阿禾坐在路碑下，把木剑断口一圈圈缠紧。\n\n你们并非全身而退，但至少还能互相叫出名字。远处有人催促赶路，你必须决定先安置活人，还是先记下未能同行的人。",
+    "event.changan.dujian.d12.aluo": "阿萝带着阿禾在城外等你。男孩的木剑少了一截，仍被他郑重插在腰间。她没有先问名册，只替你看了伤口。\n\n许简没有出现在约定的路碑旁。长安的火越烧越亮，你救下的人和遗失的证词从此不能再互相抵消。",
+    "event.changan.dujian.d12.xu": "许简靠着路碑，把幸存的竹片一枚枚排在膝上。他没有问阿萝是否出来；你们都看见了城门方向被冲散的人群。\n\n记录还在，能为它作证的人却未必还在。你必须决定这份残缺的真相该由谁背下去。",
+    "ending.changan.dujian.prison.summary.dead": "《囚剑长安》并未因你的死亡失去意义。有人沿着你留下的刀剑痕与托付走出了长安，而你的名字停在城门的火光里。",
+    "ending.changan.dujian.prison.summary.legacy": "你没能把所有东西带走，却让兵刃、残谱或一句证词有了下一位保管者。长安失守之后，这份传承比胜负活得更久。",
+    "ending.changan.dujian.protect.summary.dead": "《负刃护人》并未因你的死亡失去意义。有人沿着你留下的刀剑痕与托付走出了长安，而你的名字停在城门的火光里。",
+    "ending.changan.dujian.protect.summary.legacy": "你没能把所有东西带走，却让兵刃、残谱或一句证词有了下一位保管者。长安失守之后，这份传承比胜负活得更久。",
+    "ending.changan.dujian.record.summary.dead": "《残剑留录》并未因你的死亡失去意义。有人沿着你留下的刀剑痕与托付走出了长安，而你的名字停在城门的火光里。",
+    "ending.changan.dujian.record.summary.legacy": "你没能把所有东西带走，却让兵刃、残谱或一句证词有了下一位保管者。长安失守之后，这份传承比胜负活得更久。",
+    "ending.changan.dujian.duty.summary.dead": "《守诺成刃》并未因你的死亡失去意义。有人沿着你留下的刀剑痕与托付走出了长安，而你的名字停在城门的火光里。",
+    "ending.changan.dujian.duty.summary.legacy": "你没能把所有东西带走，却让兵刃、残谱或一句证词有了下一位保管者。长安失守之后，这份传承比胜负活得更久。",
+    "ending.changan.dujian.nameless.summary.dead": "《城下无名》并未因你的死亡失去意义。有人沿着你留下的刀剑痕与托付走出了长安，而你的名字停在城门的火光里。",
+    "ending.changan.dujian.nameless.summary.legacy": "你没能把所有东西带走，却让兵刃、残谱或一句证词有了下一位保管者。长安失守之后，这份传承比胜负活得更久。",
+    "result.choice.changan.dujian.d01.accept.0": "你接过文书，封泥尚温。赵衡替你理正剑带，动作和去年雪夜送药回来时一样熟稔。\n\n他没有催你。正因为没有催，这份托付才显得更重。",
+    "result.choice.changan.dujian.d01.ask.0": "你没有立刻接文书。赵衡压着刀柄的拇指停了一下。\n\n“不是犯人。”他说，“是个会让很多人开口的证人。”府内又换过一班武吏，你追问所耗的片刻已经从门缝里漏了出去。",
+    "result.choice.changan.dujian.d01.inspect_seal.0": "你借衣袖遮住手指，轻轻转过封泥。边缘有一道被热气熏亮的蜡痕——有人拆开过，又把它封了回去。\n\n赵衡看着巷外，没有看你的手。",
+    "result.choice.changan.dujian.d01.warn_foster_mother.0": "旧识从侧门离开时没有回头。你把养母的住处和暗号都交给了他。\n\n这一份人情今夜已经用尽，但至少有一扇门会在乱兵到来前先关上。",
+    "result.choice.changan.dujian.d02.guard_xu.0": "你没有追箭手。短剑横过许简肩前，刀锋撞在剑脊上，震得虎口发麻。\n\n许简终于腾出一只手抓住你的衣角。墙外瓦片一响——持卷者已经借你守人的这一息翻过后墙。",
+    "result.choice.changan.dujian.d02.chase_archer.0": "你踏上木箱，鞋底蹬裂薄板，从持刀人肩上越了过去。\n\n身后传来许简撞上门框的闷响。你逼退箭手，也看清了他腰间那束并州旧箭簇；这条线索是用离开许简身边换来的。",
+    "result.choice.changan.dujian.d02.drop_shelf.0": "短剑割断麻绳，整排货架斜着砸下，把两名袭击者隔在两边。火油罐滚过砖地，在你脚边碎开。\n\n人暂时分开了，油却正向灯脚流去。你救下的是眼前一息，不是整场麻烦。",
+    "result.choice.changan.dujian.d02.show_seal.0": "你把剑印翻到掌外。持刀人认出了纹样，刀势迟了半拍，许简趁机退进门内。\n\n巷口却有人低声叫出了王允府三个字。你的身份已经比你的脚程更早传开。",
+    "result.choice.changan.dujian.d03.stay.0": "你跪到许简身侧，手掌压住他肋间的伤口。墙外脚步越来越轻，最终消失在屋脊之后。\n\n文书可以再追，人若在这里流干血，便没有下一步。你先作了这一重判断。",
+    "result.choice.changan.dujian.d03.chase.0": "你借墙角残箱翻上后墙，没有回头。\n\n许简叫了你一声，声音被瓦片碎裂声截断。前方的人还追得上，身后那道伤却只能交给命数。",
+    "result.choice.changan.dujian.d03.remove_fire.0": "你一脚踢开灯脚，火苗仍舔上了封套。随后你俯身架起许简，把他的右臂搭到自己肩上，一步步拖出油迹。\n\n人出来了，文书边缘已经焦黑。你闻到的纸灰，会一路跟到城门。",
+    "result.choice.changan.dujian.d03.call_patrol.0": "你呼喊巡卒，自己继续追。\n\n巷口已经有人记住你的脸与兵器，消息会走在你前面。",
+    "result.choice.changan.dujian.d03_treat.use_medicine.0": "你使用自己的止血散。\n\n手里的物资就此用去，下一次需要它时只能另想办法。",
+    "result.choice.changan.dujian.d03_treat.spend_time.0": "你徒手压迫止血。\n\n远处的闭门鼓又响了一遍；这段耽搁已经追不回来。",
+    "result.choice.changan.dujian.d04a.take_leaf.0": "你收下薄简。许简没有松手，直到你亲口答应先护阿萝。\n\n竹片只有几钱重，贴进衣襟后却像多压了一块甲。自这一刻起，你护送的不再只是王允府的命令。",
+    "result.choice.changan.dujian.d04a.refuse_leaf.0": "你只护许简，不碰残页。\n\n动作落定，周围短暂一静。眼前的路仍在，但你已经不能再假装未曾作出选择。",
+    "result.choice.changan.dujian.d04a.xu_hides_leaf.0": "你让许简带残页自行藏匿。\n\n动作落定，周围短暂一静。眼前的路仍在，但你已经不能再假装未曾作出选择。",
+    "result.choice.changan.dujian.d04b.take_copy.0": "你先夺副本，不管摔伤的人。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d04b.save_attacker.0": "你先把摔伤者从断竹中拖出，替他固定了折腿。他疼得满头冷汗，仍朝远处那枚箭来的方向偏了偏下巴。\n\n“并州斥候。”他说。你救下一条命，也让另一名主角在这段记录里第一次留下了影子。",
+    "result.choice.changan.dujian.d04b.follow_blood.0": "你沿血脚印追远处弓手。\n\n这一进一退没有白费，它在你心里留下了一条尚未走完的武学方向。",
+    "result.choice.changan.dujian.d04b.kill_attacker.0": "你杀死持卷者灭口。\n\n巷口已经有人记住你的脸与兵器，消息会走在你前面。",
+    "result.choice.changan.dujian.d05.take_all.0": "你蹲下，把最重的老妇背到担架上。阿萝没有道谢，只把另一根抬杆递给你。\n\n阿禾抱着木剑跑去叫人。院里每多站起来一个伤者，队伍便慢一分；可从这一刻起，他们不再只是名册上的一行字。",
+    "result.choice.changan.dujian.d05.take_siblings.0": "你只替阿萝和阿禾让出位置。阿萝替老妇掖好被角，起身时没有看你。\n\n她跟你走了，却把一部分心留在院里。你保住了速度，也带上了这份沉默。",
+    "result.choice.changan.dujian.d05.give_route.0": "你在地上画出两条巷路，把口令教给阿萝。她抹掉图，只留下自己记得住的三个转角。\n\n“走不走，由我决定。”她牵起阿禾。你放开了对她的控制，也放弃了替她承担全部危险的机会。",
+    "result.choice.changan.dujian.d05.force_aluo.0": "你亮出府令，两名武吏上前夹住院门。阿萝把沾血的针收进袖中，先让阿禾站到自己身后。\n\n她跟你走，不是因为相信你。木剑擦过你的剑鞘，阿禾第一次没有抬头看你。",
+    "result.choice.changan.dujian.d06_armor.wear.0": "你换上破损札甲，把夹衣留给伤者。\n\n巷口已经有人记住你的脸与兵器，消息会走在你前面。",
+    "result.choice.changan.dujian.d06_armor.stretcher.0": "你把札甲绑在担架外侧。\n\n这一进一退没有白费，它在你心里留下了一条尚未走完的武学方向。",
+    "result.choice.changan.dujian.d06_armor.leave.0": "你不取札甲，立即整队。\n\n动作落定，身边人的站位与目光也随之改变；这一步没有立刻见血，却已经表明你的取舍。",
+    "result.choice.changan.dujian.d06_medicine.self.0": "你用自己的止血散处理旧伤。\n\n手里的物资就此用去，下一次需要它时只能另想办法。\n\n疼痛留在了身体里，并会跟着你走进下一场交锋。",
+    "result.choice.changan.dujian.d06_medicine.give_own.0": "你把自己的止血散给老人。\n\n手里的物资就此用去，下一次需要它时只能另想办法。",
+    "result.choice.changan.dujian.d06_medicine.aluo_treats.0": "你请阿萝用她的药救老人。\n\n手里的物资就此用去，下一次需要它时只能另想办法。",
+    "result.choice.changan.dujian.d06_medicine.leave.0": "你催促所有人立即出发。\n\n你没有回头；身后的呼吸声最终还是弱了下去。",
+    "result.choice.changan.dujian.d07.guard.0": "你以门框为界，连退七步，每一步都让剑尖留在身后人的前方。第八步时，你终于不再看赵衡会怎样出刀，而是先看自己究竟要守谁。\n\n残谱上的线条与脚下门槛重合。“横剑截流”自此不再只是纸上的名字。",
+    "result.choice.changan.dujian.d07.roam.0": "你沿断墙走了三遍。第三遍落脚时，残梁在脚下轻轻一沉，你借那一沉换到墙的另一侧。\n\n你领悟的不是逃得更快，而是怎样在刀锋合拢前，把自己放到最需要的位置。",
+    "result.choice.changan.dujian.d07.entrust.0": "你合上残谱，递给阿萝。她没有翻看，只用药囊外层的油布把它裹紧。\n\n这一夜你不会因此多会一招；但若你倒在城门内，仍会有人知道这半本书该交给谁。",
+    "result.choice.changan.dujian.d07.skip.0": "你不停留，趁闭门前赶路。\n\n动作落定，身边人的站位与目光也随之改变；这一步没有立刻见血，却已经表明你的取舍。",
+    "result.choice.changan.dujian.d07.breathing.0": "你按《调息图诀》压住暗伤。\n\n远处的闭门鼓又响了一遍；这段耽搁已经追不回来。",
+    "result.choice.changan.dujian.d08.obey.0": "你把人和文书交了出去。赵衡亲手收走你的剑，没有让武吏碰你。\n\n阿萝经过身边时，阿禾的木剑从怀里掉下来。没有人替他捡。原命令完成得很干净，干净得没有留下可以辩解的地方。",
+    "result.choice.changan.dujian.d08.document_only.0": "你只交文书，要求放人。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d08.document_only.1": "你只交文书，要求放人。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d08.document_only.2": "你只交文书，要求放人。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d08.document_only.3": "你只交文书，要求放人。\n\n动作落定，周围短暂一静。眼前的路仍在，但你已经不能再假装未曾作出选择。",
+    "result.choice.changan.dujian.d08.confront.0": "你把残页举到两人之间。赵衡看见被刮去的分类，眼里没有惊讶。\n\n“乱世没有逐一审人的时间。”他说。你终于得到回答，也终于明白你们之间再没有一句旧情可以替这个回答遮掩。",
+    "result.choice.changan.dujian.d08.promise.0": "你以剑印作押，说会在城门前给他一个交代。赵衡侧身让开，只说了一句“别让我替师父清理门户”。\n\n他给你的不是宽恕，而是一段借来的路。",
+    "result.choice.changan.dujian.d08.draw_sword.0": "短剑出鞘时，赵衡先看了一眼你的手势。那是他教你修正过无数次的起手。\n\n两名弩手抬弩，他却抬手压住。师兄弟之间最后一点照顾，只够让这一战晚到城门。",
+    "result.choice.changan.dujian.d09.guard.0": "你把后脚抵住巷砖，剑身横过不足一丈的巷口。第一刀被引向墙面，第二刀压得你膝盖一沉；第三名追兵从矮墙跃下时，只看见阿萝一行已经退过转角。\n\n你守住的不是地面，是他们离开的时间。",
+    "result.choice.changan.dujian.d09.guard.1": "你把后脚抵住巷砖，剑身横过不足一丈的巷口。第一刀被引向墙面，第二刀压得你膝盖一沉；第三名追兵从矮墙跃下时，只看见阿萝一行已经退过转角。\n\n你守住的不是地面，是他们离开的时间。",
+    "result.choice.changan.dujian.d09.roam.0": "你踏墙换位，鞋尖在墙砖上只借了一次力，便先一步落到屋脊追兵面前。\n\n地面的刀声仍在逼近阿萝。你只能相信她记住了你教的退路——游剑的代价，从来是把一部分生死交给同伴。",
+    "result.choice.changan.dujian.d09.roam.1": "你踏墙换位，鞋尖在墙砖上只借了一次力，便先一步落到屋脊追兵面前。\n\n地面的刀声仍在逼近阿萝。你只能相信她记住了你教的退路——游剑的代价，从来是把一部分生死交给同伴。",
+    "result.choice.changan.dujian.d09.roam.2": "你踏墙换位，鞋尖在墙砖上只借了一次力，便先一步落到屋脊追兵面前。\n\n地面的刀声仍在逼近阿萝。你只能相信她记住了你教的退路——游剑的代价，从来是把一部分生死交给同伴。",
+    "result.choice.changan.dujian.d09.seal.0": "你以剑印喝止同门武吏。\n\n巷口已经有人记住你的脸与兵器，消息会走在你前面。",
+    "result.choice.changan.dujian.d09.collapse.0": "你割断棚架，封住巷口。\n\n远处的闭门鼓又响了一遍；这段耽搁已经追不回来。",
+    "result.choice.changan.dujian.d09.drop_evidence.0": "你丢下文书，引追兵争抢。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d09.drop_evidence.1": "你丢下文书，引追兵争抢。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d09.drop_evidence.2": "你丢下文书，引追兵争抢。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d09.drop_evidence.3": "你丢下文书，引追兵争抢。\n\n兵刃、呼吸与脚步都在这一刻换了方向。你已经越过能够轻易回头的界线。",
+    "result.choice.changan.dujian.d10.aluo_first.0": "你把最后一个伤者推进门缝，转身将短剑横在拒马之后。阿萝想停，阿禾却拉住了她。\n\n木剑从男孩手中举起来，隔着人潮朝你点了一下。城门开始闭合，你没有再回头。",
+    "result.choice.changan.dujian.d10.xu_first.0": "你护许简和底稿先过拒马。\n\n兵刃、呼吸与脚步都在这一刻换了方向。你已经越过能够轻易回头的界线。",
+    "result.choice.changan.dujian.d10.xu_first.1": "你护许简和底稿先过拒马。\n\n兵刃、呼吸与脚步都在这一刻换了方向。你已经越过能够轻易回头的界线。",
+    "result.choice.changan.dujian.d10.split.0": "你分成两队，自己居中接应。\n\n一口内息沿兵刃送出，胸口随即空了一瞬。",
+    "result.choice.changan.dujian.d10.split.1": "你分成两队，自己居中接应。\n\n一口内息沿兵刃送出，胸口随即空了一瞬。",
+    "result.choice.changan.dujian.d10.give_seal.0": "你把剑印交给阿萝冒充府中人。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d10.surrender.0": "你先把短剑放在地上，再将剑印和怀中残谱一件件摆到旁边。赵衡的人扣住你的手腕时，阿萝一行正从城门缝里通过。\n\n失去自由并不比挨一刀轻。你只是把代价从他们身上移到了自己身上。",
+    "result.choice.changan.dujian.d10.solo.0": "你独自挤过城门，不管其余人。\n\n远处的闭门鼓又响了一遍；这段耽搁已经追不回来。\n\n疼痛留在了身体里，并会跟着你走进下一场交锋。",
+    "result.choice.changan.dujian.d10.solo.1": "你独自挤过城门，不管其余人。\n\n疼痛留在了身体里，并会跟着你走进下一场交锋。",
+    "result.choice.changan.dujian.d11a.surrender.0": "你交出人和文书，解剑受缚。\n\n兵器与信物被一件件取走。失去行动权，比伤口更快地改变了眼前局势。",
+    "result.choice.changan.dujian.d11a.burn_evidence.0": "你把史证抛入火中，只求他放人。\n\n兵器与信物被一件件取走。失去行动权，比伤口更快地改变了眼前局势。",
+    "result.choice.changan.dujian.d11a.burn_evidence.1": "你把史证抛入火中，只求他放人。\n\n兵器与信物被一件件取走。失去行动权，比伤口更快地改变了眼前局势。",
+    "result.choice.changan.dujian.d11a.burn_evidence.2": "你把史证抛入火中，只求他放人。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d11a.burn_evidence.3": "你把史证抛入火中，只求他放人。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d11a.fight.0": "你把短剑举到眉前。赵衡的刀没有立刻落下。\n\n远处军阵正在溃散，城墙上的尘土一层层落下来。你们都知道历史不会等这一战分出是非；但身后的人只能等你。",
+    "result.choice.changan.dujian.d11a.fight_looters.0": "你先与他联手挡住趁乱劫掠者。\n\n疼痛留在了身体里，并会跟着你走进下一场交锋。",
+    "result.choice.changan.dujian.d11a.shoulder.0": "你指出他的左肩旧伤。\n\n动作落定，周围短暂一静。眼前的路仍在，但你已经不能再假装未曾作出选择。",
+    "result.choice.changan.dujian.d11b.guard.0": "你不接他的刀锋，只接他逼向身后人的每一步。长刀三次压下，短剑三次把力量引向石阶。\n\n第四次，你的肩背已经见血，赵衡的重心却终于越过了刀柄。那是你用伤势换来的破绽。",
+    "result.choice.changan.dujian.d11b.guard.1": "你不接他的刀锋，只接他逼向身后人的每一步。长刀三次压下，短剑三次把力量引向石阶。\n\n第四次，你的肩背已经见血，赵衡的重心却终于越过了刀柄。那是你用伤势换来的破绽。",
+    "result.choice.changan.dujian.d11b.roam.0": "你贴着刀背掠过，左脚踏上城墙排水石，借势翻到赵衡身后。侧门铁闩锈死，短剑插入缝隙才撬开半寸。\n\n门有了缝，你的剑却被咬在石里。生路从来不是凭空打开的。",
+    "result.choice.changan.dujian.d11b.learn_disarm.0": "你以师门旧势诱他卸兵。\n\n一口内息沿兵刃送出，胸口随即空了一瞬。\n\n疼痛留在了身体里，并会跟着你走进下一场交锋。",
+    "result.choice.changan.dujian.d11b.armor.0": "你用札甲硬受一刀，贴身反击。\n\n巷口已经有人记住你的脸与兵器，消息会走在你前面。",
+    "result.choice.changan.dujian.d11b.grapple.0": "你弃剑抱住他，一同滚下石阶。\n\n疼痛留在了身体里，并会跟着你走进下一场交锋。",
+    "result.choice.changan.dujian.d11_roam_cost.leave_sword.0": "你遗下短剑，推开侧门。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d11_roam_cost.take_wound.0": "你回身取剑，承受追刀。\n\n疼痛留在了身体里，并会跟着你走进下一场交锋。",
+    "result.choice.changan.dujian.d11c.kill.0": "你杀死赵衡。\n\n你没有回头；身后的呼吸声最终还是弱了下去。",
+    "result.choice.changan.dujian.d11c.disarm.0": "你顺着赵衡失衡的那一瞬贴近，剑脊压腕，剑格别住刀环。长刀落地时没有血。\n\n赵衡看着空下来的右手，像第一次明白师父教“卸锋”并不是为了让人输得更难看。",
+    "result.choice.changan.dujian.d11c.disarm.1": "你顺着赵衡失衡的那一瞬贴近，剑脊压腕，剑格别住刀环。长刀落地时没有血。\n\n赵衡看着空下来的右手，像第一次明白师父教“卸锋”并不是为了让人输得更难看。",
+    "result.choice.changan.dujian.d11c.break_sword.0": "你把短剑反抵石阶，双手压下。剑身先弯，随后在你们之间断成两截。\n\n赵衡的刀停在半空。你斩断的不是武学，而是再用师门替彼此辩解的资格。",
+    "result.choice.changan.dujian.d11c.return_manual.0": "你把《折锋六势》还给他。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d11c.leave.0": "你趁城门大乱离开。\n\n动作落定，周围短暂一静。眼前的路仍在，但你已经不能再假装未曾作出选择。",
+    "result.choice.changan.dujian.d11_capture.confess.0": "你承认护送阿萝，把责任揽在自己身上。\n\n兵刃、呼吸与脚步都在这一刻换了方向。你已经越过能够轻易回头的界线。",
+    "result.choice.changan.dujian.d11_capture.lie.0": "你谎称阿萝已从北面出城。\n\n兵刃、呼吸与脚步都在这一刻换了方向。你已经越过能够轻易回头的界线。",
+    "result.choice.changan.dujian.d11_capture.trade_evidence.0": "你交出史证换取不牵连许简。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d11_capture.trade_evidence.1": "你交出史证换取不牵连许简。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d11_capture.trade_evidence.2": "你交出史证换取不牵连许简。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d11_capture.silent.0": "你保持沉默。\n\n疼痛留在了身体里，并会跟着你走进下一场交锋。",
+    "result.choice.changan.dujian.d11_capture.escape.0": "你趁守卒奔逃，撞翻案桌取火折烧绳。\n\n兵刃、呼吸与脚步都在这一刻换了方向。你已经越过能够轻易回头的界线。",
+    "result.choice.changan.dujian.d12.protect.0": "你先安置活下来的人。\n\n动作落定，身边人的站位与目光也随之改变；这一步没有立刻见血，却已经表明你的取舍。",
+    "result.choice.changan.dujian.d12.record.0": "你整理底稿，记下发生的一切。\n\n动作落定，身边人的站位与目光也随之改变；这一步没有立刻见血，却已经表明你的取舍。",
+    "result.choice.changan.dujian.d12.entrust.0": "你将残谱与兵器托付后辈。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d12.entrust.1": "你将残谱与兵器托付后辈。\n\n动作落定，身边人的站位与目光也随之改变；这一步没有立刻见血，却已经表明你的取舍。",
+    "result.choice.changan.dujian.d12.entrust.2": "你将残谱与兵器托付后辈。\n\n东西换了去处，也把后来能够选择的路一并改变。",
+    "result.choice.changan.dujian.d12.leave.0": "你回望长安，独自离去。\n\n动作落定，身边人的站位与目光也随之改变；这一步没有立刻见血，却已经表明你的取舍。",
+    "result.choice.changan.dujian.d12.wall.0": "你在狱壁刻下最后一段剑诀。\n\n动作落定，身边人的站位与目光也随之改变；这一步没有立刻见血，却已经表明你的取舍。"
   }
 }

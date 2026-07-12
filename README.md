@@ -18,8 +18,9 @@
 # 核心特色
 
 - **三国史实与适度虚构**：重要史实构成历史锚点，虚构主要发生在史书留白、事件过程和小人物命运中。
-- **简单操作，重要决策**：核心流程无需记忆命令，每次选择都会改变资源、关系、认知或后续路线。
-- **情节驱动的武学成长**：实战、指点和秘籍会解锁新招式，并直接改变后续行动与终局打法。
+- **按钮与命令并行的 MUD 行动**：可观察、搜索、交谈、移动、练功、调息和迎战；无需记忆命令，也可直接输入 `look`、`status`、`go`、`attack` 等命令。
+- **可查看的角色状态**：随时查看等级、阅历、气血、体力、内息、伤势、熟练、行囊、武学和行动记录。
+- **情节与实战共同驱动成长**：有限训练、多回合战斗、指点和秘籍会提升熟练并解锁新招式。
 - **少量独特的秘籍装备**：兵器、衣甲、信物和残谱既提供能力，也带来暴露、时间或关系代价。
 - **多周目求真**：不同人物只能看到局部真相，但真相服务于江湖抉择而非取代武侠主线。
 - **人物命运图谱**：结算不仅呈现主角结局，也记录关键人物的生死、归属、关系与名声。
@@ -62,16 +63,17 @@
 
 # 项目状态
 
-项目目前处于**概念设计与垂直切片规划阶段**，尚未进入正式游戏开发。
+项目目前处于**可试玩 Web 垂直切片与纸面测试阶段**。杜缄、任朔两条路线已经数据化并完成 v0.2 沉浸整改。
 
 当前重点：
 
-- 确立史实、武侠和虚构的边界；
-- 设计《长安残照》的武侠剧情骨架；
-- 验证武学成长是否改变实际选择；
+- 验证自由探索、命令输入、有限练功和多回合战斗是否形成持续可玩性；
+- 通过 5～10 人测试验证行动回响、人物关系和条件尾声是否增强代入感；
+- 验证武学熟练与新招式是否改变探索、战斗和剧情选择；
 - 验证秘籍装备是否产生真实机会成本；
-- 验证不同周目是否带来新打法和新认知；
-- 建立事件、选项、武学、装备、人物命运与结局的数据结构。
+- 验证不同周目是否带来新打法、新关系语境和新认知；
+- 根据玩家停留、犹豫和重开行为删减无效选项；
+- 继续校验人物命运、装备、伤势和场景文本的连续性。
 
 # 文档导航
 
@@ -82,7 +84,10 @@
 | [`docs/STORY_BIBLE.md`](docs/STORY_BIBLE.md) | 《长安残照》的历史边界、人物、武学、秘籍装备与多周目结构 |
 | [`docs/MVP_DESIGN.md`](docs/MVP_DESIGN.md) | MVP 的玩法范围、成长、战斗、装备、测试和通过标准 |
 | [`docs/SYSTEM_DESIGN.md`](docs/SYSTEM_DESIGN.md) | 确定性规则内核、状态结算、战斗成长、存档与未来扩展边界 |
-| [`docs/CONTENT_SCHEMA.md`](docs/CONTENT_SCHEMA.md) | JSON 内容包、条件效果、物品实例、结局、版本与校验规范 |
+| [`docs/CONTENT_SCHEMA.md`](docs/CONTENT_SCHEMA.md) | JSON 内容包、条件效果、即时结果、条件场景、结局与校验规范 |
+| [`docs/IMMERSION_OVERHAUL.md`](docs/IMMERSION_OVERHAUL.md) | v0.2 沉浸整改范围、数据变化、质量门禁与测试重点 |
+| [`docs/MUD_MECHANICS_REFACTOR.md`](docs/MUD_MECHANICS_REFACTOR.md) | 探索、命令、状态、有限练功、多回合战斗与跨周目解锁 |
+| [`docs/PLAYER_EXPERIENCE_REFACTOR_PLAN.md`](docs/PLAYER_EXPERIENCE_REFACTOR_PLAN.md) | 玩家困惑诊断、统一界面、状态解释、时间线、战斗与分阶段重构计划 |
 | [`docs/DU_JIAN_ROUTE.md`](docs/DU_JIAN_ROUTE.md) | 杜缄路线的12个实际事件节点、选项、状态与结局判定 |
 | [`docs/REN_SHUO_ROUTE.md`](docs/REN_SHUO_ROUTE.md) | 任朔路线的10个事件节点、选项、结局与双人物交叉状态 |
 | [`content/changan/du_jian/route.json`](content/changan/du_jian/route.json) | 杜缄路线完整可执行内容包：19个事件、80个选项 |
@@ -104,6 +109,31 @@ three-kingdoms-wuxia-mud/
 ├── docs/       # 愿景、玩法、交互与 UI 设计文档
 └── skills/     # 项目专属设计、写作和开发 Skills
 ```
+
+# 本地运行与测试
+
+启动可试玩页面：
+
+```bash
+python serve.py
+```
+
+推荐访问 `http://127.0.0.1:8080/docs/game.html`；若未使用本机代理，也可以访问 `http://localhost:8080/docs/game.html`。启动脚本会自动检测重复服务和端口占用。
+
+首次运行真实浏览器 E2E 前安装 Playwright：
+
+```bash
+pip install playwright
+playwright install chromium
+```
+
+运行完整校验：
+
+```bash
+python tools/validate_all.py
+```
+
+其中 `tools/e2e_browser.py` 会在随机空闲端口启动隔离服务器，真实点击杜缄守剑与任朔护军完整路线，并检查即时结果、状态变化、存档续玩、结局、移动端布局、桌面设备框、HTTP 失败和浏览器控制台错误。
 
 # 设计原则
 

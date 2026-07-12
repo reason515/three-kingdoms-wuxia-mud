@@ -41,7 +41,8 @@ body::before{
 /* ═══ SCREENS ═══ */
 .screen{display:none;flex-direction:column;flex:1}
 .screen.active{display:flex;min-height:100dvh}
-@media(min-width:520px){.screen.active{min-height:0}}
+#screen-game.active,#screen-mud.active{height:100dvh;overflow:hidden}
+@media(min-width:520px){.screen.active{min-height:0}#screen-game.active,#screen-mud.active{height:auto}}
 
 /* ═══ TITLE SCREEN ═══ */
 #screen-title{background:var(--paper);justify-content:center;align-items:center;padding:var(--space-6,32px);gap:32px;text-align:center}
@@ -68,7 +69,7 @@ body::before{
 
 /* ═══ SCENE SCROLL ═══ */
 .scene-scroll{
-  flex:1 1 auto;overflow-y:auto;background:linear-gradient(rgba(236,227,210,.93),rgba(236,227,210,.95)),url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.04' numOctaves='5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.28'/%3E%3C/svg%3E");
+  flex:1 1 auto;min-height:0;overflow-y:auto;background:linear-gradient(rgba(236,227,210,.93),rgba(236,227,210,.95)),url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.04' numOctaves='5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='.28'/%3E%3C/svg%3E");
   scrollbar-width:thin;scrollbar-color:var(--line) transparent;
 }
 
@@ -85,7 +86,7 @@ body::before{
 
 /* status bar */
 .status-line{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);background:rgba(243,236,220,.78)}
-.stat{text-align:center;padding:8px 4px 7px;border-right:1px solid rgba(196,181,148,.65)}
+.stat{appearance:none;background:transparent;color:inherit;font-family:inherit;text-align:center;padding:8px 4px 7px;border:0;border-right:1px solid rgba(196,181,148,.65);cursor:pointer}
 .stat:last-child{border-right:0}
 .stat span{display:block;font-size:9px;color:var(--ink-fade);letter-spacing:2px}
 .stat b{display:block;margin-top:1px;font:11px/1.3 var(--font-mono);font-weight:600}
@@ -93,12 +94,24 @@ body::before{
 .stat b.good{color:var(--jade)}
 .stat b.warn{color:#c47a20}
 
-/* story */
-.story{padding:18px 18px 10px}
+/* mission, story and chronological timeline */
+.mission-card{position:relative;display:flex;gap:12px;margin:13px 16px 0;padding:12px 13px;background:linear-gradient(105deg,rgba(158,43,37,.08),rgba(248,242,229,.68));border:1px solid rgba(158,43,37,.28);border-left:3px solid var(--seal)}.mission-seal{flex:0 0 auto;width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--seal);color:var(--seal);font-size:13px;transform:rotate(-2deg)}.mission-card small{display:block;color:var(--seal-deep);font-size:9px;letter-spacing:2px}.mission-card strong{display:block;margin-top:2px;font-size:13px;letter-spacing:.5px}.mission-card p{margin:4px 0 0;color:var(--ink-fade);font-size:10px;line-height:1.5}
+.story{padding:16px 18px 8px}
+.timeline-area{padding:0 18px 12px}.timeline-area:empty{display:none}.timeline-entry{position:relative;margin:8px 0 0;padding:11px 12px 10px 14px;border-left:3px solid var(--jade);background:rgba(74,108,93,.07);animation:timelineIn .28s ease}.timeline-entry.latest{box-shadow:inset 0 0 0 1px rgba(168,132,47,.25);background:rgba(168,132,47,.08)}.timeline-entry .timeline-label{color:var(--jade);font-size:9px;letter-spacing:2px;margin-bottom:6px}.timeline-entry p{margin:0 0 7px;font-size:12px;line-height:1.75}.timeline-deltas{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.timeline-continue{width:100%;margin-top:9px}.timeline-entry.system{border-left-color:var(--gold)}@keyframes timelineIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 .scene-kicker{display:flex;align-items:center;gap:10px;color:var(--seal-deep);font-size:11px;letter-spacing:3px;margin-bottom:10px}
 .scene-kicker::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,var(--line),transparent)}
 .story p{margin:0 0 12px;font-size:14.5px;line-height:1.9;color:#27231f}
 .story p.opening::first-letter{float:left;color:var(--seal-deep);font-size:38px;line-height:.92;padding:5px 6px 0 0;font-weight:700}
+.reveal-unit{opacity:0;filter:blur(1.5px);transition:opacity .42s ease,filter .42s ease}
+.reveal-unit.is-shown{opacity:1;filter:none}
+.reveal-complete .reveal-unit{transition:none}
+.entity{font-weight:650;padding:0 .04em;text-decoration-thickness:1px;text-underline-offset:3px}
+.entity-person{color:#8b3029;text-decoration:underline dotted rgba(139,48,41,.42)}
+.entity-item{color:#8a681e;text-decoration:underline dotted rgba(138,104,30,.45)}
+.entity-place{color:#355f61;text-decoration:underline dotted rgba(53,95,97,.4)}
+.entity-technique{color:#3f6756;text-decoration:underline dotted rgba(63,103,86,.42)}
+.entity-history{color:#5b506d}
+.intro-overlay .entity-person{color:#e58b7e}.intro-overlay .entity-item{color:#d8b667}.intro-overlay .entity-place{color:#80aaa4}.intro-overlay .entity-technique{color:#85b69c}.intro-overlay .entity-history{color:#aaa0c1}
 .speech{margin:15px 0 13px;padding:11px 13px 11px 15px;border-left:3px solid var(--jade);background:rgba(74,108,93,.075);color:#2f453c;font-size:13px;line-height:1.75}
 .speech small{display:block;color:var(--ink-fade);margin-bottom:2px;letter-spacing:2px}
 
@@ -112,14 +125,29 @@ body::before{
 .insight-text strong{display:block;font-size:12px;letter-spacing:2px}
 .insight-text span{display:block;font-size:10px;color:var(--ink-fade);margin-top:2px}
 
+/* choice consequence interlude */
+.result-overlay{position:absolute;inset:0;z-index:30;display:grid;align-items:end;background:rgba(19,20,18,.58);backdrop-filter:blur(2px);animation:fadeIn .18s ease}
+.result-sheet{position:relative;z-index:1;max-height:88dvh;overflow-y:auto;padding:24px 22px calc(22px + env(safe-area-inset-bottom,0));background:linear-gradient(165deg,var(--paper-light),var(--paper));border-top:2px solid var(--gold);box-shadow:0 -24px 60px rgba(0,0,0,.28);isolation:isolate}
+#app.result-open .decision-panel{visibility:hidden}
+.result-sheet::before{content:"果";position:absolute;right:20px;top:18px;width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--seal);color:var(--seal);font-size:15px;transform:rotate(3deg)}
+.result-kicker{color:var(--seal-deep);font-size:10px;letter-spacing:4px;margin-bottom:12px}
+.result-body{padding-right:44px;font-size:14px;line-height:1.95;color:var(--ink-soft)}
+.result-body p{margin:0 0 10px}.result-body p:last-child{margin-bottom:0}
+.result-state{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.result-state:empty{display:none}.state-chip{padding:3px 8px;border-radius:2px;background:rgba(158,43,37,.08);color:var(--seal-deep);font:10px/1.5 var(--font-mono);border:1px solid rgba(158,43,37,.2)}
+.result-continue{width:100%;margin-top:18px}
+
 /* ═══ DECISION PANEL ═══ */
 .decision-panel{
-  flex:0 0 auto;padding:10px 12px 6px;
+  flex:0 0 auto;max-height:52dvh;overflow-y:auto;padding:10px 12px 6px;
   background:linear-gradient(180deg,rgba(243,236,220,.96),var(--paper-card));
   border-top:1px solid var(--gold);box-shadow:0 -10px 25px rgba(28,26,23,.09);z-index:5;
 }
-.decision-head{display:flex;justify-content:space-between;align-items:center;padding:0 3px 7px}
+.decision-head{display:flex;justify-content:space-between;align-items:center;min-height:24px;padding:0 3px 7px}
 .decision-head span{color:var(--ink-fade);font-size:10px;letter-spacing:3px}
+.decision-tools{display:flex;align-items:center;gap:9px}.decision-tool,.reveal-skip{border:0;background:transparent;color:var(--seal-deep);font:10px/1.4 var(--font-serif);letter-spacing:1px;cursor:pointer;padding:3px 0}.reveal-skip{display:none}.decision-panel.is-revealing .reveal-skip{display:block}.decision-panel.is-revealing .decision-tool,.decision-panel.is-revealing .unified-action-group,.decision-panel.is-revealing .inline-command,.decision-panel.is-revealing .story-action-title,.decision-panel.is-revealing .actions,.decision-panel.has-result .unified-action-group,.decision-panel.has-result .inline-command,.decision-panel.has-result .story-action-title,.decision-panel.has-result .actions,.decision-panel.inline-combat .story-action-title,.decision-panel.inline-combat .actions{display:none}
+.action-group-title{margin:2px 3px 6px;color:var(--ink-fade);font-size:9px;letter-spacing:2px}.unified-action-group{margin-top:8px;padding-top:7px;border-top:1px dashed var(--line)}.world-actions{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:7px}.world-action{min-height:44px;border:1px solid rgba(74,108,93,.38);border-bottom:2px solid var(--jade);border-radius:3px;background:rgba(74,108,93,.055);color:var(--ink);font-size:10px;cursor:pointer}.world-action.danger{border-bottom-color:var(--seal)}.world-action.tech{color:var(--jade)}
+.inline-command{margin:0 2px 7px;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}.inline-command summary{padding:6px 1px;color:var(--ink-fade);font-size:9px;cursor:pointer}.inline-command form{display:flex;gap:5px;padding:0 0 7px}.inline-command input{min-width:0;flex:1;padding:7px 8px;border:1px solid var(--line);background:#fffaf0;font:10px var(--font-mono)}.inline-command button{border:0;background:var(--ink);color:var(--gold-bright);padding:0 11px;font-size:10px}
 .actions{display:grid;gap:6px;padding-bottom:env(safe-area-inset-bottom,0)}
 .action{
   width:100%;border:1px solid var(--line);border-left:3px solid var(--gold);
@@ -135,8 +163,29 @@ body::before{
 .action-title{font-size:12.5px;font-weight:700;letter-spacing:1px}
 .action-tag{align-self:center;padding:1px 5px;border:1px solid var(--line);color:var(--ink-fade);font-size:8px;white-space:nowrap;border-radius:2px}
 .action-tag.seal{border-color:var(--seal);color:var(--seal)}
-.action-cost{grid-column:1/-1;color:var(--ink-fade);font-size:10px}
+.action-tag:empty{display:none}
+.action-cost{grid-column:1/-1;color:var(--ink-fade);font-size:10.5px;line-height:1.45}
 .action.danger .action-cost,.action.lethal .action-cost{color:var(--seal-deep)}
+
+/* state explanation drawer */
+.state-drawer{position:absolute;inset:0;z-index:45;display:none}.state-drawer.open{display:block}.state-drawer-backdrop{position:absolute;inset:0;background:rgba(18,19,17,.58);backdrop-filter:blur(2px)}.state-drawer>section{position:absolute;left:0;right:0;bottom:0;max-height:84%;overflow-y:auto;padding:18px;background:var(--paper-light);border-top:2px solid var(--gold);box-shadow:0 -20px 55px rgba(0,0,0,.3)}.state-drawer header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}.state-drawer header small{color:var(--ink-fade);font-size:9px;letter-spacing:2px}.state-drawer h2{font-size:20px;letter-spacing:4px}.state-drawer header button{border:0;background:transparent;color:var(--seal);font-size:11px}.state-guide-card{padding:12px 0;border-top:1px solid var(--line)}.state-guide-card:first-child{border-top:0}.state-guide-card h3{display:flex;justify-content:space-between;font-size:13px;color:var(--seal-deep)}.state-guide-card h3 span{font:11px var(--font-mono);color:var(--ink)}.state-guide-card p{margin:6px 0 0;font-size:11px;line-height:1.65;color:var(--ink-soft)}.state-guide-card ul{margin:6px 0 0;padding-left:18px;font-size:10px;line-height:1.65;color:var(--ink-fade)}
+
+/* ═══ MUD EXPLORATION SCREEN (legacy transition screen) ═══ */
+#screen-mud{background:var(--paper);min-height:100dvh}
+@media(min-width:520px){#screen-mud{min-height:0}}
+.mud-head{flex:0 0 auto;padding:13px 16px 11px;color:#eadfc8;background:var(--night);border-bottom:1px solid var(--gold)}
+.mud-head-row{display:flex;align-items:flex-end;justify-content:space-between}.mud-head small{display:block;color:#9f9584;font-size:9px;letter-spacing:3px}.mud-head h2{font-size:19px;letter-spacing:4px;margin-top:2px}.mud-pressure{font-size:10px;color:var(--gold-bright);letter-spacing:2px}
+.mud-vitals{display:grid;grid-template-columns:repeat(4,1fr);flex:0 0 auto;background:var(--paper-card);border-bottom:1px solid var(--line)}
+.mud-vitals span{text-align:center;padding:8px 3px;border-right:1px solid var(--line);font-size:9px;color:var(--ink-fade);letter-spacing:1px}.mud-vitals span:last-child{border:0}.mud-vitals b{display:block;color:var(--ink);font:11px/1.4 var(--font-mono);margin-top:2px}
+.mud-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;padding:14px;background:linear-gradient(rgba(236,227,210,.95),rgba(236,227,210,.98)),url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.05' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)' opacity='.2'/%3E%3C/svg%3E")}
+.mud-place,.mud-sheet,.mud-combat{padding:15px;background:rgba(248,242,229,.72);border:1px solid var(--line);border-left:3px solid var(--jade)}
+.mud-kicker{font-size:10px;letter-spacing:3px;color:var(--seal-deep);margin-bottom:8px}.mud-place p,.mud-sheet p,.mud-combat p{font-size:13px;line-height:1.8;color:var(--ink-soft)}.mud-presence{margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);font-size:10px;color:var(--jade)}
+.mud-logbook{margin-top:12px}.mud-log{position:relative;margin:0;padding:7px 8px 7px 19px;border-bottom:1px solid rgba(196,181,148,.42);font-size:12px;line-height:1.65;color:var(--ink-soft)}.mud-log::before{content:'›';position:absolute;left:6px;color:var(--gold)}.mud-log.growth,.mud-record.growth{color:var(--jade)}.mud-log.warning,.mud-log.danger,.mud-record.danger{color:var(--seal-deep)}.mud-log.discovery,.mud-log.victory{color:#7b5e18}.mud-log.dialogue{color:#405b69}
+.mud-action-panel{flex:0 0 auto;padding:9px 10px;background:var(--paper-card);border-top:1px solid var(--gold)}.mud-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;max-height:190px;overflow-y:auto}.mud-action{min-height:42px;padding:7px 8px;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:3px;background:var(--paper-light);color:var(--ink);font-size:11px;text-align:left;cursor:pointer}.mud-action.danger{border-left-color:var(--seal)}.mud-action.tech{border-left-color:var(--jade);color:var(--jade)}
+.mud-command-form{display:flex;gap:6px;margin-top:8px}.mud-command-form input{min-width:0;flex:1;border:1px solid var(--line);background:#fffaf0;color:var(--ink);padding:8px 10px;font:11px var(--font-mono);outline:none}.mud-command-form input:focus{border-color:var(--jade);box-shadow:0 0 0 2px rgba(74,108,93,.12)}.mud-command-form button{border:0;background:var(--ink);color:var(--gold-bright);padding:0 14px;font-size:11px}
+.mud-nav{display:grid;grid-template-columns:repeat(6,1fr);flex:0 0 auto;background:var(--ink);border-top:1px solid var(--gold);padding-bottom:env(safe-area-inset-bottom,0)}.mud-nav button{border:0;background:transparent;color:#aca18e;padding:9px 2px 8px;font:9px var(--font-serif);cursor:pointer}.mud-nav button.active{color:var(--gold-bright);background:rgba(203,166,91,.08)}
+.mud-sheet h3{margin:2px 0 9px;color:var(--seal-deep);font-size:13px;letter-spacing:2px}.mud-sheet h3:not(:first-child){margin-top:18px}.mud-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}.mud-stat-grid span{padding:7px 4px;text-align:center;background:var(--paper-2);font-size:9px;color:var(--ink-fade)}.mud-stat-grid b{display:block;color:var(--ink);font:12px var(--font-mono);margin-top:3px}.mud-meter{height:7px;background:#d5cab3;overflow:hidden;margin:7px 0}.mud-meter i{display:block;height:100%;background:linear-gradient(90deg,var(--jade),var(--gold));transition:width .25s}.mud-list-row{padding:10px 0;border-bottom:1px solid var(--line)}.mud-list-row b{display:block;font-size:12px}.mud-list-row span{display:block;margin-top:3px;font-size:10px;line-height:1.55;color:var(--ink-fade)}.mud-record{padding:7px 0;border-bottom:1px solid var(--line);font-size:11px;line-height:1.6}
+.combat-bars label{display:grid;grid-template-columns:62px 1fr 48px;gap:7px;align-items:center;margin:8px 0;font-size:9px;color:var(--ink-fade)}.combat-bars i{height:6px;background:#d8cdb7;overflow:hidden}.combat-bars b{display:block;height:100%;background:var(--seal)}.combat-bars label:nth-child(2) b{background:var(--gold)}.enemy-intent{margin:12px 0;padding:9px 11px;background:rgba(158,43,37,.08);border:1px solid rgba(158,43,37,.24);color:var(--seal-deep);font-size:11px;letter-spacing:1px}
 
 /* ═══ ENDING ═══ */
 .ending-card{padding:28px 18px;text-align:center}
@@ -183,7 +232,11 @@ body::before{
 .intro-overlay .intro-text p{margin:0 0 14px}
 .intro-overlay .intro-text .speech{border-left-color:rgba(203,166,91,.5);color:#d4c8b2;background:rgba(74,108,93,.08);text-align:left;margin:14px 0}
 .intro-overlay .intro-text em{color:#eadfc8;font-style:normal}
-.intro-overlay .btn{margin-top:28px;margin-bottom:32px}
+.intro-overlay .btn{margin-top:20px;margin-bottom:32px}
+.intro-controls{display:flex;flex-direction:column;align-items:center;gap:2px}
+.intro-reveal{border:0;background:transparent;color:var(--gold-bright);font:11px/1.5 var(--font-serif);letter-spacing:2px;padding:8px 16px;cursor:pointer}
+.intro-overlay .btn:disabled{opacity:.35;cursor:default}
+@media(prefers-reduced-motion:reduce){.reveal-unit{transition:none}.intro-overlay{animation:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 </style>
 </head>
@@ -200,7 +253,8 @@ body::before{
         <button class="btn btn-primary" onclick="startNew('ren_shuo')">任 朔 — 同袍之刀</button>
         <button class="btn btn-secondary" id="btn-continue" onclick="loadGame()" style="display:none">继续上次</button>
         <button class="btn btn-secondary" onclick="showScreen('screen-history')">江湖史卷</button>
-        <button class="btn btn-small btn-secondary" style="margin-top:16px" onclick="runTests()">运行回归测试</button>
+        <button class="btn btn-small btn-secondary" onclick="showPrologue()">卷首 · 长安将倾</button>
+        <button class="btn btn-small btn-secondary" style="margin-top:12px" onclick="runTests()">运行回归测试</button>
       </div>
       <div id="test-log" style="display:none;margin-top:16px;font-size:11px;text-align:left;max-height:200px;overflow-y:auto;color:var(--ink)"></div>
     </div>
@@ -226,18 +280,40 @@ body::before{
         <div class="loc-label"><span id="loc-span">长安</span><strong id="loc-strong">王允府外巷</strong></div>
         <div class="scene-no" id="scene-no">第一幕 · 受命</div>
       </div>
-      <div class="status-line">
-        <div class="stat"><span>人物</span><b id="st-char">—</b></div>
-        <div class="stat"><span>伤势</span><b id="st-injury">—</b></div>
-        <div class="stat"><span>内息</span><b id="st-breath">—</b></div>
-        <div class="stat"><span>风声</span><b id="st-heat">—</b></div>
+      <div class="status-line unified-status">
+        <button type="button" class="stat" onclick="openStateGuide('hp')"><span>气血</span><b id="st-hp">—</b></button>
+        <button type="button" class="stat" onclick="openStateGuide('stamina')"><span>体力</span><b id="st-stamina">—</b></button>
+        <button type="button" class="stat" onclick="openStateGuide('breath')"><span>内息</span><b id="st-breath">—</b></button>
+        <button type="button" class="stat" onclick="openStateGuide('gate')"><span>城门</span><b id="st-gate">—</b></button>
       </div>
+      <section class="mission-card" id="mission-card"><div class="mission-seal">令</div><div><small>当前目标</small><strong id="mission-title">—</strong><p id="mission-next">—</p></div></section>
       <div id="story-area"></div>
+      <section class="timeline-area" id="timeline-area" aria-live="polite"></section>
     </div>
     <section class="decision-panel" id="decision-panel">
-      <div class="decision-head"><span>此刻，你如何选择</span></div>
-      <div class="actions" id="actions"></div>
+      <div class="decision-head"><span id="decision-prompt">此刻，你如何选择</span><div class="decision-tools"><button type="button" class="reveal-skip" id="reveal-skip">显示全文</button><button type="button" class="decision-tool" onclick="openStateGuide()">状态说明</button></div></div>
+      <div class="action-group-title story-action-title">关键抉择</div><div class="actions" id="actions"></div>
+      <div class="unified-action-group" id="world-action-group"><div class="action-group-title">地点行动</div><div class="world-actions" id="world-actions"></div></div>
+      <details class="inline-command" id="inline-command"><summary>更多操作 · 文字命令</summary><form onsubmit="submitInlineCommand(event)"><input id="inline-command-input" autocomplete="off" aria-label="文字命令" placeholder="look / search / practice"><button type="submit">执行</button></form></details>
     </section>
+  </div>
+
+  <!-- ═══ MUD EXPLORATION SCREEN ═══ -->
+  <div id="screen-mud" class="screen">
+    <header class="mud-head">
+      <div class="mud-head-row"><div><small>江湖行动 · 长安</small><h2 id="mud-location">—</h2></div><div class="mud-pressure" id="mud-pressure">—</div></div>
+    </header>
+    <div class="mud-vitals">
+      <span>等级<b id="mud-level">1</b></span><span>气血<b id="mud-hp">—</b></span><span>体力<b id="mud-stamina">—</b></span><span>内息<b id="mud-breath">—</b></span>
+    </div>
+    <main class="mud-scroll" id="mud-content"></main>
+    <section class="mud-action-panel">
+      <div class="mud-actions" id="mud-actions"></div>
+      <form class="mud-command-form" onsubmit="submitMudCommand(event)"><input id="mud-command" autocomplete="off" aria-label="MUD命令" placeholder="输入命令：look / status / go 西市废仓"><button type="submit">执行</button></form>
+    </section>
+    <nav class="mud-nav" aria-label="江湖功能">
+      <button type="button" data-tab="world" onclick="mudTab('world')">江湖</button><button type="button" data-tab="status" onclick="mudTab('status')">状态</button><button type="button" data-tab="inventory" onclick="mudTab('inventory')">行囊</button><button type="button" data-tab="skills" onclick="mudTab('skills')">武学</button><button type="button" data-tab="records" onclick="mudTab('records')">记录</button><button type="button" onclick="resumeStory()">剧情</button>
+    </nav>
   </div>
 
   <!-- ═══ HISTORY SCREEN ═══ -->
@@ -247,6 +323,7 @@ body::before{
     <div class="btn-row"><button class="btn btn-secondary" onclick="showScreen('screen-title')">返回标题</button></div>
   </div>
 
+  <aside class="state-drawer" id="state-drawer" aria-hidden="true"><div class="state-drawer-backdrop" onclick="closeStateGuide()"></div><section><header><div><small>规则与当前影响</small><h2>人物状态</h2></div><button type="button" onclick="closeStateGuide()">关闭</button></header><div id="state-guide-content"></div></section></aside>
   <div class="toast" id="toast"></div>
 </div>
 
@@ -254,7 +331,7 @@ body::before{
 /* ═══════════════ RUNTIME ENGINE ═══════════════ */
 class Runtime{
   constructor(b){
-    this.b=b;this.events=Object.fromEntries(b.events.map(e=>[e.id,e]));
+    this.b=b;this.bundle=b;this.events=Object.fromEntries(b.events.map(e=>[e.id,e]));
     this.endings=[...b.endings].sort((a,b)=>b.priority-a.priority);
     this.defs=Object.fromEntries(b.itemDefinitions.map(d=>[d.id,d]));
     const i=b.initialState;
@@ -334,6 +411,7 @@ class Runtime{
     if(!res)throw new Error('no res');for(const ef of(res.effects||[]))this.effect(ef);this.normalize();
     this.log.push(cid);const d=res.next;
     if(d.type==='event')this.current=d.eventId;else if(d.type==='resolveEnding')this.ending=this.resolveEnding();else this.ending='end';
+    return res.resultTextKey||null;
   }
   resolveEnding(){for(const e of this.endings)if(this.check(e.when)&&(!e.excludeWhen||!this.check(e.excludeWhen)))return e.id;throw new Error('no ending');}
   clone(){
@@ -357,8 +435,72 @@ const LOC_NAMES={
   'location.changan.wang_yun_outer_alley':'王允府外巷','location.changan.west_market_warehouse':'西市废仓','location.changan.old_residence':'王允府旧宅','location.changan.west_market_rooftop':'西市屋脊','location.changan.military_family_lane':'军属里巷','location.changan.military_family_backyard':'军属里巷后院','location.changan.ruined_temple':'废寺偏殿','location.changan.temple_gate':'废寺山门','location.changan.lane_exit':'军属里巷出口','location.changan.west_gate':'长安西门','location.changan.gate_inner':'城门内侧','location.changan.temporary_cell':'临时牢狱','location.changan.aftermath':'长安余烬','location.changan.west_market_ruins':'西市废墟','location.changan.bingzhou_camp':'并州军营','location.changan.backyard':'军属后院','location.changan.near_camp_path':'军营小路','location.changan.gate_hill':'城门外小丘'
 };
 
+/* ═══════════════ PROGRESSIVE TEXT REVEAL ═══════════════ */
+let activeReveal=null;
+const HISTORICAL_ENTITIES=[
+  ['李傕','person'],['郭汜','person'],['贾诩','person'],['王允','person'],['吕布','person'],['董卓','person'],
+  ['长安','place'],['王允府','history'],['并州军','history'],['凉州军','history'],['董卓旧部','history']
+];
+function entityTerms(){
+  const terms=[...HISTORICAL_ENTITIES];const texts=runtime?.bundle?.texts||{};
+  for(const[key,value]of Object.entries(texts)){
+    if(!value||value.length>18)continue;
+    if(key.startsWith('character.')&&key.endsWith('.name'))terms.push([value,'person']);
+    else if(key.startsWith('item.')&&key.endsWith('.name'))terms.push([value,'item']);
+    else if(key.startsWith('location.')&&key.endsWith('.name'))terms.push([value,'place']);
+    else if(key.startsWith('technique.')&&key.endsWith('.name'))terms.push([value,'technique']);
+  }
+  const unique=new Map();for(const[term,type]of terms)if(term&&!unique.has(term))unique.set(term,type);
+  return [...unique].sort((a,b)=>b[0].length-a[0].length);
+}
+function highlightEntities(root){
+  const terms=entityTerms();if(!terms.length)return;
+  const lookup=new Map(terms),escaped=terms.map(([term])=>term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  const regex=new RegExp(`(${escaped.join('|')})`,'g');
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];
+  while(walker.nextNode())if(!walker.currentNode.parentElement.closest('.entity,small'))nodes.push(walker.currentNode);
+  for(const node of nodes){
+    const parts=node.nodeValue.split(regex);if(parts.length===1)continue;
+    const frag=document.createDocumentFragment();for(const part of parts){
+      const type=lookup.get(part);if(type){const mark=document.createElement('span');mark.className=`entity entity-${type}`;mark.textContent=part;frag.appendChild(mark)}else frag.appendChild(document.createTextNode(part));
+    }node.replaceWith(frag);
+  }
+}
+function sentenceUnits(text){
+  return text.match(/[^。！？；…]+(?:[。！？；…]+|$)/g)?.filter(Boolean)||[text];
+}
+function revealText(container,onComplete){
+  const units=[];
+  for(const block of container.querySelectorAll('p,.speech')){
+    const speaker=block.querySelector(':scope > small');
+    const raw=[...block.childNodes].filter(node=>node!==speaker).map(node=>node.textContent).join('').trim();
+    const speakerCopy=speaker?.cloneNode(true);block.replaceChildren();if(speakerCopy)block.appendChild(speakerCopy);
+    for(const sentence of sentenceUnits(raw)){
+      const span=document.createElement('span');span.className='reveal-unit';span.textContent=sentence;block.appendChild(span);highlightEntities(span);units.push(span);
+    }
+  }
+  let index=0,timer=null,finished=false;
+  const complete=()=>{if(finished)return;finished=true;clearTimeout(timer);container.classList.add('reveal-complete');units.forEach(x=>x.classList.add('is-shown'));onComplete?.()};
+  const step=()=>{
+    if(finished)return;if(index>=units.length){complete();return}
+    const unit=units[index++];unit.classList.add('is-shown');
+    const delay=Math.min(360,150+unit.textContent.length*4);timer=setTimeout(step,delay);
+  };
+  const controller={finish:complete,cancel:()=>{finished=true;clearTimeout(timer)}};
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!units.length)complete();else timer=setTimeout(step,90);
+  return controller;
+}
+function beginSceneReveal(story){
+  activeReveal?.cancel();
+  const panel=document.getElementById('decision-panel'),prompt=document.getElementById('decision-prompt'),skip=document.getElementById('reveal-skip');
+  panel.classList.add('is-revealing');prompt.textContent='墨迹渐显 · 局势未定';
+  const done=()=>{panel.classList.remove('is-revealing');prompt.textContent='此刻，你如何选择';activeReveal=null};
+  const controller=revealText(story,done);activeReveal=panel.classList.contains('is-revealing')?controller:null;skip.onclick=()=>activeReveal?.finish();
+}
+
 /* ═══════════════ SCREENS ═══════════════ */
 function showScreen(id){
+  activeReveal?.cancel();activeReveal=null;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el=document.getElementById(id);if(el)el.classList.add('active');
   if(id==='screen-title')updateContinue();
@@ -373,17 +515,25 @@ async function loadBundle(char){
   const resp=await fetch(`../content/changan/${char}/route.json`);bundles[char]=await resp.json();return bundles[char];
 }
 
-/* ═══════════════ INTRO ═══════════════ */
+/* ═══════════════ PROLOGUE & CHARACTER INTRO ═══════════════ */
+const PROLOGUE_TEXT={title:'长安将倾',sub:'初平三年 · 夏',text:`<p>一个多月前，董卓死在长安宫门之内。亲手刺出那一戟的是吕布，谋定此事的是司徒王允。消息传遍里坊时，百姓开坛饮酒，都以为乱世终于肯停一停。</p>
+<p>酒还没有喝完，城门便比从前关得更早了。</p>
+<p>王允如今主持朝政，吕布领兵守城；可董卓从凉州带来的旧部并没有凭空消失。城西更远处，李傕、郭汜正在收拢溃兵。赦书迟迟未到，有人说王允不肯赦，有人说传令的人根本没能走出长安。</p>
+<p>军报一天一变，流言一夜十变。最先倒霉的不是军中的大人物，而是说凉州口音的脚夫、住在军属巷里的妇孺，以及籍贯恰好写在一张名册上的人。</p>
+<p>从前，纸上的一个名字只说明你从哪里来。如今，它可能决定哪一扇门向你打开，哪一柄刀在巷口等你。</p>
+<p>后来的史书只写：李傕、郭汜兵入长安，吕布败走，王允死。寥寥数字之间，没有写医者背走了谁，没有写无名门客为谁拔剑，也没有写一个旧卒最终把刀指向了哪一边。</p>
+<p>这一夜，你要走进的，正是这些没有被写下来的地方。</p>`};
+
 const INTRO_TEXT={
   du_jian:{title:'杜 缄',sub:'王允府外围门客',
     text:`<p>初平三年，夏。董卓伏诛已有月余，长安城里的血腥气却比太师在世时更重了。</p>
-<p>你是杜缄，太原短剑一脉的传人。三年前师父把你和师兄赵衡一并荐入王允府，做了没有品秩的府外门客——说白了，就是持剑守门的清客。你不求闻达，只求护住身边几个人：养母、许简、还有那个住在军属里巷、会辨伤会记名册的医女阿萝。</p>
+<p>你是杜缄，太原短剑一脉的传人。三年前师父把你和师兄赵衡一并荐入王允府，做了没有品秩的府外门客。去年养母病重，是赵衡冒着宵禁替你把药送进坊门；你一直记得他回来时鞋上那层没过脚背的雪。你信他的判断，也欠他一份没有说出口的情。</p>
 <p>但今夜，赵衡把一卷封泥未干的文书递到你手中。他没有披甲，只穿了一件洗得发白的旧襜褕——那是师父的遗物，袖口还留着师娘缝补的针脚。</p>
 <div class="speech"><small>赵衡</small>"护许简去城西旧宅，再把誊录名册的医女带回来。"</div>
 <p>他说"带回来"时，右手仍压在刀柄上。</p>
 <p>那是师父生前纠正他最多的一处旧习。师父曾说，握刀之人若常按刀柄，不是准备杀人，就是害怕被杀。赵衡从什么时候开始，变成了两者皆是？</p>
-<p>你没有问。你接过文书，感觉封泥在掌心里微微发烫。门外的持戟武吏已经换了第三班——这不是寻常的守夜排布，这是准备抓人的阵仗。</p>
-<p>你忽然想起阿萝最后一次来府里送药册时说过的话。<em>"杜大哥，名册上被墨笔圈掉的那些人，没有一个活过第三天。"</em></p>`},
+<p>你接过文书，感觉封泥在掌心里微微发烫。门外的持戟武吏已经换了第三班。也许只是城中将乱，也许师兄还有没来得及告诉你的事。</p>
+<p><em>先把人送到地方。</em>这是赵衡教你办事的规矩。至于这一次，送到地方以后还有没有机会再问，你并不知道。</p>`},
   ren_shuo:{title:'任 朔',sub:'并州军斥候',
     text:`<p>初平三年，夏。长安城外三十里的并州军营里，篝火比往常早熄了一个时辰。</p>
 <p>你是任朔，五原郡出来的边地刀客。十四岁从军，跟过吕布打过匈奴，也跟过董卓入过洛阳。两年前在凉州边境，一个叫魏石的斥候替你挡了一箭——那一箭本该穿你的左胸，最后钉在了他的肩胛骨上。你欠他一条命。这份债，比军令重。</p>
@@ -395,23 +545,33 @@ const INTRO_TEXT={
 <p><em>他想说什么？是求救，还是诀别？</em></p>`}
 };
 
+function mountNarrativeOverlay(info,primaryLabel,onDone,kind){
+  const overlay=document.createElement('div');overlay.className='intro-overlay';overlay.dataset.overlay=kind;
+  overlay.innerHTML=`<h2>${info.title}</h2><div class="intro-sub">${info.sub}</div><button type="button" class="intro-reveal" id="intro-reveal">显示全文 ↓</button><div class="intro-text">${info.text}</div><div class="intro-controls"><button class="btn btn-primary" id="intro-start" disabled>${primaryLabel}</button></div>`;
+  document.getElementById('app').appendChild(overlay);
+  const start=overlay.querySelector('#intro-start'),skip=overlay.querySelector('#intro-reveal');
+  const introReveal=revealText(overlay.querySelector('.intro-text'),()=>{start.disabled=false;skip.style.visibility='hidden'});
+  skip.onclick=()=>introReveal.finish();
+  start.onclick=()=>{introReveal.cancel();overlay.classList.add('hide');setTimeout(()=>{overlay.remove();onDone?.()},500)};
+}
 async function startNew(char){
-  const bundle=await loadBundle(char);currentCharacter=char;activeBundle=bundle;runtime=new Runtime(bundle);
+  const bundle=await loadBundle(char);currentCharacter=char;activeBundle=bundle;runtime=new Runtime(bundle);initMudSession(char);
   showScreen('screen-game');
-  showIntro(char);
+  if(localStorage.getItem('prologue_seen'))showIntro(char);else showPrologue(char);
+}
+function showPrologue(nextCharacter=null){
+  mountNarrativeOverlay(PROLOGUE_TEXT,nextCharacter?'进入此夜':'返回标题',()=>{
+    localStorage.setItem('prologue_seen','1');if(nextCharacter)showIntro(nextCharacter);
+  },'prologue');
 }
 function showIntro(char){
-  const info=INTRO_TEXT[char];
-  const overlay=document.createElement('div');overlay.className='intro-overlay';
-  overlay.innerHTML=`<h2>${info.title}</h2><div class="intro-sub">${info.sub}</div><div class="intro-text">${info.text}</div><button class="btn btn-primary" id="intro-start">拔剑入局</button>`;
-  document.getElementById('app').appendChild(overlay);
-  document.getElementById('intro-start').onclick=()=>{overlay.classList.add('hide');setTimeout(()=>overlay.remove(),500);renderGame();};
+  mountNarrativeOverlay(INTRO_TEXT[char],'拔剑入局',renderGame,'character');
 }
 
 /* ═══════════════ SAVE ═══════════════ */
 function skey(char){return'save_'+(char||currentCharacter);}
 function autoSave(){if(!runtime||runtime.ending)return;
-  const data={character:currentCharacter,current:runtime.current,ending:runtime.ending,log:runtime.log,
+  const data={character:currentCharacter,current:runtime.current,ending:runtime.ending,log:runtime.log,mud:typeof getMudSave==='function'?getMudSave():null,view:document.getElementById('screen-mud').classList.contains('active')?'mud':'story',
     state:{resources:runtime.state.resources,injury:runtime.state.injury,heat:runtime.state.heat,life:runtime.state.life,freedom:runtime.state.freedom,flags:[...runtime.state.flags],conduct:[...runtime.state.conduct],knowledge:[...runtime.state.knowledge],insights:runtime.state.insights,techniques:[...runtime.state.techniques],fates:runtime.state.fates,items:Object.fromEntries(Object.entries(runtime.state.items).map(([k,v])=>[k,{state:v.state,holderId:v.holderId,equipped:v.equipped,quantity:v.quantity}]))},timestamp:Date.now()};
   localStorage.setItem(skey(),JSON.stringify(data));localStorage.setItem('save_character',currentCharacter);
 }
@@ -424,7 +584,7 @@ function loadGame(){
     runtime.state.resources=s.resources;runtime.state.injury=s.injury;runtime.state.heat=s.heat;runtime.state.life=s.life;runtime.state.freedom=s.freedom;
     runtime.state.flags=new Set(s.flags);runtime.state.conduct=new Set(s.conduct);runtime.state.knowledge=new Set(s.knowledge);runtime.state.insights=s.insights;runtime.state.techniques=new Set(s.techniques);runtime.state.fates=s.fates;
     for(const[iid,it]of Object.entries(s.items))if(runtime.state.items[iid])Object.assign(runtime.state.items[iid],it);
-    showScreen('screen-game');renderGame();
+    initMudSession(currentCharacter,save.mud||null);showScreen('screen-game');renderGame()
   });
 }
 function updateContinue(){document.getElementById('btn-continue').style.display=(localStorage.getItem(skey('du_jian'))||localStorage.getItem(skey('ren_shuo')))?'':'none';}
@@ -457,23 +617,70 @@ function renderNarrative(text){
   }).join('');
 }
 
+function selectConditionalText(baseKey,variants=[]){
+  const match=variants.find(v=>runtime.check(v.when));
+  return (match&&match.textKey)||baseKey;
+}
+const MISSION_RULES={
+  d01:['听清赵衡交付的任务','建议先观察守卫或检查状态，再决定是否追问和接令。'],
+  d02:['应对西市伏击','护住许简、文书和退路；地点行动可用于观察、调息或短暂准备。'],
+  d03:['在伤者与持卷者之间作出取舍','火油正在接近灯脚，不能同时保住所有目标。'],
+  d04:['确认名册与袭击者留下的真相','留意证词来源，不要把传闻直接当作事实。'],
+  d05:['决定如何对待阿萝与军属','阿萝不会抛下伤者，你必须说明准备保护谁。'],
+  d06:['分配有限甲具和药物','每一件物品只能解决一部分危险。'],
+  d07:['决定是否花时间参悟武学','练功会推进城门进度，但可能改变后续交锋。'],
+  d08:['回应赵衡最后的索要','交人、交文书、承诺或拔剑都会改变同门关系。'],
+  d09:['带队穿过军属里巷出口','使用本局所学，避免追兵越过你抓住身后的人。'],
+  d10:['决定谁先通过长安西门','城门即将关闭，必须明确优先保护的目标。'],
+  d11:['结束与赵衡的同门之争','胜负之外，还要决定是否杀人、断绝或留下传承。'],
+  d12:['决定把什么带进后世','活人、证词与武学无法全部完整保留。'],
+  r01:['听清军司马的命令','先判断调令是否可信，再决定如何寻找魏石。'],
+  r02:['沿西市废墟追查魏石','现场同时留有魏石和另一名持剑者的痕迹。'],
+  r03:['取得阿萝信任并确认魏石去向','军中身份能换来服从，也可能让院中人更加戒备。'],
+  r04:['听清魏石真正的计划','救军属与趁乱夺财可能同时为真。'],
+  r05:['决定是否阻止同袍','举发、私下阻止或共谋都会留下长期代价。'],
+  r06:['在自身伤势与队列安全间分配资源','甲和药都不足以同时保护所有人。'],
+  r07:['选择破阵或护军的武学理解','城门鼓声正在逼近，停留练刀会消耗机会。'],
+  r08:['带军属通过正在关闭的城门','选择借魏石之力、军中身份或亲自断后。'],
+  r09:['解决与魏石的同袍之争','敌人熟悉你的刀法，也熟悉你的旧伤。'],
+  r10:['决定如何承担今夜的结果','安置活人、留下记录或回营受罚。']
+};
+function missionFor(event){
+  const short=event.id.split('.').pop(),key=(short.match(/^[dr]\d+/)||[short])[0],fallback=currentCharacter==='du_jian'?['护送许简与阿萝穿过长安','观察当前地点，再选择推进任务或进行准备。']:['找到魏石并保护军属','观察当前地点，再选择推进任务或进行准备。'];
+  return MISSION_RULES[key]||fallback;
+}
+function gateState(stageIdx){
+  const pressure=typeof mud!=='undefined'&&mud?mud.pressure:0,time=runtime.state.resources.time;
+  const score=Math.max(stageIdx>=12?4:stageIdx>=10?3:stageIdx>=7?2:stageIdx>=4?1:0,pressure>=8?4:pressure>=6?2:pressure>=3?1:0,time===0?3:time===1?2:0);
+  return [
+    {short:'尚稳',name:'城中尚稳',effect:'地点仍可通行，可以进行有限观察和准备。',next:'继续耗时会进入盘查加严。'},
+    {short:'盘查',name:'盘查加严',effect:'守卒开始核对籍贯与身份，公开行动更容易提高风声。',next:'再推进后，训练机会将逐步关闭。'},
+    {short:'鼓急',name:'闭门鼓急',effect:'军属正向西门聚集，安全训练机会已经减少。',next:'下一阶段部分支线地点会关闭。'},
+    {short:'将闭',name:'城门将闭',effect:'必须优先处理主要目标，绕路与训练机会关闭。',next:'下一阶段进入长安失守。'},
+    {short:'失守',name:'长安失守',effect:'历史终局已经到来，只能结算人物和托付。',next:'没有更晚的准备阶段。'}
+  ][score];
+}
+function renderMission(event){const[title,next]=missionFor(event);document.getElementById('mission-title').textContent=title;document.getElementById('mission-next').textContent=next}
+
 function renderGame(){
   if(runtime.ending){archivePlaythrough();renderEnding();return;}
+  document.getElementById('decision-panel').style.display='';document.getElementById('mission-card').style.display='flex';
   const ev=runtime.events[runtime.current];if(!ev)return;
+  if(typeof syncMudToStory==='function')syncMudToStory(ev.locationId);
   const s=runtime.state,r=s.resources;
-  // Status bar
-  document.getElementById('st-char').textContent=currentCharacter==='du_jian'?'杜缄':'任朔';
-  const injEl=document.getElementById('st-injury');injEl.textContent=INJ[s.injury];injEl.className=s.injury>=2?'danger':s.injury>=1?'warn':'';
-  document.getElementById('st-breath').textContent=(s.flags.has('route.guard')?'守':'')+(s.flags.has('route.roam')?'游':'')+(s.flags.has('route.breaker')?'破':'')+(s.flags.has('route.protector')?'护':'')||r.breath;
-  document.getElementById('st-breath').className=r.breath>=3?'good':'';
-  const heatEl=document.getElementById('st-heat');heatEl.textContent=HEAT[s.heat];heatEl.className=s.heat>=2?'danger':'';
-  if(s.freedom!=='free'){heatEl.textContent+=' · '+FREE[s.freedom];heatEl.className='danger'}
+  const stageIdx=STAGES.indexOf(ev.stage),gate=gateState(stageIdx);
+  const hp=document.getElementById('st-hp'),stamina=document.getElementById('st-stamina');
+  hp.textContent=typeof mud!=='undefined'&&mud?`${mud.hp}/${mud.maxHp}`:'—';hp.className=typeof mud!=='undefined'&&mud&&mud.hp<=mud.maxHp*.35?'danger':'';
+  stamina.textContent=typeof mud!=='undefined'&&mud?`${mud.stamina}/${mud.maxStamina}`:'—';stamina.className=typeof mud!=='undefined'&&mud&&mud.stamina<=1?'warn':'';
+  document.getElementById('st-breath').textContent=r.breath;document.getElementById('st-breath').className=r.breath<=1?'warn':'';
+  document.getElementById('st-gate').textContent=gate.short;document.getElementById('st-gate').className=gate.short==='将闭'||gate.short==='失守'?'danger':gate.short==='鼓急'?'warn':'';
+  renderMission(ev);
 
-  // Time mark
-  const tm=document.getElementById('time-mark');tm.textContent=r.time>=2?'围城 · 第三日':r.time>=1?'城破前 · 酉时':'城破 · 火光中';
+  const tm=document.getElementById('time-mark');
+  tm.textContent=gate.name;
+  document.getElementById('screen-game').dataset.eventId=ev.id;
 
-  // Progress
-  const stageIdx=STAGES.indexOf(ev.stage);const total=STAGES.filter(st=>runtime.events[Object.keys(runtime.events).find(k=>runtime.events[k].stage===st)]).length;
+  // Chapter progress
   document.getElementById('progress-bar').innerHTML=STAGES.slice(0,5).map((_,i)=>`<i class="${i<Math.min(5,Math.ceil((stageIdx+1)/3))?'done':''}${i===Math.min(4,Math.floor((stageIdx+1)/3))?' current':''}"></i>`).join('');
 
   // Location
@@ -484,9 +691,12 @@ function renderGame(){
   const sceneNames=['','第一幕 · 受命','第二幕 · 寻踪','第三幕 · 护送','第四幕 · 对峙','第五幕 · 参悟','第六幕 · 决裂','第七幕 · 突围'];
   document.getElementById('scene-no').textContent=sceneNames[Math.min(7,Math.ceil((stageIdx+1)/2))]||(ev.stage.split('.').pop());
 
-  // Story area
+  // Stable scene and current-event timeline
+  const timeline=document.getElementById('timeline-area');timeline.innerHTML='';document.querySelectorAll('#scene-scroll > .insight').forEach(x=>x.remove());
+  document.getElementById('decision-panel').classList.remove('has-result','inline-combat','is-revealing');
   const story=document.getElementById('story-area');
-  const text=runtime.bundle.texts[ev.textKey]||'';
+  const sceneTextKey=selectConditionalText(ev.textKey,ev.textVariants);
+  const text=runtime.bundle.texts[sceneTextKey]||'';
   const rendered=renderNarrative(text);
   story.innerHTML=`<article class="story"><div class="scene-kicker">眼前之局</div>${rendered}</article>`;
 
@@ -506,29 +716,88 @@ function renderGame(){
     const avail=runtime.check(ch.availability);const txt=runtime.bundle.texts;
     const btn=document.createElement('button');
     const riskCls=ch.risk==='lethal'?'lethal':ch.risk==='high'?'danger':'';
-    btn.className=`action${!avail?' locked':''} ${riskCls}`;
-    btn.innerHTML=`<span class="action-title">${txt[ch.labelKey]||ch.id}</span><span class="action-tag${riskCls?' seal':''}">${RISK_TAG[ch.risk]||''}</span><span class="action-cost">${txt[ch.intentKey]||''}</span>`;
-    if(avail)btn.onclick=()=>onChoice(ch.id);else{btn.title='条件不足'}
+    btn.type='button';btn.className=`action${!avail?' locked':''} ${riskCls}`;
+    btn.dataset.choiceId=ch.id;btn.setAttribute('aria-disabled',String(!avail));
+    btn.innerHTML=`<span class="action-title">${txt[ch.labelKey]||ch.id}</span><span class="action-tag${riskCls?' seal':''}">${RISK_TAG[ch.risk]||''}</span><span class="action-cost">${avail?(txt[ch.intentKey]||''):'尚未满足行动条件'}</span>`;
+    if(avail)btn.onclick=()=>onChoice(ch.id);else{btn.title='尚未满足行动条件'}
     actionsDiv.appendChild(btn);
   }
-  autoSave();document.getElementById('scene-scroll').scrollTop=0;
+  if(typeof renderInlineMudActions==='function')renderInlineMudActions();
+  const storyCombatActive=typeof mud!=='undefined'&&mud?.storyCombat&&mud.combat;
+  autoSave();
+  if(storyCombatActive){
+    const opening=[...mud.logs].reverse().find(x=>x.type==='combat')?.text||'伏击者重新压上，你必须先处理眼前交锋。';
+    appendTimeline('交锋开始',opening,[],'system');
+  }else{document.getElementById('scene-scroll').scrollTop=0;beginSceneReveal(story)}
 }
 
-function onChoice(cid){
-  try{runtime.choose(cid)}catch(e){toast('错误: '+e.message);return}
-  renderGame();
+function stateSnapshot(){
+  const s=runtime.state;return{breath:s.resources.breath,time:s.resources.time,favor:s.resources.favor,injury:s.injury,heat:s.heat,freedom:s.freedom,techniques:new Set(s.techniques)};
 }
+function stateDeltas(before,after){
+  const out=[];const breath=after.breath-before.breath,favor=after.favor-before.favor,time=after.time-before.time;
+  if(breath)out.push(`内息 ${breath>0?'+':''}${breath}`);if(favor)out.push(`人情 ${favor>0?'+':''}${favor}`);if(time<0)out.push('城门进度向前推进');
+  if(after.injury!==before.injury)out.push(`伤势 → ${INJ[after.injury]}`);
+  if(after.heat!==before.heat)out.push(`风声 → ${HEAT[after.heat]}`);
+  if(after.freedom!==before.freedom)out.push(`自由 → ${FREE[after.freedom]||after.freedom}`);
+  for(const tech of after.techniques)if(!before.techniques.has(tech))out.push(`悟得 ${runtime.bundle.texts[tech+'.name']||tech.split('.').pop()}`);
+  return out;
+}
+function appendTimeline(label,text,deltas=[],type='normal',continueAction=null){
+  const area=document.getElementById('timeline-area');area.querySelectorAll('.latest').forEach(x=>x.classList.remove('latest'));
+  const entry=document.createElement('article');entry.className=`timeline-entry latest ${type}`;
+  entry.innerHTML=`<div class="timeline-label">${label}</div><div class="timeline-body">${renderNarrative(text)}</div>${deltas.length?`<div class="timeline-deltas">${deltas.map(x=>`<span class="state-chip">${x}</span>`).join('')}</div>`:''}${continueAction?'<button type="button" class="btn btn-primary timeline-continue">继续</button>':''}`;
+  highlightEntities(entry.querySelector('.timeline-body'));area.appendChild(entry);
+  if(continueAction){const button=entry.querySelector('.timeline-continue');button.onclick=continueAction;button.focus()}
+  requestAnimationFrame(()=>entry.scrollIntoView({behavior:'smooth',block:'end'}));
+  return entry;
+}
+function showResult(label,text,deltas,onContinue){
+  const panel=document.getElementById('decision-panel');panel.classList.add('has-result');document.getElementById('decision-prompt').textContent='行动已经发生';
+  appendTimeline(`你选择：${label}`,text,deltas,'system',()=>{panel.classList.remove('has-result');onContinue()});
+}
+function onChoice(cid){
+  const event=runtime.events[runtime.current],choice=event.choices.find(x=>x.id===cid),label=runtime.bundle.texts[choice?.labelKey]||'作出选择',sourceEvent=runtime.current;
+  const before=stateSnapshot();let resultKey;
+  try{resultKey=runtime.choose(cid)}catch(e){toast('错误: '+e.message);return}
+  if(sourceEvent==='event.changan.dujian.d02'&&typeof beginStoryCombat==='function'){
+    const nextEvent=runtime.current;runtime.current=sourceEvent;beginStoryCombat(cid,sourceEvent,nextEvent);
+  }
+  const deltas=stateDeltas(before,stateSnapshot());autoSave();const text=resultKey?runtime.bundle.texts[resultKey]:'';
+  if(text)showResult(label,text,deltas,renderGame);else renderGame();
+}
+function openStateGuide(focus=null){
+  if(!runtime)return;const event=runtime.events[runtime.current],stageIdx=STAGES.indexOf(event.stage),gate=gateState(stageIdx),s=runtime.state,skill=typeof mud!=='undefined'&&mud?(mud.proficiency[mud.character==='du_jian'?'short_sword':'saber']||0):0;
+  const cards={
+    hp:['气血',typeof mud!=='undefined'&&mud?`${mud.hp}/${mud.maxHp}`:'—','战斗中的短期承受能力。气血归零不会直接死亡，但会战败并增加伤势。',['受到攻击会降低','治疗或升级可以恢复','低于三成时应优先防守或撤退']],
+    stamina:['体力',typeof mud!=='undefined'&&mud?`${mud.stamina}/${mud.maxStamina}`:'—','移动、训练和普通战斗动作消耗的资源。',['快攻通常消耗2点','格挡可以恢复1点','体力不足时无法完成强行动']],
+    breath:['内息',String(s.resources.breath),'施展进阶武学的资源，剧情和战斗共用。',['招式会消耗内息','调息和特殊药物可以恢复','内息不足时仍可使用基础动作']],
+    gate:['城门进度',gate.name,gate.effect,[gate.next,'耗时选择、训练和绕路会推进','查看状态和阅读说明不会推进']],
+    injury:['伤势',INJ[s.injury],'跨战斗持续的身体损伤，会限制强攻、轻功和终局承受能力。',['气血归零或剧情重创会加重','药物与明确治疗可以缓解','濒危后再次重创可能死亡']],
+    heat:['风声',HEAT[s.heat],'外界对你身份和行动的关注程度，不等于已经被捕。',[s.heat>=2?'当前盘查和追兵已经加强':'当前尚未形成公开追捕','公开亮明身份或动武会提高','伪装、绕行和人情可能降低影响']],
+    skill:['兵器熟练',`${skill}/100`,'表示本局对短剑或环首刀的掌握，用于解锁新的行动方法。',['有效训练和实战可以提高','同一地点重复训练收益有限','熟练数值不直接跨周目继承']]
+  };
+  const order=focus&&cards[focus]?[focus,...Object.keys(cards).filter(x=>x!==focus)]:Object.keys(cards);
+  document.getElementById('state-guide-content').innerHTML=order.map(key=>{const[name,value,desc,items]=cards[key];return `<article class="state-guide-card" data-state="${key}"><h3>${name}<span>${value}</span></h3><p>${desc}</p><ul>${items.map(x=>`<li>${x}</li>`).join('')}</ul></article>`}).join('');
+  const drawer=document.getElementById('state-drawer');drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');
+}
+function closeStateGuide(){const drawer=document.getElementById('state-drawer');drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true')}
+function submitInlineCommand(event){event.preventDefault();const input=document.getElementById('inline-command-input'),value=input.value.trim();input.value='';if(value&&typeof runInlineMudCommand==='function')runInlineMudCommand(value)}
 
 function renderEnding(){
+  activeReveal?.cancel();activeReveal=null;document.getElementById('decision-panel').classList.remove('is-revealing');
   const ending=runtime.bundle.endings.find(e=>e.id===runtime.ending);
   const title=ending?runtime.bundle.texts[ending.titleKey]:'旅途终点';
+  const summaryKey=ending?selectConditionalText(ending.summaryKey,ending.summaryVariants):null;
+  const summary=summaryKey?runtime.bundle.texts[summaryKey]:'';
   const s=runtime.state;
-  document.getElementById('st-char').textContent='结局';
-  document.getElementById('st-injury').textContent=INJ[s.injury];document.getElementById('st-injury').className=s.injury>=2?'danger':'';
-  document.getElementById('st-breath').textContent=FREE[s.freedom]||s.freedom;
-  document.getElementById('st-heat').textContent=s.life==='alive'?'生还':s.life==='dead'?'死亡':'生死不明';
-  document.getElementById('story-area').innerHTML='';
-  document.getElementById('scene-scroll').insertAdjacentHTML('beforeend',`<div class="ending-card"><div class="ending-title">${title}</div><div class="ending-summary">${ending?runtime.bundle.texts[ending.summaryKey]:''}</div><div class="ending-tags">${[...s.conduct].map(c=>`<span class="tag red">${c}</span>`).join('')}${[...s.techniques].map(t=>`<span class="tag green">${t.split('.').pop()}</span>`).join('')}</div><div class="btn-row"><button class="btn btn-primary" onclick="showScreen('screen-title')">返回标题</button><button class="btn btn-secondary" onclick="showScreen('screen-history')">查看史卷</button></div></div>`);
+  document.getElementById('st-hp').textContent=s.life==='alive'?'生还':s.life==='dead'?'死亡':'不明';
+  document.getElementById('st-stamina').textContent=FREE[s.freedom]||s.freedom;
+  document.getElementById('st-breath').textContent=s.resources.breath;
+  document.getElementById('st-gate').textContent='余波';
+  document.getElementById('mission-card').style.display='none';document.getElementById('timeline-area').innerHTML='';document.getElementById('story-area').innerHTML='';
+  document.getElementById('scene-scroll').insertAdjacentHTML('beforeend',`<div class="ending-card"><div class="ending-title">${title}</div><div class="ending-summary">${summary}</div><div class="ending-tags">${[...s.conduct].map(c=>`<span class="tag red">${c}</span>`).join('')}${[...s.techniques].map(t=>`<span class="tag green">${t.split('.').pop()}</span>`).join('')}</div><div class="btn-row"><button class="btn btn-primary" onclick="showScreen('screen-title')">返回标题</button><button class="btn btn-secondary" onclick="showScreen('screen-history')">查看史卷</button></div></div>`);
+  highlightEntities(document.querySelector('.ending-summary'));
   document.getElementById('actions').innerHTML='';document.getElementById('decision-panel').style.display='none';
 }
 
@@ -572,5 +841,6 @@ async function runTests(){
 
 updateContinue();
 </script>
+<script src="mud-engine.js"></script>
 </body>
 </html>

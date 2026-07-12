@@ -304,6 +304,7 @@
       "properties": {
         "when": { "$ref": "#/$defs/condition" },
         "default": { "type": "boolean" },
+        "resultTextKey": { "$ref": "#/$defs/textKey" },
         "effects": { "type": "array", "items": { "$ref": "#/$defs/effect" } },
         "next": { "$ref": "#/$defs/next" }
       },
@@ -342,6 +343,18 @@
         "locationId": { "$ref": "#/$defs/id" },
         "priority": { "type": "integer" },
         "textKey": { "$ref": "#/$defs/textKey" },
+        "textVariants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["when", "textKey"],
+            "properties": {
+              "when": { "$ref": "#/$defs/condition" },
+              "textKey": { "$ref": "#/$defs/textKey" }
+            }
+          }
+        },
         "actorIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
         "environmentTags": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
         "choices": {
@@ -362,6 +375,18 @@
         "priority": { "type": "integer" },
         "titleKey": { "$ref": "#/$defs/textKey" },
         "summaryKey": { "$ref": "#/$defs/textKey" },
+        "summaryVariants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["when", "textKey"],
+            "properties": {
+              "when": { "$ref": "#/$defs/condition" },
+              "textKey": { "$ref": "#/$defs/textKey" }
+            }
+          }
+        },
         "when": { "$ref": "#/$defs/condition" },
         "excludeWhen": { "oneOf": [{ "$ref": "#/$defs/condition" }, { "type": "null" }] },
         "requiredCosts": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }

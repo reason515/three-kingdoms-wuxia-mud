@@ -13,10 +13,12 @@ TOOLS = ROOT / "tools"
 
 STEPS = [
     ("内容结构校验", [sys.executable, str(TOOLS / "validate_content.py")]),
+    ("沉浸叙事校验", [sys.executable, str(TOOLS / "validate_immersion.py")]),
     ("杜缄回归测试", [sys.executable, str(TOOLS / "validate_du_jian_routes.py")]),
     ("任朔回归测试", [sys.executable, str(TOOLS / "validate_ren_shuo_routes.py")]),
     ("跨人物接口校验", [sys.executable, str(TOOLS / "validate_cross_character.py")]),
-    ("E2E冒烟测试", [sys.executable, str(TOOLS / "e2e_smoke.py")]),
+    ("E2E资源冒烟测试", [sys.executable, str(TOOLS / "e2e_smoke.py")]),
+    ("E2E浏览器交互测试", [sys.executable, str(TOOLS / "e2e_browser.py")]),
 ]
 
 
