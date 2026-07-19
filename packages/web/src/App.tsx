@@ -39,9 +39,21 @@ export function App() {
   useEffect(() => {
     if (!character || stage !== 'world') return;
     let live = true;
+    let questAccepted = false;
     const refresh = async () => {
       const [progress, combatResult, questResult] = await Promise.all([trainingProgress(character.id).catch(() => undefined), combatStatus(character.id), questsProgress(character.id)]);
-      if (live) { setTraining(progress); setCombat(combatResult?.combat ?? null); setQuests(questResult?.quests ?? []); }
+      if (!live) return;
+      setTraining(progress);
+      setCombat(combatResult?.combat ?? null);
+      const quests = questResult?.quests ?? [];
+      if (quests.length === 0 && !questAccepted) {
+        questAccepted = true;
+        await acceptQuest(character.id, 'quest.newbie_guide').catch(() => undefined);
+        const retry = await questsProgress(character.id);
+        setQuests(retry.quests);
+      } else {
+        setQuests(quests);
+      }
     };
     refresh();
     const timer = window.setInterval(refresh, 1_000);
@@ -147,7 +159,6 @@ export function App() {
       const created = await createCharacter(playerId, characterName, attributes);
       setCharacter(created);
       setStage('world');
-      acceptQuest(created.id, 'quest.newbie_guide').catch(() => undefined);
     } catch (error) {
       setNotice(error instanceof Error ? error.message : '名册未能落笔。');
     } finally {

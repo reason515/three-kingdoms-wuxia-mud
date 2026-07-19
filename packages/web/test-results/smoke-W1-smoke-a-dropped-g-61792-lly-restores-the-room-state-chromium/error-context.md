@@ -35,13 +35,13 @@ Call log:
   - heading "杜缄" [level=2]
   - paragraph: 你在客店的灯火下醒来。行囊尚轻，城中的风声却已传至檐下。
   - term: 臂力
-  - definition: "16"
+  - definition: "19"
   - term: 悟性
-  - definition: "17"
+  - definition: "27"
   - term: 身法
-  - definition: "24"
+  - definition: "14"
   - term: 根骨
-  - definition: "12"
+  - definition: "14"
   - text: 长安客店 体力 100/100
   - paragraph: 任务 · 初入长安
   - paragraph: 与秦掌柜攀谈，了解长安近况。 (1/4)
