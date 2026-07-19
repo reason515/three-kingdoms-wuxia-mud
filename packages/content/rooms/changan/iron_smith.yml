@@ -1,0 +1,10 @@
+id: changan.iron_smith
+name: 张记铁匠铺
+description: |
+  风箱一开一合，炉火把墙上挂着的刀剑照成流动的赤金。铁砧旁堆着未磨的粗胚，
+  一个肩背宽阔的汉子正低头落锤，每一下都干脆得像替人断一句话。
+exits:
+  south: changan.west_market
+npcs:
+  - npc.blacksmith_zhang
+features: []

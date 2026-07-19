@@ -1,0 +1,11 @@
+id: changan.tea_house
+name: 听雨茶楼
+description: |
+  二楼临街的窗扇半开，茶烟绕过旧屏风，落在说书人拍过的惊堂木上。这里的消息
+  往往比茶凉得慢些，客人们也总愿意为一句江湖传闻多坐片刻。
+exits:
+  west: changan.east_market
+  east: changan.book_shop
+npcs:
+  - npc.storyteller_wang
+features: []

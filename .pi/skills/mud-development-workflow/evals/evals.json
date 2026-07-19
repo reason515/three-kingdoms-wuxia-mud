@@ -1,0 +1,23 @@
+{
+  "skill_name": "mud-development-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "实现离线打坐收益：角色离线一小时后再次登录，应获得按在线收益 55% 计算的熟练度，且累计收益不得超过 8 小时。",
+      "expected_output": "识别 R08 和 idle scope；修改离线结算逻辑；新增收益上限单元/集成测试和 idle E2E；运行 idle E2E 与 Smoke。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "修复断线重连后玩家有时回到客店而不是断线前所在房间的问题。",
+      "expected_output": "识别 R06 与 gateway/server/room 影响；增加持久位置和重连恢复测试；增加或更新相关 E2E；运行 Smoke。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "给战斗日志的伤害数字增加颜色，其他行为不变。",
+      "expected_output": "识别 web scope；添加 UI 测试，必要时增加针对性 UI E2E；运行 Smoke；不无故运行全量 E2E。",
+      "files": []
+    }
+  ]
+}

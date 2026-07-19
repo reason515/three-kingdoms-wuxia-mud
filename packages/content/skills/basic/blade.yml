@@ -1,0 +1,8 @@
+id: skill.basic_blade
+name: 基础刀法
+category: blade
+maxProficiency: 100
+baseTrainingGain: 2
+prerequisites:
+  - skillId: skill.basic_breathing
+    minProficiency: 10

@@ -1,0 +1,6 @@
+id: skill.basic_breathing
+name: 基础吐纳
+category: internal
+maxProficiency: 100
+baseTrainingGain: 3
+prerequisites: []

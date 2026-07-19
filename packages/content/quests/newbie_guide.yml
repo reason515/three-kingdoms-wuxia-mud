@@ -1,0 +1,24 @@
+id: quest.newbie_guide
+name: 初入长安
+type: guide
+steps:
+  - id: greet_innkeeper
+    type: talk
+    target: npc.innkeeper_qin
+    description: 与秦掌柜攀谈，了解长安近况。
+  - id: visit_west_market
+    type: goto
+    target: changan.west_market
+    description: 前往长安西市，感受市井繁华。
+  - id: visit_smith
+    type: talk
+    target: npc.blacksmith_zhang
+    description: 拜访张铁匠，看看他有什么可以给你的。
+  - id: first_patrol
+    type: kill
+    target: mob.street_thug
+    description: 在西市附近找到一个街头闲汉，试试身手。
+rewards:
+  skillProficiency:
+    skill.basic_breathing: 5
+    skill.basic_blade: 10

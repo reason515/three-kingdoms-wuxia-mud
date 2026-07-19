@@ -1,0 +1,2 @@
+ALTER TABLE `characters` ADD COLUMN `stamina` integer NOT NULL DEFAULT 100;
+ALTER TABLE `characters` ADD COLUMN `max_stamina` integer NOT NULL DEFAULT 100;

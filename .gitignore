@@ -14,12 +14,15 @@ desktop.ini
 .env.*
 !.env.example
 
-# Dependencies and build output
+# Runtime data, dependencies and build output
+**/data/
 node_modules/
+.turbo/
 __pycache__/
 *.py[cod]
 dist/
 build/
+*.tsbuildinfo
 coverage/
 
 # Logs and temporary files

@@ -1,0 +1,9 @@
+id: changan.book_shop
+name: 清简书肆
+description: |
+  泛黄的竹简和新抄的纸卷垒满书架，墨香安静得能压住市声。掌柜把一卷《春秋》
+  摊在案头，偶有士子进来翻看，也有人只为躲一场不愿听见的争执。
+exits:
+  west: changan.tea_house
+npcs: []
+features: []

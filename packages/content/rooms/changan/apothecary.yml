@@ -1,0 +1,10 @@
+id: changan.apothecary
+name: 回春药铺
+description: |
+  柜上药斗密如棋盘，陈皮与艾草的气味压住了街市的浮尘。药师背对门口碾着药末，
+  偶尔抬眼看看来客的脸色，像是在替每个人先诊一脉。
+exits:
+  north: changan.west_market
+npcs:
+  - npc.herbalist_su
+features: []

@@ -1,0 +1,13 @@
+id: changan.inn
+name: 长安客店
+description: |
+  旧木梁撑起低矮屋檐，灯火映在擦得发亮的桌面上。柜台后的掌柜拨弄算盘，
+  门外是尚未苏醒的长安街声；此处是初来者安身、歇脚与整理行囊的安全所在。
+exits:
+  west: changan.west_market
+  south: changan.east_market
+npcs:
+  - npc.innkeeper_qin
+features:
+  - safe
+  - training_post

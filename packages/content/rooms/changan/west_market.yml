@@ -1,0 +1,11 @@
+id: changan.west_market
+name: 长安西市
+description: |
+  晨雾从青石板缝间散去，胡商的铃铛与远处的锤声一同醒来。摊贩正揭开布幔，
+  香料、药草和新磨的铁屑混在风里；这里通往长安城最热闹的一段人间烟火。
+exits:
+  east: changan.inn
+  north: changan.iron_smith
+  south: changan.apothecary
+npcs: []
+features: []

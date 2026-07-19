@@ -1,0 +1,10 @@
+id: changan.city_gate
+name: 长安南门
+description: |
+  高大的城门在晨光里投下一片阴影，门洞外的官道向南延去。守卒倚着长枪查验行人，
+  城内的叫卖声到这里已被风吹得稀薄，只余车轮碾过石板的回响。
+exits:
+  north: changan.east_market
+npcs:
+  - npc.gate_guard_han
+features: []

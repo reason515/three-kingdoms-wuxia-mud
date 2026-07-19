@@ -1,0 +1,28 @@
+{
+  "name": "three-kingdoms-wuxia-mud",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.15.0",
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "eslint . --max-warnings=0",
+    "test": "turbo run test",
+    "validate": "pnpm --filter @hanmo/content validate",
+    "test:e2e": "pnpm --filter @hanmo/web test:e2e",
+    "test:all": "pnpm typecheck && pnpm lint && pnpm test && pnpm validate && pnpm test:e2e",
+    "db:migrate": "pnpm --filter @hanmo/server db:migrate",
+    "db:reset": "pnpm --filter @hanmo/server db:reset"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/node": "^22.13.10",
+    "eslint": "^9.22.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
+    "turbo": "^2.4.4",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.27.0"
+  }
+}

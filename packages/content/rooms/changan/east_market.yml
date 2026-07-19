@@ -1,0 +1,11 @@
+id: changan.east_market
+name: 长安东市
+description: |
+  东市的铺面比西市齐整，丝帛与竹器在晨光下排得笔直。挑担的脚夫从人群间穿过，
+  远处茶楼的幌子刚刚挑起，城门方向已有马蹄声渐近。
+exits:
+  north: changan.inn
+  east: changan.tea_house
+  south: changan.city_gate
+npcs: []
+features: []
