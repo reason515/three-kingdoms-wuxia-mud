@@ -48,8 +48,11 @@ export function App() {
       const quests = questResult?.quests ?? [];
       if (quests.length === 0 && !questAccepted) {
         questAccepted = true;
-        await acceptQuest(character.id, 'quest.newbie_guide').catch(() => undefined);
+        console.log('attempting to accept quest.newbie_guide');
+        const accepted = await acceptQuest(character.id, 'quest.newbie_guide').catch((error) => console.error('acceptQuest failed:', error));
+        console.log('acceptQuest result:', accepted);
         const retry = await questsProgress(character.id);
+        console.log('quests after accept:', retry.quests);
         setQuests(retry.quests);
       } else {
         setQuests(quests);
@@ -80,10 +83,19 @@ export function App() {
   }
 
   async function talkToNpc(npcId: string) {
-    if (!character) return;
-    const result = await reportQuestAction(character.id, 'talk', npcId);
-    if (result?.result?.message) setNotice(result.result.message);
-    setQuests((await questsProgress(character.id)).quests);
+    if (!character) { console.warn('talkToNpc: no character'); return; }
+    console.log('talkToNpc', npcId, 'quests state:', quests);
+    try {
+      const result = await reportQuestAction(character.id, 'talk', npcId);
+      console.log('reportQuestAction result:', result);
+      if (result?.result?.message) setNotice(result.result.message);
+      const refreshed = await questsProgress(character.id);
+      console.log('quests after talk:', refreshed.quests);
+      setQuests(refreshed.quests);
+    } catch (error) {
+      console.error('talkToNpc error:', error);
+      setNotice(error instanceof Error ? error.message : '交谈失败');
+    }
   }
 
   async function flee() {
