@@ -69,7 +69,9 @@ export function App() {
 
   async function talkToNpc(npcId: string) {
     if (!character) return;
-    await reportQuestAction(character.id, 'talk', npcId);
+    const result = await reportQuestAction(character.id, 'talk', npcId);
+    if (result?.result?.message) setNotice(result.result.message);
+    setQuests((await questsProgress(character.id)).quests);
   }
 
   async function flee() {
