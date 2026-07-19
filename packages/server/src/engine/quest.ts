@@ -1,4 +1,4 @@
-import type { Quest } from '@hanmo/content';
+import type { Quest, Skill } from '@hanmo/content';
 import { and, eq } from 'drizzle-orm';
 
 import type { GameDatabase } from '../db/client.js';
@@ -9,9 +9,11 @@ export type QuestActionResult = { questId: string; stepIndex: number; completed:
 
 export class QuestEngine {
   private readonly quests: ReadonlyMap<string, Quest>;
+  private readonly skillNames: ReadonlyMap<string, string>;
 
-  constructor(quests: readonly Quest[], private readonly db: GameDatabase) {
+  constructor(quests: readonly Quest[], private readonly db: GameDatabase, skills: readonly Skill[] = []) {
     this.quests = new Map(quests.map((quest) => [quest.id, quest]));
+    this.skillNames = new Map(skills.map((skill) => [skill.id, skill.name]));
   }
 
   async accept(characterId: string, questId: string): Promise<QuestProgress | null> {
@@ -34,8 +36,10 @@ export class QuestEngine {
         const nextIndex = row.currentStepIndex + 1;
         const completed = nextIndex >= quest.steps.length;
         await this.db.update(characterQuests).set({ currentStepIndex: nextIndex, completed, completedAt: completed ? new Date() : null }).where(and(eq(characterQuests.characterId, characterId), eq(characterQuests.questId, quest.id)));
-        if (completed) await this.applyRewards(characterId, quest);
-        return { questId: quest.id, stepIndex: nextIndex, completed, message: completed ? `任务「${quest.name}」已完成。` : `下一步：${quest.steps[nextIndex]?.description ?? ''}` };
+        if (completed) {
+          const rewardSummary = await this.applyRewards(characterId, quest);
+          return { questId: quest.id, stepIndex: nextIndex, completed, message: `任务「${quest.name}」已完成。${rewardSummary ? `获得：${rewardSummary}` : ''}` };
+        }
       }
     }
     return null;
@@ -55,13 +59,16 @@ export class QuestEngine {
     return { questId: quest.id, questName: quest.name, stepIndex: index, stepCount: quest.steps.length, stepDescription: step?.description ?? '', completed };
   }
 
-  private async applyRewards(characterId: string, quest: Quest): Promise<void> {
-    if (!quest.rewards.skillProficiency) return;
+  private async applyRewards(characterId: string, quest: Quest): Promise<string | null> {
+    if (!quest.rewards.skillProficiency) return null;
+    const parts: string[] = [];
     for (const [skillId, amount] of Object.entries(quest.rewards.skillProficiency)) {
       const existing = await this.db.select().from(characterSkills).where(and(eq(characterSkills.characterId, characterId), eq(characterSkills.skillId, skillId))).get();
       if (existing) {
         await this.db.update(characterSkills).set({ proficiency: existing.proficiency + amount }).where(and(eq(characterSkills.characterId, characterId), eq(characterSkills.skillId, skillId)));
+        parts.push(`${this.skillNames.get(skillId) ?? skillId} +${amount}熟练度`);
       }
     }
+    return parts.length > 0 ? parts.join('、') : null;
   }
 }

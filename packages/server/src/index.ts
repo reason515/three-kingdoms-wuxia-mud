@@ -21,7 +21,7 @@ await training.hydrate();
 tick.register(training);
 const combat = new CombatEngine(db);
 tick.register(combat);
-const quests = new QuestEngine(await loadBundledQuests(), db);
+const quests = new QuestEngine(await loadBundledQuests(), db, await loadBundledSkills());
 tick.start();
 const rooms = await RoomEngine.fromContent();
 const server = createGameServer(db, tick, rooms, training, combat, quests);
