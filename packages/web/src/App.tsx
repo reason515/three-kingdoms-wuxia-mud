@@ -48,11 +48,8 @@ export function App() {
       const quests = questResult?.quests ?? [];
       if (quests.length === 0 && !questAccepted) {
         questAccepted = true;
-        console.log('attempting to accept quest.newbie_guide');
-        const accepted = await acceptQuest(character.id, 'quest.newbie_guide').catch((error) => console.error('acceptQuest failed:', error));
-        console.log('acceptQuest result:', accepted);
+        await acceptQuest(character.id, 'quest.newbie_guide').catch(() => undefined);
         const retry = await questsProgress(character.id);
-        console.log('quests after accept:', retry.quests);
         setQuests(retry.quests);
       } else {
         setQuests(quests);
@@ -83,17 +80,17 @@ export function App() {
   }
 
   async function talkToNpc(npcId: string) {
-    if (!character) { console.warn('talkToNpc: no character'); return; }
-    console.log('talkToNpc', npcId, 'quests state:', quests);
+    if (!character) return;
     try {
       const result = await reportQuestAction(character.id, 'talk', npcId);
-      console.log('reportQuestAction result:', result);
-      if (result?.result?.message) setNotice(result.result.message);
-      const refreshed = await questsProgress(character.id);
-      console.log('quests after talk:', refreshed.quests);
-      setQuests(refreshed.quests);
+      if (result?.result?.message) {
+        setNotice(result.result.message);
+      } else {
+        const npc = room?.npcs.find((npc) => npc.id === npcId);
+        setNotice(`${npc?.name ?? '此人'}没有更多话要对你说。`);
+      }
+      setQuests((await questsProgress(character.id)).quests);
     } catch (error) {
-      console.error('talkToNpc error:', error);
       setNotice(error instanceof Error ? error.message : '交谈失败');
     }
   }
@@ -110,12 +107,22 @@ export function App() {
 
   useEffect(() => {
     if (!character || !room) return;
-    reportQuestAction(character.id, 'goto', room.id).then(() => undefined).catch(() => undefined);
+    const report = async () => {
+      const result = await reportQuestAction(character.id, 'goto', room.id);
+      if (result?.result?.message) setNotice(result.result.message);
+      setQuests((await questsProgress(character.id)).quests);
+    };
+    void report();
   }, [character, room?.id]);
 
   useEffect(() => {
     if (!character || combat?.result !== 'victory') return;
-    reportQuestAction(character.id, 'kill', combat.enemy.id).then(() => undefined).catch(() => undefined);
+    const report = async () => {
+      const result = await reportQuestAction(character.id, 'kill', combat.enemy.id);
+      if (result?.result?.message) setNotice(result.result.message);
+      setQuests((await questsProgress(character.id)).quests);
+    };
+    void report();
   }, [character, combat?.result, combat?.enemy.id]);
 
   async function submitRegistration(event: FormEvent) {
