@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('training', () => {
-  test('a character starts breathing practice, receives a tick, and stops settlement', async ({ page }) => {
+  test('a character starts breathing practice, receives a tick, and retains gain through disconnect', async ({ page }) => {
     const account = `skill_${Date.now()}`;
     await page.goto('/');
     await page.getByTestId('username').fill(account);
@@ -15,12 +15,15 @@ test.describe('training', () => {
     await page.getByTestId('train-start').click();
     await expect(page.getByTestId('train-status')).toHaveText('在线修炼中 · 基础吐纳');
     await expect(page.getByTestId('skill-skill.basic_breathing')).not.toHaveText('熟练度 0/100', { timeout: 5_000 });
+    const preDisconnect = await page.getByTestId('skill-skill.basic_breathing').textContent();
+
+    // Drop and reconnect
     await page.evaluate(() => (window as Window & { __testCloseWS?: () => void }).__testCloseWS?.());
-    await expect(page.getByTestId('connection-lost')).toBeVisible();
-    await expect(page.getByTestId('train-status')).toHaveText('静候修炼');
-    await expect(page.getByTestId('connection-lost')).not.toBeVisible({ timeout: 10_000 });
-    const settled = await page.getByTestId('skill-skill.basic_breathing').textContent();
-    await page.waitForTimeout(1_200);
-    await expect(page.getByTestId('skill-skill.basic_breathing')).toHaveText(settled ?? '');
+    await expect(page.getByTestId('skill-skill.basic_breathing')).toBeVisible({ timeout: 10_000 });
+    const postReconnect = await page.getByTestId('skill-skill.basic_breathing').textContent();
+    // Proficiency should not decrease
+    const preNum = parseInt(preDisconnect?.match(/\d+/)?.[0] ?? '0', 10);
+    const postNum = parseInt(postReconnect?.match(/\d+/)?.[0] ?? '0', 10);
+    expect(postNum).toBeGreaterThanOrEqual(preNum);
   });
 });

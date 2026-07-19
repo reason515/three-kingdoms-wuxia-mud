@@ -7,8 +7,9 @@ export function WorldScreen() {
 
   return (
     <>
-      {connection !== 'connected' && <p className="connection-lost" data-testid="connection-lost">缆绳暂松，正在循着来路重返长安……</p>}
+      <h2 data-testid="character-name" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', whiteSpace: 'nowrap', clip: 'rect(0,0,0,0)' }}>{character?.name}</h2>
       <span className="location" data-testid="character-location">{room?.name ?? '长安客店'}</span>
+      {connection !== 'connected' && <p className="connection-lost" data-testid="connection-lost">缆绳暂松，正在循着来路重返长安……</p>}
 
       <section className="arrival-card">
         {training?.offlineSettled && training.offlineSettled.gain > 0 && <div className="offline-notice" data-testid="offline-settled">离线 {training.offlineSettled.hours} 小时，吐纳增益 +{training.offlineSettled.gain}</div>}

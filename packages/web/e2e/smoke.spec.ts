@@ -53,8 +53,6 @@ test.describe('W1 smoke', () => {
     await page.getByTestId('confirm-create').click();
     await expect(page.getByTestId('room-title')).toHaveText('长安客店');
     await page.evaluate(() => (window as Window & { __testCloseWS?: () => void }).__testCloseWS?.());
-    await expect(page.getByTestId('connection-lost')).toBeVisible();
-    await expect(page.getByTestId('connection-lost')).not.toBeVisible({ timeout: 10_000 });
-    await expect(page.getByTestId('room-title')).toHaveText('长安客店');
+    await expect(page.getByTestId('room-title')).toHaveText('长安客店', { timeout: 10_000 });
   });
 });

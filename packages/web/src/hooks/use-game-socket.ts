@@ -14,6 +14,7 @@ export function useGameSocket(enabled: boolean, username: string, password: stri
   const [state, setState] = useState<ConnectionState>('idle');
   const [room, setRoom] = useState<RoomState>();
   const socketRef = useRef<WebSocket | undefined>(undefined);
+  const authenticatedRef = useRef(false);
 
   useEffect(() => {
     if (!enabled) {
@@ -27,15 +28,15 @@ export function useGameSocket(enabled: boolean, username: string, password: stri
 
     const connect = () => {
       if (disposed) return;
-      let authenticated = false;
       const socket = new WebSocket('ws://127.0.0.1:3002/ws');
       socketRef.current = socket;
+      authenticatedRef.current = false;
       setState(attempts === 0 ? 'connecting' : 'reconnecting');
       socket.onopen = () => socket.send(JSON.stringify({ type: 'auth.login', username, password }));
       socket.onmessage = (message) => {
         const event = JSON.parse(String(message.data)) as GatewayEvent;
         if (event.type === 'session.ready') {
-          authenticated = true;
+          authenticatedRef.current = true;
           attempts = 0;
           setState('connected');
         } else if (event.type === 'room.update') {
@@ -46,10 +47,10 @@ export function useGameSocket(enabled: boolean, username: string, password: stri
       };
       socket.onerror = () => socket.close();
       socket.onclose = () => {
-        if (disposed || !authenticated && state === 'failed') return;
+        if (disposed) return;
+        if (authenticatedRef.current) setState('reconnecting');
         attempts += 1;
-        setState('reconnecting');
-        retryTimer = window.setTimeout(connect, Math.min(300 * attempts, 1_500));
+        retryTimer = window.setTimeout(connect, Math.min(500 + 300 * attempts, 2_000));
       };
     };
 

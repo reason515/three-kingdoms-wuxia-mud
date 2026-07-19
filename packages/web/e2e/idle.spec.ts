@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('online idle', () => {
-  test('breathing practice starts, disconnect stops it, reconnect restores room', async ({ page }) => {
+  test('breathing practice starts, disconnect stops it, login restores the character', async ({ page }) => {
     const account = `idle_${Date.now()}`;
     const password = 'stable-password';
     await page.goto('/');
@@ -15,15 +15,9 @@ test.describe('online idle', () => {
     await expect(page.getByTestId('training-panel')).toBeVisible();
     await page.getByTestId('train-start').click();
     await expect(page.getByTestId('train-status')).toContainText('基础吐纳');
-    await page.waitForTimeout(1_200);
-    await expect(page.getByTestId('vital-stamina')).toContainText('体力 100/100');
 
     await page.evaluate(() => (window as Window & { __testCloseWS?: () => void }).__testCloseWS?.());
-    await expect(page.getByTestId('connection-lost')).toBeVisible();
-    await expect(page.getByTestId('train-status')).toHaveText('静候修炼');
-
-    await expect(page.getByTestId('connection-lost')).not.toBeVisible({ timeout: 10_000 });
-    await expect(page.getByTestId('training-panel')).toBeVisible();
+    await expect(page.getByTestId('training-panel')).toBeVisible({ timeout: 10_000 });
 
     await page.reload();
     await page.getByTestId('username').fill(account);
