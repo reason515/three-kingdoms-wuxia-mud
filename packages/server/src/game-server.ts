@@ -16,11 +16,15 @@ import type { Direction, RoomEngine } from './engine/room.js';
 import type { TrainingEngine } from './engine/training.js';
 import type { WorldTick } from './tick.js';
 
-const corsHeaders = {
-  'access-control-allow-origin': 'http://127.0.0.1:5180',
-  'access-control-allow-methods': 'GET, POST, OPTIONS',
-  'access-control-allow-headers': 'content-type',
-};
+function corsHeaders(request: IncomingMessage): Record<string, string> {
+  const origin = request.headers.origin;
+  const allowed = origin === 'http://localhost:5180' || origin === 'http://127.0.0.1:5180';
+  return {
+    'access-control-allow-origin': allowed ? origin! : 'http://127.0.0.1:5180',
+    'access-control-allow-methods': 'GET, POST, OPTIONS',
+    'access-control-allow-headers': 'content-type',
+  };
+}
 
 async function body(request: IncomingMessage): Promise<Record<string, unknown>> {
   const chunks: Buffer[] = [];
@@ -53,83 +57,83 @@ function attributes(value: unknown): InnateAttributes {
   };
 }
 
-function json(response: ServerResponse, status: number, payload: unknown): void {
-  response.writeHead(status, { ...corsHeaders, 'content-type': 'application/json; charset=utf-8' });
+function json(request: IncomingMessage, response: ServerResponse, status: number, payload: unknown): void {
+  response.writeHead(status, { ...corsHeaders(request), 'content-type': 'application/json; charset=utf-8' });
   response.end(JSON.stringify(payload));
 }
 
 export function createGameServer(db: GameDatabase, tick: WorldTick, rooms: RoomEngine, training: TrainingEngine, combat: CombatEngine, quests: QuestEngine): Server {
   return createServer(async (request, response) => {
     try {
-      if (request.method === 'OPTIONS') return json(response, 204, {});
-      if (request.method === 'GET' && request.url === '/health') return json(response, 200, { status: 'ok', service: 'game-server', tick: tick.snapshot() });
-      if (request.method === 'POST' && request.url === '/api/characters/roll') return json(response, 200, { attributes: rollAttributes() });
+      if (request.method === 'OPTIONS') return json(request, response, 204, {});
+      if (request.method === 'GET' && request.url === '/health') return json(request, response, 200, { status: 'ok', service: 'game-server', tick: tick.snapshot() });
+      if (request.method === 'POST' && request.url === '/api/characters/roll') return json(request, response, 200, { attributes: rollAttributes() });
       if (request.method === 'GET' && request.url?.startsWith('/api/rooms/')) {
-        return json(response, 200, { room: rooms.look(decodeURIComponent(request.url.slice('/api/rooms/'.length))) });
+        return json(request, response, 200, { room: rooms.look(decodeURIComponent(request.url.slice('/api/rooms/'.length))) });
       }
 
       const trainingMatch = request.url?.match(/^\/api\/characters\/([^/]+)\/training$/);
-      if (trainingMatch && request.method === 'GET') return json(response, 200, await training.progress(decodeURIComponent(trainingMatch[1]!)));
+      if (trainingMatch && request.method === 'GET') return json(request, response, 200, await training.progress(decodeURIComponent(trainingMatch[1]!)));
       if (trainingMatch && request.method === 'POST') {
         const payload = await body(request);
-        return json(response, 200, await training.start(decodeURIComponent(trainingMatch[1]!), text(payload.skillId)));
+        return json(request, response, 200, await training.start(decodeURIComponent(trainingMatch[1]!), text(payload.skillId)));
       }
       const stopTrainingMatch = request.url?.match(/^\/api\/characters\/([^/]+)\/training\/stop$/);
       if (stopTrainingMatch && request.method === 'POST') {
         await training.stop(decodeURIComponent(stopTrainingMatch[1]!));
-        return json(response, 200, { stopped: true });
+        return json(request, response, 200, { stopped: true });
       }
 
       const combatMatch = request.url?.match(/^\/api\/characters\/([^/]+)\/combat$/);
-      if (combatMatch && request.method === 'GET') return json(response, 200, { combat: combat.status(decodeURIComponent(combatMatch[1]!)) ?? null });
+      if (combatMatch && request.method === 'GET') return json(request, response, 200, { combat: combat.status(decodeURIComponent(combatMatch[1]!)) ?? null });
       if (combatMatch && request.method === 'POST') {
         const payload = await body(request);
-        return json(response, 200, await combat.start(decodeURIComponent(combatMatch[1]!), text(payload.enemyId)));
+        return json(request, response, 200, await combat.start(decodeURIComponent(combatMatch[1]!), text(payload.enemyId)));
       }
       const fleeMatch = request.url?.match(/^\/api\/characters\/([^/]+)\/combat\/flee$/);
       if (fleeMatch && request.method === 'POST') {
         await combat.flee(decodeURIComponent(fleeMatch[1]!));
-        return json(response, 200, { fled: true });
+        return json(request, response, 200, { fled: true });
       }
 
       const questMatch = request.url?.match(/^\/api\/characters\/([^/]+)\/quests$/);
-      if (questMatch && request.method === 'GET') return json(response, 200, { quests: await quests.progress(decodeURIComponent(questMatch[1]!)) });
+      if (questMatch && request.method === 'GET') return json(request, response, 200, { quests: await quests.progress(decodeURIComponent(questMatch[1]!)) });
       if (questMatch && request.method === 'POST') {
         const payload = await body(request);
-        return json(response, 201, await quests.accept(decodeURIComponent(questMatch[1]!), text(payload.questId)));
+        return json(request, response, 201, await quests.accept(decodeURIComponent(questMatch[1]!), text(payload.questId)));
       }
       const questActionMatch = request.url?.match(/^\/api\/characters\/([^/]+)\/quests\/action$/);
       if (questActionMatch && request.method === 'POST') {
         const payload = await body(request);
-        return json(response, 200, { result: await quests.reportAction(decodeURIComponent(questActionMatch[1]!), { type: text(payload.type) as 'talk' | 'goto' | 'kill', target: text(payload.target) }) });
+        return json(request, response, 200, { result: await quests.reportAction(decodeURIComponent(questActionMatch[1]!), { type: text(payload.type) as 'talk' | 'goto' | 'kill', target: text(payload.target) }) });
       }
 
       if (request.method === 'POST' && request.url === '/api/accounts') {
         const payload = await body(request);
         const playerId = await registerAccount(db, text(payload.username), text(payload.password));
-        return json(response, 201, { playerId });
+        return json(request, response, 201, { playerId });
       }
       const moveMatch = request.url?.match(/^\/api\/characters\/([^/]+)\/move$/);
       if (request.method === 'POST' && moveMatch) {
         const payload = await body(request);
         const room = await moveCharacter(db, rooms, decodeURIComponent(moveMatch[1]!), direction(payload.direction));
-        return json(response, 200, { room });
+        return json(request, response, 200, { room });
       }
       if (request.method === 'POST' && request.url === '/api/characters') {
         const payload = await body(request);
         const profile = await createCharacter(db, text(payload.playerId), text(payload.name), attributes(payload.attributes));
-        return json(response, 201, { character: profile });
+        return json(request, response, 201, { character: profile });
       }
       if (request.method === 'POST' && request.url === '/api/sessions') {
         const payload = await body(request);
-        return json(response, 200, { character: await login(db, text(payload.username), text(payload.password)) });
+        return json(request, response, 200, { character: await login(db, text(payload.username), text(payload.password)) });
       }
-      return json(response, 404, { error: 'not_found' });
+      return json(request, response, 404, { error: 'not_found' });
     } catch (error) {
-      if (error instanceof AccountError) return json(response, 400, { error: error.message });
-      if (error instanceof SyntaxError) return json(response, 400, { error: '请求格式不正确。' });
+      if (error instanceof AccountError) return json(request, response, 400, { error: error.message });
+      if (error instanceof SyntaxError) return json(request, response, 400, { error: '请求格式不正确。' });
       console.error(error);
-      return json(response, 500, { error: '服务器暂时无法处理此请求。' });
+      return json(request, response, 500, { error: '服务器暂时无法处理此请求。' });
     }
   });
 }
