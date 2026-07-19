@@ -26,7 +26,7 @@ export function App() {
 }
 
 function Layout({ health }: { health: HealthState }) {
-  const { stage, connection, notice } = useGame();
+  const { stage, connection, notice, setNotice } = useGame();
 
   return (
     <main className="shell" data-testid="app-shell">
@@ -42,7 +42,7 @@ function Layout({ health }: { health: HealthState }) {
         {stage === 'arrival' && <ArrivalForm />}
         {stage === 'create' && <CreateForm />}
         {stage === 'world' && <WorldTabs />}
-        {notice && <p className="form-notice" data-testid="form-notice">{notice}</p>}
+        {notice && <p className="form-notice" data-testid="form-notice" onClick={() => setNotice('')}>{notice}</p>}
       </section>
     </main>
   );
@@ -80,11 +80,12 @@ function CreateForm() {
 
 function WorldTabs() {
   const [tab, setTab] = useState<'world' | 'character' | 'quests'>('world');
+  const { setNotice } = useGame();
   return (
     <>
       <nav className="tab-nav">
         {(['world', 'character', 'quests'] as const).map((t) => (
-          <button key={t} type="button" className={`tab-btn${tab === t ? ' active' : ''}`} onClick={() => setTab(t)}>
+          <button key={t} type="button" className={`tab-btn${tab === t ? ' active' : ''}`} onClick={() => { setTab(t); setNotice(''); }}>
             {{ world: '江湖', character: '角色', quests: '任务' }[t]}
           </button>
         ))}
