@@ -27,45 +27,27 @@ Call log:
 
 ```yaml
 - main:
-  - paragraph: 初平元年 · 长安纪
   - heading "汉末江湖录" [level=1]
-  - paragraph: 一纸名帖，入此风尘
   - text: 江湖已通 江湖已通
   - navigation:
     - button "江湖"
     - button "角色"
     - button "任务"
-  - paragraph: 长安 · 客店
-  - heading "杜缄" [level=2]
-  - paragraph: 你在客店的灯火下醒来。行囊尚轻，城中的风声却已传至檐下。
-  - term: 臂力
-  - definition: "23"
-  - term: 悟性
-  - definition: "26"
-  - term: 身法
-  - definition: "18"
-  - term: 根骨
-  - definition: "19"
-  - text: 长安客店 体力 100/100
   - paragraph: 任务 · 初入长安
   - paragraph: 与秦掌柜攀谈，了解长安近况。 (1/4)
-  - button "寻衅街头闲汉"
+  - heading "长安客店" [level=3]
+  - paragraph: 旧木梁撑起低矮屋檐，灯火映在擦得发亮的桌面上。柜台后的掌柜拨弄算盘， 门外是尚未苏醒的长安街声；此处是初来者安身、歇脚与整理行囊的安全所在。
+  - list:
+    - listitem:
+      - button "秦掌柜 客店掌柜"
   - paragraph: 在线挂机
   - strong: 基础吐纳
   - text: 熟练度 18/100
   - paragraph: 在线修炼中 · 基础吐纳
   - button "收功"
-  - paragraph: 环顾
-  - button "再看一眼"
-  - heading "长安客店" [level=3]
-  - paragraph: 旧木梁撑起低矮屋檐，灯火映在擦得发亮的桌面上。柜台后的掌柜拨弄算盘， 门外是尚未苏醒的长安街声；此处是初来者安身、歇脚与整理行囊的安全所在。
-  - list:
-    - listitem:
-      - strong: 秦掌柜
-      - text: 客店掌柜
-      - button "交谈"
-  - button "往西"
-  - button "往南"
+  - navigation:
+    - button "↓南"
+    - button "←西"
 ```
 
 # Test source

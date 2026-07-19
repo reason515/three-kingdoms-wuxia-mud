@@ -30,11 +30,10 @@ function Layout({ health }: { health: HealthState }) {
 
   return (
     <main className="shell" data-testid="app-shell">
-      <header className="masthead">
+      <header className={`masthead${stage === 'world' ? ' compact' : ''}`}>
         <span className="seal" aria-hidden="true">汉末</span>
-        <p className="eyebrow">初平元年 · 长安纪</p>
-        <h1>汉末江湖录</h1>
-        <p className="subtitle">一纸名帖，入此风尘</p>
+        {stage !== 'world' && <><p className="eyebrow">初平元年 · 长安纪</p><h1>汉末江湖录</h1><p className="subtitle">一纸名帖，入此风尘</p></>}
+        {stage === 'world' && <h1>汉末江湖录</h1>}
       </header>
 
       <section className="notice" aria-live="polite">
