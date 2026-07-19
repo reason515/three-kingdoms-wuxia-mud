@@ -8,6 +8,7 @@ export function WorldScreen() {
   return (
     <>
       {connection !== 'connected' && <p className="connection-lost" data-testid="connection-lost">缆绳暂松，正在循着来路重返长安……</p>}
+      <span className="location" data-testid="character-location">{room?.name ?? '长安客店'}</span>
 
       <section className="arrival-card">
         {training?.offlineSettled && training.offlineSettled.gain > 0 && <div className="offline-notice" data-testid="offline-settled">离线 {training.offlineSettled.hours} 小时，吐纳增益 +{training.offlineSettled.gain}</div>}
