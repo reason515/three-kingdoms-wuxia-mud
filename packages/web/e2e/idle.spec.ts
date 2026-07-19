@@ -12,7 +12,10 @@ test.describe('online idle', () => {
     await page.getByTestId('roll-attr').click();
     await page.getByTestId('confirm-create').click();
 
+    // Switch to 角色 tab
+    await page.getByText('角色').click();
     await expect(page.getByTestId('training-panel')).toBeVisible();
+
     await page.getByTestId('train-start').click();
     await expect(page.getByTestId('train-status')).toContainText('基础吐纳');
 
@@ -23,6 +26,8 @@ test.describe('online idle', () => {
     await page.getByTestId('username').fill(account);
     await page.getByTestId('password').fill(password);
     await page.getByTestId('login-btn').click();
+    // Switch to 角色 tab after login
+    await page.getByText('角色').click();
     await expect(page.getByTestId('character-name')).toHaveText('任朔');
   });
 });

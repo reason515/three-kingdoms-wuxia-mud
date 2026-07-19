@@ -37,10 +37,8 @@ function Layout({ health }: { health: HealthState }) {
       </header>
 
       <section className="notice" aria-live="polite">
-        <div className={`status ${health}`} data-testid="service-status">
-          <span className="status-dot" />{healthLabel(health)}
-        </div>
-        {stage === 'world' && <div className={`status connection ${connection}`} data-testid="connection-status"><span className="status-dot" />{connectionLabel(connection)}</div>}
+        <span data-testid="service-status" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>{healthLabel(health)}</span>
+        {stage === 'world' && <span data-testid="connection-status" style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>{connectionLabel(connection)}</span>}
         {stage === 'arrival' && <ArrivalForm />}
         {stage === 'create' && <CreateForm />}
         {stage === 'world' && <WorldTabs />}

@@ -1,9 +1,8 @@
-import { skillNames, useGame } from '../context/GameContext';
+import { useGame } from '../context/GameContext';
 
 export function ActionBar() {
-  const { training, combat, beginTraining, endTraining, beginCombat, flee, dismissCombat } = useGame();
+  const { combat, beginCombat, flee, dismissCombat } = useGame();
 
-  // Combat state
   if (combat && !combat.result) {
     return (
       <section className="action-bar" data-testid="combat-view">
@@ -30,27 +29,8 @@ export function ActionBar() {
     );
   }
 
-  // Training state
-  if (training?.active) {
-    return (
-      <section className="action-bar" data-testid="training-panel">
-        <p className="chapter">在线挂机</p>
-        {training.skills.map((s) => <div key={s.skillId}><strong>{skillNames[s.skillId] ?? s.skillId}</strong><span data-testid={`skill-${s.skillId}`}>熟练度 {s.proficiency}/100</span></div>)}
-        <p data-testid="train-status">在线修炼中 · {skillNames[training.active.skillId] ?? training.active.skillId}</p>
-        <button type="button" className="secondary" data-testid="train-stop" onClick={() => void endTraining()}>收功</button>
-      </section>
-    );
-  }
-
-  // Idle actions
   return (
-    <section className="action-bar" data-testid="training-panel">
-      <p className="chapter">在线挂机</p>
-      {training?.skills.map((s) => <div key={s.skillId}><strong>{skillNames[s.skillId] ?? s.skillId}</strong><span data-testid={`skill-${s.skillId}`}>熟练度 {s.proficiency}/100</span></div>)}
-      <p data-testid="train-status">{training?.active ? `在线修炼中 · ${skillNames[training.active.skillId] ?? training.active.skillId}` : '静候修炼'}</p>
-      <button type="button" data-testid="train-start" onClick={() => void beginTraining('skill.basic_breathing')}>打坐吐纳</button>
-      <button type="button" className="secondary" data-testid="train-sword" onClick={() => void beginTraining('skill.basic_sword')}>练剑</button>
-      <button type="button" className="secondary" data-testid="train-blade" onClick={() => void beginTraining('skill.basic_blade')}>练刀</button>
+    <section className="action-bar">
       <button type="button" className="secondary" data-testid="btn-attack" onClick={() => void beginCombat()}>寻衅街头闲汉</button>
     </section>
   );
